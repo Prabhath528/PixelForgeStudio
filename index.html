@@ -1646,6 +1646,70 @@
       font-size: 0.9rem;
     }
 
+    /* Upload Tabs */
+    .upload-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .upload-tab-btn {
+      padding: 0.35rem 0.9rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+
+    .upload-tab-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,212,255,0.05);
+    }
+
+    .file-upload-area {
+      border: 1px dashed var(--border);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: var(--muted);
+      font-size: 0.85rem;
+      background: var(--surface2);
+    }
+
+    .file-upload-area:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,212,255,0.03);
+    }
+
+    /* Edit Button */
+    .edit-btn {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.4rem 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+
+    .edit-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
     @media(max-width:900px) {
       .nav-links {
         display: none;
@@ -1660,7 +1724,9 @@
       }
 
       .about-img-wrap {
-        display: none;
+        display: block;
+        max-width: 280px;
+        margin: 0 auto 2rem;
       }
 
       .form-row {
@@ -1719,6 +1785,10 @@
       }
 
       .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-projects-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -1792,6 +1862,7 @@
     <a href="#projects" onclick="closeMobileNav()">Projects</a>
     <a href="#about" onclick="closeMobileNav()">About</a>
     <a href="#connect" onclick="closeMobileNav()">Contact</a>
+    <button class="nav-btn mobile-admin-btn" id="mobile-admin-btn" onclick="closeMobileNav();handleAuthNavBtn();" style="margin-top:0.5rem;width:100%;padding:0.75rem;">Admin Login</button>
   </div>
 
   <!-- MAIN SITE -->
@@ -2081,16 +2152,51 @@
           </div>
           <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea"
               id="proj-desc" placeholder="Describe this project, its purpose, tech used..."></textarea></div>
-          <div class="form-row">
-            <div class="form-group"><label class="form-label">Screenshot / Thumbnail URL</label><input type="url"
-                class="form-input" id="proj-img" placeholder="https://example.com/screenshot.jpg">
+          
+          <!-- Screenshot/Thumbnail Upload -->
+          <div class="form-group">
+            <label class="form-label">Screenshot / Thumbnail</label>
+            <div class="upload-tabs">
+              <button type="button" class="upload-tab-btn active" onclick="switchUploadTab('img','url',this)">URL</button>
+              <button type="button" class="upload-tab-btn" onclick="switchUploadTab('img','file',this)">Upload File</button>
+            </div>
+            <div id="img-url-tab">
+              <input type="url" class="form-input" id="proj-img" placeholder="https://example.com/screenshot.jpg">
               <p class="form-hint">Paste a direct image URL (Unsplash, Imgur, etc.)</p>
             </div>
-            <div class="form-group"><label class="form-label">Demo Video URL (optional)</label><input type="url"
-                class="form-input" id="proj-video" placeholder="https://example.com/demo.mp4">
-              <p class="form-hint">Direct MP4 link for project demo video</p>
+            <div id="img-file-tab" style="display:none;">
+              <div class="file-upload-area" onclick="document.getElementById('proj-img-file').click()">
+                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span>Click to upload image</span>
+                <span class="form-hint">PNG, JPG, WEBP, GIF supported</span>
+              </div>
+              <input type="file" id="proj-img-file" accept="image/*" style="display:none" onchange="previewUpload('proj-img-file','img-preview-add')">
+              <div id="img-preview-add" class="upload-preview" style="display:none;"><img src="" alt="preview" style="max-height:120px;object-fit:cover;width:100%;margin-top:0.5rem;border:1px solid var(--border)"></div>
             </div>
           </div>
+
+          <!-- Video Upload -->
+          <div class="form-group">
+            <label class="form-label">Demo Video (optional)</label>
+            <div class="upload-tabs">
+              <button type="button" class="upload-tab-btn active" onclick="switchUploadTab('vid','url',this)">URL</button>
+              <button type="button" class="upload-tab-btn" onclick="switchUploadTab('vid','file',this)">Upload File</button>
+            </div>
+            <div id="vid-url-tab">
+              <input type="url" class="form-input" id="proj-video" placeholder="https://example.com/demo.mp4">
+              <p class="form-hint">Direct MP4 link for project demo video</p>
+            </div>
+            <div id="vid-file-tab" style="display:none;">
+              <div class="file-upload-area" onclick="document.getElementById('proj-vid-file').click()">
+                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <span>Click to upload video</span>
+                <span class="form-hint">MP4, WEBM, MOV supported</span>
+              </div>
+              <input type="file" id="proj-vid-file" accept="video/*" style="display:none" onchange="previewVideoUpload('proj-vid-file','vid-preview-add')">
+              <div id="vid-preview-add" class="upload-preview" style="display:none;"><video controls style="max-height:120px;width:100%;margin-top:0.5rem;border:1px solid var(--border)"></video></div>
+            </div>
+          </div>
+
           <div class="form-group"><label class="form-label">Live Preview Link (optional)</label><input type="url"
               class="form-input" id="proj-link" placeholder="https://your-project.com"></div>
           <button class="submit-btn" onclick="addProject()">Add Project</button>
@@ -2173,11 +2279,76 @@
     </div>
   </div>
 
+  <!-- EDIT PROJECT MODAL -->
+  <div class="modal-overlay" id="edit-project-modal">
+    <div class="modal" style="max-width:650px;">
+      <div class="modal-header">
+        <div class="modal-title">Edit Project</div>
+        <button class="modal-close" onclick="closeEditModal()">&#x2715;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="edit-proj-id">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Project Name</label><input type="text" class="form-input" id="edit-proj-name" placeholder="Project Name"></div>
+          <div class="form-group"><label class="form-label">Category</label><select class="form-select" id="edit-proj-cat">
+            <option value="software">Software Development</option>
+            <option value="web">Web Development</option>
+            <option value="webapp">Web Application</option>
+          </select></div>
+        </div>
+        <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="edit-proj-desc" style="min-height:120px;"></textarea></div>
+        
+        <!-- Screenshot Upload -->
+        <div class="form-group">
+          <label class="form-label">Screenshot / Thumbnail</label>
+          <div class="upload-tabs">
+            <button type="button" class="upload-tab-btn active" onclick="switchUploadTab('edit-img','url',this)">URL</button>
+            <button type="button" class="upload-tab-btn" onclick="switchUploadTab('edit-img','file',this)">Upload File</button>
+          </div>
+          <div id="edit-img-url-tab">
+            <input type="url" class="form-input" id="edit-proj-img" placeholder="https://example.com/screenshot.jpg">
+          </div>
+          <div id="edit-img-file-tab" style="display:none;">
+            <div class="file-upload-area" onclick="document.getElementById('edit-proj-img-file').click()">
+              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span>Upload new screenshot</span>
+            </div>
+            <input type="file" id="edit-proj-img-file" accept="image/*" style="display:none" onchange="previewUpload('edit-proj-img-file','edit-img-preview')">
+            <div id="edit-img-preview" class="upload-preview" style="display:none;"><img src="" alt="preview" style="max-height:100px;object-fit:cover;width:100%;margin-top:0.5rem;border:1px solid var(--border)"></div>
+          </div>
+        </div>
+
+        <!-- Video Upload -->
+        <div class="form-group">
+          <label class="form-label">Demo Video (optional)</label>
+          <div class="upload-tabs">
+            <button type="button" class="upload-tab-btn active" onclick="switchUploadTab('edit-vid','url',this)">URL</button>
+            <button type="button" class="upload-tab-btn" onclick="switchUploadTab('edit-vid','file',this)">Upload File</button>
+          </div>
+          <div id="edit-vid-url-tab">
+            <input type="url" class="form-input" id="edit-proj-video" placeholder="https://example.com/demo.mp4">
+          </div>
+          <div id="edit-vid-file-tab" style="display:none;">
+            <div class="file-upload-area" onclick="document.getElementById('edit-proj-vid-file').click()">
+              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              <span>Upload new video</span>
+            </div>
+            <input type="file" id="edit-proj-vid-file" accept="video/*" style="display:none" onchange="previewVideoUpload('edit-proj-vid-file','edit-vid-preview')">
+            <div id="edit-vid-preview" class="upload-preview" style="display:none;"><video controls style="max-height:100px;width:100%;margin-top:0.5rem;border:1px solid var(--border)"></video></div>
+          </div>
+        </div>
+
+        <div class="form-group"><label class="form-label">Live Preview Link (optional)</label><input type="url" class="form-input" id="edit-proj-link" placeholder="https://your-project.com"></div>
+        <button class="submit-btn" onclick="saveEditProject()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <footer>
     <div class="footer-logo">PIXEL <span>FORGE</span> STUDIO</div>
-    <div class="footer-copy">2024 Pixel Forge Studio — CEO Prabhath Kelum. All rights reserved.</div>
+    <div class="footer-copy">© 2026 Pixel Forge Studio — CEO Prabhath Kelum. All rights reserved.</div>
   </footer>
 
   <!-- Admin Auth — no Firebase, pure JS -->
@@ -2191,6 +2362,8 @@
     function _updateNavBtn(label, fn) {
       const btn = document.getElementById('auth-nav-btn');
       if (btn) { btn.textContent = label; btn.onclick = fn; }
+      const mobileBtn = document.getElementById('mobile-admin-btn');
+      if (mobileBtn) { mobileBtn.textContent = label; mobileBtn.onclick = function(){ closeMobileNav(); fn(); }; }
     }
 
     function _closeLoginOverlay() {
@@ -2379,7 +2552,10 @@
       <div class="admin-project-body">
         <div class="admin-project-name">${p.name}</div>
         <div class="admin-project-cat">${p.category}</div>
-        <div class="admin-project-actions"><button class="danger-btn" onclick="deleteProject(${i})">Delete</button></div>
+        <div class="admin-project-actions">
+          <button class="edit-btn" onclick="openEditModal(${p.id})">Edit</button>
+          <button class="danger-btn" onclick="deleteProject(${i})">Delete</button>
+        </div>
       </div>
     </div>`).join('');
     }
@@ -2388,6 +2564,125 @@
       const p = getProjects(); p.splice(i, 1); saveProjects(p);
       renderAdminProjects(); loadDashboardStats();
       showToast('Project deleted.', 'success');
+    };
+
+    // ============================================================
+    // EDIT PROJECT MODAL
+    // ============================================================
+    window.openEditModal = function(id) {
+      const p = getProjects().find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('edit-proj-id').value = id;
+      document.getElementById('edit-proj-name').value = p.name || '';
+      document.getElementById('edit-proj-cat').value = p.category || 'web';
+      document.getElementById('edit-proj-desc').value = p.desc || '';
+      document.getElementById('edit-proj-img').value = p.img || '';
+      document.getElementById('edit-proj-video').value = p.video || '';
+      document.getElementById('edit-proj-link').value = p.link || '';
+      // reset upload previews
+      ['edit-img-preview','edit-vid-preview'].forEach(id => { const el = document.getElementById(id); if(el) el.style.display='none'; });
+      document.getElementById('edit-project-modal').classList.add('open');
+    };
+
+    window.closeEditModal = function() {
+      document.getElementById('edit-project-modal').classList.remove('open');
+    };
+
+    document.getElementById('edit-project-modal').addEventListener('click', e => {
+      if (e.target === document.getElementById('edit-project-modal')) closeEditModal();
+    });
+
+    window.saveEditProject = function() {
+      const id = parseInt(document.getElementById('edit-proj-id').value);
+      const name = document.getElementById('edit-proj-name').value.trim();
+      const cat = document.getElementById('edit-proj-cat').value;
+      const desc = document.getElementById('edit-proj-desc').value.trim();
+      const link = document.getElementById('edit-proj-link').value.trim();
+      if (!name) { showToast('Project name is required.', 'error'); return; }
+      if (!desc) { showToast('Description is required.', 'error'); return; }
+
+      // Check for file upload first, then URL
+      const imgFileInput = document.getElementById('edit-proj-img-file');
+      const vidFileInput = document.getElementById('edit-proj-vid-file');
+
+      const projects = getProjects();
+      const idx = projects.findIndex(x => x.id === id);
+      if (idx === -1) { showToast('Project not found.', 'error'); return; }
+
+      function finalize(imgVal, vidVal) {
+        projects[idx] = { ...projects[idx], name, category: cat, desc, img: imgVal, video: vidVal, link };
+        saveProjects(projects);
+        renderAdminProjects();
+        loadDashboardStats();
+        closeEditModal();
+        showToast('Project updated successfully!', 'success');
+      }
+
+      const imgURL = document.getElementById('edit-proj-img').value.trim();
+      const vidURL = document.getElementById('edit-proj-video').value.trim();
+
+      // If there's a new file uploaded use it, else use URL
+      const imgFile = imgFileInput && imgFileInput.files && imgFileInput.files[0];
+      const vidFile = vidFileInput && vidFileInput.files && vidFileInput.files[0];
+
+      if (imgFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const imgData = e.target.result;
+          if (vidFile) {
+            const vr = new FileReader();
+            vr.onload = function(ev) { finalize(imgData, ev.target.result); };
+            vr.readAsDataURL(vidFile);
+          } else { finalize(imgData, vidURL); }
+        };
+        reader.readAsDataURL(imgFile);
+      } else if (vidFile) {
+        const vr = new FileReader();
+        vr.onload = function(ev) { finalize(imgURL, ev.target.result); };
+        vr.readAsDataURL(vidFile);
+      } else {
+        finalize(imgURL, vidURL);
+      }
+    };
+
+    // ============================================================
+    // FILE UPLOAD HELPERS
+    // ============================================================
+    window.switchUploadTab = function(prefix, mode, btn) {
+      const urlTab = document.getElementById(prefix + '-url-tab');
+      const fileTab = document.getElementById(prefix + '-file-tab');
+      if (urlTab) urlTab.style.display = mode === 'url' ? '' : 'none';
+      if (fileTab) fileTab.style.display = mode === 'file' ? '' : 'none';
+      // Update button active state
+      if (btn) {
+        btn.parentElement.querySelectorAll('.upload-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+    };
+
+    window.previewUpload = function(inputId, previewId) {
+      const input = document.getElementById(inputId);
+      const preview = document.getElementById(previewId);
+      if (!input || !input.files || !input.files[0]) return;
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        preview.style.display = 'block';
+        const img = preview.querySelector('img');
+        if (img) img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    window.previewVideoUpload = function(inputId, previewId) {
+      const input = document.getElementById(inputId);
+      const preview = document.getElementById(previewId);
+      if (!input || !input.files || !input.files[0]) return;
+      const file = input.files[0];
+      const url = URL.createObjectURL(file);
+      preview.style.display = 'block';
+      const vid = preview.querySelector('video');
+      if (vid) vid.src = url;
     };
 
     function renderFeedbackTable() {
@@ -2419,17 +2714,52 @@
       const name = document.getElementById('proj-name').value.trim();
       const cat = document.getElementById('proj-cat').value;
       const desc = document.getElementById('proj-desc').value.trim();
-      const img = document.getElementById('proj-img').value.trim();
-      const vid = document.getElementById('proj-video').value.trim();
       const link = document.getElementById('proj-link').value.trim();
       if (!name) { showToast('Project name is required.', 'error'); return; }
       if (!desc) { showToast('Description is required.', 'error'); return; }
-      const projects = getProjects();
-      projects.unshift({ id: Date.now(), name, category: cat, desc, img, video: vid, link, date: new Date().toLocaleDateString() });
-      saveProjects(projects);
-      ['proj-name', 'proj-desc', 'proj-img', 'proj-video', 'proj-link'].forEach(id => document.getElementById(id).value = '');
-      loadDashboardStats();
-      showToast('Project added successfully.', 'success');
+
+      const imgUrlEl = document.getElementById('proj-img');
+      const vidUrlEl = document.getElementById('proj-video');
+      const imgFileEl = document.getElementById('proj-img-file');
+      const vidFileEl = document.getElementById('proj-vid-file');
+
+      function saveNewProject(imgVal, vidVal) {
+        const projects = getProjects();
+        projects.unshift({ id: Date.now(), name, category: cat, desc, img: imgVal, video: vidVal, link, date: new Date().toLocaleDateString() });
+        saveProjects(projects);
+        ['proj-name', 'proj-desc', 'proj-link'].forEach(id => document.getElementById(id).value = '');
+        if (imgUrlEl) imgUrlEl.value = '';
+        if (vidUrlEl) vidUrlEl.value = '';
+        if (imgFileEl) imgFileEl.value = '';
+        if (vidFileEl) vidFileEl.value = '';
+        ['img-preview-add','vid-preview-add'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+        loadDashboardStats();
+        showToast('Project added successfully.', 'success');
+      }
+
+      const imgFile = imgFileEl && imgFileEl.files && imgFileEl.files[0];
+      const vidFile = vidFileEl && vidFileEl.files && vidFileEl.files[0];
+      const imgURL = imgUrlEl ? imgUrlEl.value.trim() : '';
+      const vidURL = vidUrlEl ? vidUrlEl.value.trim() : '';
+
+      if (imgFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const imgData = e.target.result;
+          if (vidFile) {
+            const vr = new FileReader();
+            vr.onload = function(ev) { saveNewProject(imgData, ev.target.result); };
+            vr.readAsDataURL(vidFile);
+          } else { saveNewProject(imgData, vidURL); }
+        };
+        reader.readAsDataURL(imgFile);
+      } else if (vidFile) {
+        const vr = new FileReader();
+        vr.onload = function(ev) { saveNewProject(imgURL, ev.target.result); };
+        vr.readAsDataURL(vidFile);
+      } else {
+        saveNewProject(imgURL, vidURL);
+      }
     };
 
     // ============================================================
