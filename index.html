@@ -1766,7 +1766,7 @@
       <div class="auth-logo">PIXEL <span>FORGE</span> STUDIO</div>
       <p class="auth-sub">Admin Access Only</p>
       <div class="auth-error" id="auth-error-msg">Invalid credentials. Please try again.</div>
-      <input type="email" class="auth-input" id="admin-email-input" placeholder="Email address" autocomplete="off">
+      <input type="text" class="auth-input" id="admin-email-input" placeholder="Username" autocomplete="off">
       <input type="password" class="auth-input" id="admin-pass-input" placeholder="Password" autocomplete="off">
       <button class="auth-submit-btn" onclick="attemptAdminLogin()">Sign In</button>
       <button class="auth-cancel-btn" onclick="closeAdminLogin()">Cancel</button>
@@ -2180,111 +2180,53 @@
     <div class="footer-copy">2024 Pixel Forge Studio — CEO Prabhath Kelum. All rights reserved.</div>
   </footer>
 
-  <!-- Firebase SDK (modular) -->
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+  <!-- Admin Auth — no Firebase, pure JS -->
+  <script>
+    // ============================================================
+    // ADMIN AUTH — username + password only, no Firebase
+    // ============================================================
+    const ADMIN_USER = 'prabhath582';
+    const ADMIN_PASS = 'Admin123@!Pass';
 
-    // ====================================================
-    // IMPORTANT: Replace these values with your own
-    // Firebase project config from console.firebase.google.com
-    // ====================================================
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: "AIzaSyCUmD18sZaxrDbKNJNy1c7uCsk7EpHCNGY",
-      authDomain: "pixelforgestudio.firebaseapp.com",
-      projectId: "pixelforgestudio",
-      storageBucket: "pixelforgestudio.firebasestorage.app",
-      messagingSenderId: "578344030588",
-      appId: "1:578344030588:web:0f4fc94306e6e1045994f9",
-      measurementId: "G-NZFZC4VCM7"
-    };
-
-    // Admin credentials stored obfuscated — not displayed to users
-    const _a = ['prabhathkelum55', 'gmail.com'].join('@');
-    const _p = 'Admin123@!Pass';
-
-    let auth = null;
-
-    try {
-      const app = initializeApp(firebaseConfig);
-      auth = getAuth(app);
-
-      onAuthStateChanged(auth, (user) => {
-        if (user && user.email === _a) {
-          window._isAdmin = true;
-          window._fbUser = user;
-          closeAdminLoginOverlay();
-          showDashboard();
-          updateNavBtn('Admin Panel', () => showDashboard());
-        } else if (user) {
-          // Non-admin signed in somehow — sign them out
-          signOut(auth);
-        }
-      });
-    } catch (e) {
-      console.warn('Firebase init note:', e.message);
+    function _updateNavBtn(label, fn) {
+      const btn = document.getElementById('auth-nav-btn');
+      if (btn) { btn.textContent = label; btn.onclick = fn; }
     }
 
-    window.attemptAdminLogin = async function () {
-      const emailInput = document.getElementById('admin-email-input').value.trim();
-      const passInput = document.getElementById('admin-pass-input').value;
+    function _closeLoginOverlay() {
+      document.getElementById('admin-login-overlay').classList.remove('open');
+    }
+
+    window.attemptAdminLogin = function () {
+      const username = document.getElementById('admin-email-input').value.trim();
+      const password = document.getElementById('admin-pass-input').value;
       const errEl = document.getElementById('auth-error-msg');
       errEl.classList.remove('show');
 
-      if (!emailInput || !passInput) {
-        errEl.textContent = 'Please enter your email and password.';
+      if (!username || !password) {
+        errEl.textContent = 'Please enter your username and password.';
         errEl.classList.add('show');
         return;
       }
 
-      if (emailInput !== _a) {
-        errEl.textContent = 'Access denied. Unauthorized account.';
-        errEl.classList.add('show');
-        return;
-      }
-
-      if (!auth) {
-        // Fallback if Firebase not configured: simple credential check
-        if (emailInput === _a && passInput === _p) {
-          window._isAdmin = true;
-          closeAdminLoginOverlay();
-          showDashboard();
-          updateNavBtn('Admin Panel', () => showDashboard());
-        } else {
-          errEl.textContent = 'Invalid credentials. Please try again.';
-          errEl.classList.add('show');
-        }
-        return;
-      }
-
-      try {
-        await signInWithEmailAndPassword(auth, emailInput, passInput);
-        // onAuthStateChanged will handle the rest
-      } catch (err) {
+      if (username === ADMIN_USER && password === ADMIN_PASS) {
+        window._isAdmin = true;
+        _closeLoginOverlay();
+        showDashboard();
+        _updateNavBtn('Admin Panel', () => showDashboard());
+      } else {
         errEl.textContent = 'Invalid credentials. Please try again.';
         errEl.classList.add('show');
       }
     };
 
-    window.doSignOut = async function () {
-      if (auth) { try { await signOut(auth); } catch (e) { } }
-      window._fbUser = null;
+    window.doSignOut = function () {
       window._isAdmin = false;
-      updateNavBtn('Admin', () => handleAuthNavBtn());
       document.getElementById('admin-email-input').value = '';
       document.getElementById('admin-pass-input').value = '';
+      _updateNavBtn('Admin', () => handleAuthNavBtn());
       exitDashboard();
     };
-
-    function updateNavBtn(label, fn) {
-      const btn = document.getElementById('auth-nav-btn');
-      if (btn) { btn.textContent = label; btn.onclick = fn; }
-    }
-
-    function closeAdminLoginOverlay() {
-      document.getElementById('admin-login-overlay').classList.remove('open');
-    }
   </script>
 
   <script>
