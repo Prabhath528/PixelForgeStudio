@@ -1646,52 +1646,6 @@
       font-size: 0.9rem;
     }
 
-    /* Upload Tabs */
-    .upload-tabs {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .upload-tab-btn {
-      padding: 0.35rem 0.9rem;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.75rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      letter-spacing: 0.5px;
-    }
-
-    .upload-tab-btn.active {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(0,212,255,0.05);
-    }
-
-    .file-upload-area {
-      border: 1px dashed var(--border);
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      color: var(--muted);
-      font-size: 0.85rem;
-      background: var(--surface2);
-    }
-
-    .file-upload-area:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(0,212,255,0.03);
-    }
-
     /* Edit Button */
     .edit-btn {
       background: transparent;
@@ -1862,7 +1816,8 @@
     <a href="#projects" onclick="closeMobileNav()">Projects</a>
     <a href="#about" onclick="closeMobileNav()">About</a>
     <a href="#connect" onclick="closeMobileNav()">Contact</a>
-    <button class="nav-btn mobile-admin-btn" id="mobile-admin-btn" onclick="closeMobileNav();handleAuthNavBtn();" style="margin-top:0.5rem;width:100%;padding:0.75rem;">Admin Login</button>
+    <button class="nav-btn mobile-admin-btn" id="mobile-admin-btn" onclick="closeMobileNav();handleAuthNavBtn();"
+      style="margin-top:0.5rem;width:100%;padding:0.75rem;">Admin Login</button>
   </div>
 
   <!-- MAIN SITE -->
@@ -2110,6 +2065,23 @@
             <div class="dash-title">Dashboard Overview</div>
             <div style="font-size:0.78rem;color:var(--muted)">Pixel Forge Studio</div>
           </div>
+          <!-- Firebase Setup Notice -->
+          <div id="firebase-setup-notice"
+            style="background:rgba(245,158,11,0.08);border:1px solid var(--gold);padding:1.2rem 1.5rem;margin-bottom:1.5rem;border-radius:0;">
+            <div
+              style="font-family:'Syne',sans-serif;font-weight:700;color:var(--gold);margin-bottom:0.5rem;font-size:0.9rem;">
+              ⚡ Firebase Setup Required</div>
+            <p style="color:var(--muted);font-size:0.82rem;line-height:1.7;margin:0;">
+              To make your projects visible on all devices (laptop, phone, tablet), you need to add your Firebase
+              credentials.<br>
+              <strong style="color:var(--text)">Steps:</strong> 1) Go to <a href="https://console.firebase.google.com"
+                target="_blank" style="color:var(--accent)">console.firebase.google.com</a> → Create project → Add Web
+              App → Copy the config object. 2) Open this HTML file and replace the <code
+                style="color:var(--accent)">firebaseConfig</code> values at the top of the second script block. 3) In
+              Firebase Console, enable <strong style="color:var(--text)">Realtime Database</strong> and <strong
+                style="color:var(--text)">Storage</strong>, and set rules to allow read/write. Done!
+            </p>
+          </div>
           <div class="stat-cards">
             <div class="stat-card">
               <div class="stat-card-label">Total Projects</div>
@@ -2141,6 +2113,25 @@
           <div class="dash-header">
             <div class="dash-title">Add New Project</div>
           </div>
+
+          <!-- Hosting tip box -->
+          <div
+            style="background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.2);padding:1rem 1.25rem;margin-bottom:1.5rem;">
+            <div
+              style="font-size:0.75rem;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem;">
+              📎 Free Image &amp; Video Hosting</div>
+            <div style="font-size:0.8rem;color:var(--muted);line-height:1.8;">
+              <strong style="color:var(--text)">Images:</strong> Upload to <a href="https://imgur.com/upload"
+                target="_blank" style="color:var(--accent)">Imgur.com</a> or <a href="https://cloudinary.com"
+                target="_blank" style="color:var(--accent)">Cloudinary.com</a> → right-click image → "Copy image
+              address" → paste URL below.<br>
+              <strong style="color:var(--text)">Videos:</strong> Upload to <a href="https://youtube.com" target="_blank"
+                style="color:var(--accent)">YouTube</a> or <a href="https://vimeo.com" target="_blank"
+                style="color:var(--accent)">Vimeo</a> → paste the share link below. Or use a direct .mp4 link from any
+              host.
+            </div>
+          </div>
+
           <div class="form-row">
             <div class="form-group"><label class="form-label">Project Name</label><input type="text" class="form-input"
                 id="proj-name" placeholder="My Awesome Project"></div>
@@ -2152,53 +2143,25 @@
           </div>
           <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea"
               id="proj-desc" placeholder="Describe this project, its purpose, tech used..."></textarea></div>
-          
-          <!-- Screenshot/Thumbnail Upload -->
-          <div class="form-group">
-            <label class="form-label">Screenshot / Thumbnail</label>
-            <div class="upload-tabs">
-              <button type="button" class="upload-tab-btn active" onclick="switchUploadTab('img','url',this)">URL</button>
-              <button type="button" class="upload-tab-btn" onclick="switchUploadTab('img','file',this)">Upload File</button>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Screenshot / Thumbnail URL</label>
+              <input type="url" class="form-input" id="proj-img" placeholder="https://i.imgur.com/yourimage.jpg">
+              <p class="form-hint">Upload to <a href="https://imgur.com/upload" target="_blank"
+                  style="color:var(--accent)">Imgur</a> → copy image address → paste here</p>
+              <div id="img-preview-add" style="display:none;margin-top:0.5rem;"><img src="" alt="preview"
+                  style="max-height:100px;object-fit:cover;max-width:100%;border:1px solid var(--border)"></div>
             </div>
-            <div id="img-url-tab">
-              <input type="url" class="form-input" id="proj-img" placeholder="https://example.com/screenshot.jpg">
-              <p class="form-hint">Paste a direct image URL (Unsplash, Imgur, etc.)</p>
-            </div>
-            <div id="img-file-tab" style="display:none;">
-              <div class="file-upload-area" onclick="document.getElementById('proj-img-file').click()">
-                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                <span>Click to upload image</span>
-                <span class="form-hint">PNG, JPG, WEBP, GIF supported</span>
-              </div>
-              <input type="file" id="proj-img-file" accept="image/*" style="display:none" onchange="previewUpload('proj-img-file','img-preview-add')">
-              <div id="img-preview-add" class="upload-preview" style="display:none;"><img src="" alt="preview" style="max-height:120px;object-fit:cover;width:100%;margin-top:0.5rem;border:1px solid var(--border)"></div>
+            <div class="form-group">
+              <label class="form-label">Demo Video URL <span style="color:var(--muted)">(optional)</span></label>
+              <input type="url" class="form-input" id="proj-video"
+                placeholder="https://youtube.com/watch?v=... or direct .mp4 link">
+              <p class="form-hint">YouTube, Vimeo, or any direct .mp4 URL</p>
             </div>
           </div>
-
-          <!-- Video Upload -->
-          <div class="form-group">
-            <label class="form-label">Demo Video (optional)</label>
-            <div class="upload-tabs">
-              <button type="button" class="upload-tab-btn active" onclick="switchUploadTab('vid','url',this)">URL</button>
-              <button type="button" class="upload-tab-btn" onclick="switchUploadTab('vid','file',this)">Upload File</button>
-            </div>
-            <div id="vid-url-tab">
-              <input type="url" class="form-input" id="proj-video" placeholder="https://example.com/demo.mp4">
-              <p class="form-hint">Direct MP4 link for project demo video</p>
-            </div>
-            <div id="vid-file-tab" style="display:none;">
-              <div class="file-upload-area" onclick="document.getElementById('proj-vid-file').click()">
-                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-                <span>Click to upload video</span>
-                <span class="form-hint">MP4, WEBM, MOV supported</span>
-              </div>
-              <input type="file" id="proj-vid-file" accept="video/*" style="display:none" onchange="previewVideoUpload('proj-vid-file','vid-preview-add')">
-              <div id="vid-preview-add" class="upload-preview" style="display:none;"><video controls style="max-height:120px;width:100%;margin-top:0.5rem;border:1px solid var(--border)"></video></div>
-            </div>
-          </div>
-
-          <div class="form-group"><label class="form-label">Live Preview Link (optional)</label><input type="url"
-              class="form-input" id="proj-link" placeholder="https://your-project.com"></div>
+          <div class="form-group"><label class="form-label">Live Preview Link <span
+                style="color:var(--muted)">(optional)</span></label><input type="url" class="form-input" id="proj-link"
+              placeholder="https://your-project.com"></div>
           <button class="submit-btn" onclick="addProject()">Add Project</button>
         </div>
 
@@ -2289,56 +2252,33 @@
       <div class="modal-body">
         <input type="hidden" id="edit-proj-id">
         <div class="form-row">
-          <div class="form-group"><label class="form-label">Project Name</label><input type="text" class="form-input" id="edit-proj-name" placeholder="Project Name"></div>
-          <div class="form-group"><label class="form-label">Category</label><select class="form-select" id="edit-proj-cat">
-            <option value="software">Software Development</option>
-            <option value="web">Web Development</option>
-            <option value="webapp">Web Application</option>
-          </select></div>
+          <div class="form-group"><label class="form-label">Project Name</label><input type="text" class="form-input"
+              id="edit-proj-name" placeholder="Project Name"></div>
+          <div class="form-group"><label class="form-label">Category</label><select class="form-select"
+              id="edit-proj-cat">
+              <option value="software">Software Development</option>
+              <option value="web">Web Development</option>
+              <option value="webapp">Web Application</option>
+            </select></div>
         </div>
-        <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="edit-proj-desc" style="min-height:120px;"></textarea></div>
-        
-        <!-- Screenshot Upload -->
-        <div class="form-group">
-          <label class="form-label">Screenshot / Thumbnail</label>
-          <div class="upload-tabs">
-            <button type="button" class="upload-tab-btn active" onclick="switchUploadTab('edit-img','url',this)">URL</button>
-            <button type="button" class="upload-tab-btn" onclick="switchUploadTab('edit-img','file',this)">Upload File</button>
+        <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea"
+            id="edit-proj-desc" style="min-height:120px;"></textarea></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Screenshot / Thumbnail URL</label>
+            <input type="url" class="form-input" id="edit-proj-img" placeholder="https://i.imgur.com/yourimage.jpg">
+            <p class="form-hint">Upload to <a href="https://imgur.com/upload" target="_blank"
+                style="color:var(--accent)">Imgur</a> → copy image address → paste here</p>
           </div>
-          <div id="edit-img-url-tab">
-            <input type="url" class="form-input" id="edit-proj-img" placeholder="https://example.com/screenshot.jpg">
-          </div>
-          <div id="edit-img-file-tab" style="display:none;">
-            <div class="file-upload-area" onclick="document.getElementById('edit-proj-img-file').click()">
-              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              <span>Upload new screenshot</span>
-            </div>
-            <input type="file" id="edit-proj-img-file" accept="image/*" style="display:none" onchange="previewUpload('edit-proj-img-file','edit-img-preview')">
-            <div id="edit-img-preview" class="upload-preview" style="display:none;"><img src="" alt="preview" style="max-height:100px;object-fit:cover;width:100%;margin-top:0.5rem;border:1px solid var(--border)"></div>
+          <div class="form-group">
+            <label class="form-label">Demo Video URL <span style="color:var(--muted)">(optional)</span></label>
+            <input type="url" class="form-input" id="edit-proj-video" placeholder="https://youtube.com/watch?v=...">
+            <p class="form-hint">YouTube, Vimeo, or direct .mp4 link</p>
           </div>
         </div>
-
-        <!-- Video Upload -->
-        <div class="form-group">
-          <label class="form-label">Demo Video (optional)</label>
-          <div class="upload-tabs">
-            <button type="button" class="upload-tab-btn active" onclick="switchUploadTab('edit-vid','url',this)">URL</button>
-            <button type="button" class="upload-tab-btn" onclick="switchUploadTab('edit-vid','file',this)">Upload File</button>
-          </div>
-          <div id="edit-vid-url-tab">
-            <input type="url" class="form-input" id="edit-proj-video" placeholder="https://example.com/demo.mp4">
-          </div>
-          <div id="edit-vid-file-tab" style="display:none;">
-            <div class="file-upload-area" onclick="document.getElementById('edit-proj-vid-file').click()">
-              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-              <span>Upload new video</span>
-            </div>
-            <input type="file" id="edit-proj-vid-file" accept="video/*" style="display:none" onchange="previewVideoUpload('edit-proj-vid-file','edit-vid-preview')">
-            <div id="edit-vid-preview" class="upload-preview" style="display:none;"><video controls style="max-height:100px;width:100%;margin-top:0.5rem;border:1px solid var(--border)"></video></div>
-          </div>
-        </div>
-
-        <div class="form-group"><label class="form-label">Live Preview Link (optional)</label><input type="url" class="form-input" id="edit-proj-link" placeholder="https://your-project.com"></div>
+        <div class="form-group"><label class="form-label">Live Preview Link <span
+              style="color:var(--muted)">(optional)</span></label><input type="url" class="form-input"
+            id="edit-proj-link" placeholder="https://your-project.com"></div>
         <button class="submit-btn" onclick="saveEditProject()">Save Changes</button>
       </div>
     </div>
@@ -2363,7 +2303,7 @@
       const btn = document.getElementById('auth-nav-btn');
       if (btn) { btn.textContent = label; btn.onclick = fn; }
       const mobileBtn = document.getElementById('mobile-admin-btn');
-      if (mobileBtn) { mobileBtn.textContent = label; mobileBtn.onclick = function(){ closeMobileNav(); fn(); }; }
+      if (mobileBtn) { mobileBtn.textContent = label; mobileBtn.onclick = function () { closeMobileNav(); fn(); }; }
     }
 
     function _closeLoginOverlay() {
@@ -2402,43 +2342,139 @@
     };
   </script>
 
+  <!-- Firebase SDK v9 compat -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
   <script>
     // ============================================================
-    // DATA LAYER — localStorage (demo backend)
-    // In production, replace with Firebase Realtime DB / Firestore
+    // FIREBASE CONFIG — Replace with YOUR project credentials
+    // Go to: console.firebase.google.com → Project Settings → Your Apps
     // ============================================================
-    const KEY = k => 'pfs_' + k;
-    const load = k => { try { return JSON.parse(localStorage.getItem(KEY(k))); } catch { return null; } };
-    const save = (k, v) => localStorage.setItem(KEY(k), JSON.stringify(v));
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyCUmD18sZaxrDbKNJNy1c7uCsk7EpHCNGY",
+      authDomain: "pixelforgestudio.firebaseapp.com",
+      projectId: "pixelforgestudio",
+      storageBucket: "pixelforgestudio.firebasestorage.app",
+      messagingSenderId: "578344030588",
+      appId: "1:578344030588:web:0f4fc94306e6e1045994f9",
+      measurementId: "G-NZFZC4VCM7"
+    };
 
-    const getProjects = () => load('projects') || [];
-    const saveProjects = p => save('projects', p);
-    const getComments = () => load('comments') || [];
-    const saveComments = c => save('comments', c);
-    const getVisitors = () => load('visitors') || { total: 0, days: {} };
-    const saveVisitors = v => save('visitors', v);
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-    // Track this visit
-    (function () {
-      const v = getVisitors();
+    // ============================================================
+    // FIREBASE DATA LAYER
+    // All data is stored in Firebase Realtime Database so it is
+    // visible from ANY device — laptop, phone, tablet, etc.
+    // Images/videos are stored as URLs (use Imgur, Cloudinary, etc.)
+    // ============================================================
+
+    // In-memory cache so UI stays fast
+    window._cache = { projects: [], comments: [], visitors: { total: 0, days: {} } };
+
+    // --- Projects ---
+    function getProjects() { return window._cache.projects || []; }
+
+    function saveProjects(arr) {
+      // Convert array to keyed object for Firebase
+      window._cache.projects = arr;
+      const obj = {};
+      arr.forEach(p => { obj[p.id] = p; });
+      return db.ref('projects').set(obj);
+    }
+
+    async function addProjectToFirebase(projectData) {
+      const ref = db.ref('projects').push();
+      projectData.id = ref.key;
+      await ref.set(projectData);
+      window._cache.projects.unshift(projectData);
+    }
+
+    async function updateProjectInFirebase(id, data) {
+      await db.ref('projects/' + id).update(data);
+      const idx = window._cache.projects.findIndex(p => p.id == id);
+      if (idx !== -1) window._cache.projects[idx] = { ...window._cache.projects[idx], ...data };
+    }
+
+    async function deleteProjectFromFirebase(id) {
+      await db.ref('projects/' + id).remove();
+      window._cache.projects = window._cache.projects.filter(p => p.id != id);
+    }
+
+    // --- Comments ---
+    function getComments() { return window._cache.comments || []; }
+
+    async function addCommentToFirebase(commentData) {
+      const ref = db.ref('comments').push();
+      commentData.id = ref.key;
+      await ref.set(commentData);
+      window._cache.comments.push(commentData);
+    }
+
+    // --- Visitors ---
+    function getVisitors() { return window._cache.visitors || { total: 0, days: {} }; }
+
+    async function trackVisit() {
       const today = new Date().toISOString().split('T')[0];
-      v.total = (v.total || 0) + 1;
-      v.days = v.days || {};
-      v.days[today] = (v.days[today] || 0) + 1;
-      saveVisitors(v);
-    })();
+      try {
+        await db.ref('visitors/total').transaction(v => (v || 0) + 1);
+        await db.ref('visitors/days/' + today).transaction(v => (v || 0) + 1);
+      } catch (e) { /* offline fallback */ }
+    }
+
+    // ============================================================
+    // FIREBASE LISTENERS — sync data in real-time
+    // ============================================================
+    function startFirebaseListeners() {
+      // Projects: listen for real-time changes
+      db.ref('projects').on('value', snap => {
+        const val = snap.val() || {};
+        window._cache.projects = Object.values(val).sort((a, b) => {
+          // Sort newest first
+          if (a.date && b.date) return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+          return 0;
+        });
+        renderProjects();
+        if (document.getElementById('dashboard').style.display !== 'none') {
+          renderAdminProjects();
+          loadDashboardStats();
+        }
+        animateNum('hero-project-count', window._cache.projects.length);
+      });
+
+      // Comments
+      db.ref('comments').on('value', snap => {
+        const val = snap.val() || {};
+        window._cache.comments = Object.values(val);
+      });
+
+      // Visitors
+      db.ref('visitors').on('value', snap => {
+        window._cache.visitors = snap.val() || { total: 0, days: {} };
+        animateNum('hero-visitor-count', window._cache.visitors.total || 0);
+        if (document.getElementById('dashboard').style.display !== 'none') {
+          loadDashboardStats();
+        }
+      });
+    }
 
     // ============================================================
     // LOADING SCREEN
     // ============================================================
     window.addEventListener('load', function () {
+      // Start Firebase listeners immediately
+      startFirebaseListeners();
+      trackVisit();
+
       setTimeout(function () {
         const ls = document.getElementById('loading-screen');
         if (ls) {
           ls.classList.add('hidden');
           setTimeout(function () { ls.style.display = 'none'; }, 500);
         }
-        // Auto-init public site for all visitors
         initPublicSite();
       }, 1600);
     });
@@ -2546,31 +2582,37 @@
       const grid = document.getElementById('admin-projects-grid');
       if (!projects.length) { grid.innerHTML = '<p style="color:var(--muted)">No projects added yet.</p>'; return; }
       const defImgs = { software: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=60', web: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&q=60', webapp: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&q=60' };
-      grid.innerHTML = projects.map((p, i) => `
+      grid.innerHTML = projects.map((p) => `
     <div class="admin-project-card">
       <div class="admin-project-thumb"><img src="${p.img || defImgs[p.category] || defImgs.web}" alt="${p.name}" onerror="this.src='${defImgs[p.category] || defImgs.web}'"></div>
       <div class="admin-project-body">
         <div class="admin-project-name">${p.name}</div>
         <div class="admin-project-cat">${p.category}</div>
         <div class="admin-project-actions">
-          <button class="edit-btn" onclick="openEditModal(${p.id})">Edit</button>
-          <button class="danger-btn" onclick="deleteProject(${i})">Delete</button>
+          <button class="edit-btn" onclick="openEditModal('${p.id}')">Edit</button>
+          <button class="danger-btn" onclick="deleteProject('${p.id}')">Delete</button>
         </div>
       </div>
     </div>`).join('');
     }
 
-    window.deleteProject = function (i) {
-      const p = getProjects(); p.splice(i, 1); saveProjects(p);
-      renderAdminProjects(); loadDashboardStats();
-      showToast('Project deleted.', 'success');
+    window.deleteProject = async function (id) {
+      if (!confirm('Delete this project? This cannot be undone.')) return;
+      try {
+        await deleteProjectFromFirebase(id);
+        renderAdminProjects();
+        loadDashboardStats();
+        showToast('Project deleted.', 'success');
+      } catch (e) {
+        showToast('Error deleting project: ' + e.message, 'error');
+      }
     };
 
     // ============================================================
     // EDIT PROJECT MODAL
     // ============================================================
-    window.openEditModal = function(id) {
-      const p = getProjects().find(x => x.id === id);
+    window.openEditModal = function (id) {
+      const p = getProjects().find(x => x.id == id);
       if (!p) return;
       document.getElementById('edit-proj-id').value = id;
       document.getElementById('edit-proj-name').value = p.name || '';
@@ -2579,12 +2621,10 @@
       document.getElementById('edit-proj-img').value = p.img || '';
       document.getElementById('edit-proj-video').value = p.video || '';
       document.getElementById('edit-proj-link').value = p.link || '';
-      // reset upload previews
-      ['edit-img-preview','edit-vid-preview'].forEach(id => { const el = document.getElementById(id); if(el) el.style.display='none'; });
       document.getElementById('edit-project-modal').classList.add('open');
     };
 
-    window.closeEditModal = function() {
+    window.closeEditModal = function () {
       document.getElementById('edit-project-modal').classList.remove('open');
     };
 
@@ -2592,98 +2632,47 @@
       if (e.target === document.getElementById('edit-project-modal')) closeEditModal();
     });
 
-    window.saveEditProject = function() {
-      const id = parseInt(document.getElementById('edit-proj-id').value);
+    window.saveEditProject = async function () {
+      const id = document.getElementById('edit-proj-id').value;
       const name = document.getElementById('edit-proj-name').value.trim();
       const cat = document.getElementById('edit-proj-cat').value;
       const desc = document.getElementById('edit-proj-desc').value.trim();
-      const link = document.getElementById('edit-proj-link').value.trim();
+      const img = (document.getElementById('edit-proj-img').value || '').trim();
+      const video = (document.getElementById('edit-proj-video').value || '').trim();
+      const link = (document.getElementById('edit-proj-link').value || '').trim();
       if (!name) { showToast('Project name is required.', 'error'); return; }
       if (!desc) { showToast('Description is required.', 'error'); return; }
 
-      // Check for file upload first, then URL
-      const imgFileInput = document.getElementById('edit-proj-img-file');
-      const vidFileInput = document.getElementById('edit-proj-vid-file');
+      const saveBtn = document.querySelector('#edit-project-modal .submit-btn');
+      if (saveBtn) { saveBtn.textContent = 'Saving...'; saveBtn.disabled = true; }
 
-      const projects = getProjects();
-      const idx = projects.findIndex(x => x.id === id);
-      if (idx === -1) { showToast('Project not found.', 'error'); return; }
-
-      function finalize(imgVal, vidVal) {
-        projects[idx] = { ...projects[idx], name, category: cat, desc, img: imgVal, video: vidVal, link };
-        saveProjects(projects);
-        renderAdminProjects();
-        loadDashboardStats();
+      try {
+        await updateProjectInFirebase(id, { name, category: cat, desc, img, video, link });
         closeEditModal();
-        showToast('Project updated successfully!', 'success');
-      }
-
-      const imgURL = document.getElementById('edit-proj-img').value.trim();
-      const vidURL = document.getElementById('edit-proj-video').value.trim();
-
-      // If there's a new file uploaded use it, else use URL
-      const imgFile = imgFileInput && imgFileInput.files && imgFileInput.files[0];
-      const vidFile = vidFileInput && vidFileInput.files && vidFileInput.files[0];
-
-      if (imgFile) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const imgData = e.target.result;
-          if (vidFile) {
-            const vr = new FileReader();
-            vr.onload = function(ev) { finalize(imgData, ev.target.result); };
-            vr.readAsDataURL(vidFile);
-          } else { finalize(imgData, vidURL); }
-        };
-        reader.readAsDataURL(imgFile);
-      } else if (vidFile) {
-        const vr = new FileReader();
-        vr.onload = function(ev) { finalize(imgURL, ev.target.result); };
-        vr.readAsDataURL(vidFile);
-      } else {
-        finalize(imgURL, vidURL);
+        showToast('Project updated!', 'success');
+      } catch (e) {
+        showToast('Error saving: ' + e.message, 'error');
+      } finally {
+        if (saveBtn) { saveBtn.textContent = 'Save Changes'; saveBtn.disabled = false; }
       }
     };
 
     // ============================================================
-    // FILE UPLOAD HELPERS
+    // IMAGE URL LIVE PREVIEW (add project form)
     // ============================================================
-    window.switchUploadTab = function(prefix, mode, btn) {
-      const urlTab = document.getElementById(prefix + '-url-tab');
-      const fileTab = document.getElementById(prefix + '-file-tab');
-      if (urlTab) urlTab.style.display = mode === 'url' ? '' : 'none';
-      if (fileTab) fileTab.style.display = mode === 'file' ? '' : 'none';
-      // Update button active state
-      if (btn) {
-        btn.parentElement.querySelectorAll('.upload-tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    document.addEventListener('DOMContentLoaded', function () {
+      const imgInput = document.getElementById('proj-img');
+      const preview = document.getElementById('img-preview-add');
+      if (imgInput && preview) {
+        imgInput.addEventListener('input', function () {
+          const url = this.value.trim();
+          if (url) {
+            const img = preview.querySelector('img');
+            if (img) { img.src = url; preview.style.display = 'block'; }
+          } else { preview.style.display = 'none'; }
+        });
       }
-    };
-
-    window.previewUpload = function(inputId, previewId) {
-      const input = document.getElementById(inputId);
-      const preview = document.getElementById(previewId);
-      if (!input || !input.files || !input.files[0]) return;
-      const file = input.files[0];
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        preview.style.display = 'block';
-        const img = preview.querySelector('img');
-        if (img) img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    };
-
-    window.previewVideoUpload = function(inputId, previewId) {
-      const input = document.getElementById(inputId);
-      const preview = document.getElementById(previewId);
-      if (!input || !input.files || !input.files[0]) return;
-      const file = input.files[0];
-      const url = URL.createObjectURL(file);
-      preview.style.display = 'block';
-      const vid = preview.querySelector('video');
-      if (vid) vid.src = url;
-    };
+    });
 
     function renderFeedbackTable() {
       const comments = getComments();
@@ -2710,55 +2699,30 @@
       renderVisitorChartIn('visitor-chart-detail');
     }
 
-    window.addProject = function () {
+    window.addProject = async function () {
       const name = document.getElementById('proj-name').value.trim();
       const cat = document.getElementById('proj-cat').value;
       const desc = document.getElementById('proj-desc').value.trim();
-      const link = document.getElementById('proj-link').value.trim();
+      const img = (document.getElementById('proj-img').value || '').trim();
+      const video = (document.getElementById('proj-video').value || '').trim();
+      const link = (document.getElementById('proj-link').value || '').trim();
       if (!name) { showToast('Project name is required.', 'error'); return; }
       if (!desc) { showToast('Description is required.', 'error'); return; }
 
-      const imgUrlEl = document.getElementById('proj-img');
-      const vidUrlEl = document.getElementById('proj-video');
-      const imgFileEl = document.getElementById('proj-img-file');
-      const vidFileEl = document.getElementById('proj-vid-file');
+      const addBtn = document.querySelector('#panel-add-project .submit-btn');
+      if (addBtn) { addBtn.textContent = 'Saving...'; addBtn.disabled = true; }
 
-      function saveNewProject(imgVal, vidVal) {
-        const projects = getProjects();
-        projects.unshift({ id: Date.now(), name, category: cat, desc, img: imgVal, video: vidVal, link, date: new Date().toLocaleDateString() });
-        saveProjects(projects);
-        ['proj-name', 'proj-desc', 'proj-link'].forEach(id => document.getElementById(id).value = '');
-        if (imgUrlEl) imgUrlEl.value = '';
-        if (vidUrlEl) vidUrlEl.value = '';
-        if (imgFileEl) imgFileEl.value = '';
-        if (vidFileEl) vidFileEl.value = '';
-        ['img-preview-add','vid-preview-add'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+      try {
+        const projectData = { name, category: cat, desc, img, video, link, date: new Date().toLocaleDateString(), createdAt: Date.now() };
+        await addProjectToFirebase(projectData);
+        ['proj-name', 'proj-desc', 'proj-img', 'proj-video', 'proj-link'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+        const prev = document.getElementById('img-preview-add'); if (prev) { prev.style.display = 'none'; }
         loadDashboardStats();
-        showToast('Project added successfully.', 'success');
-      }
-
-      const imgFile = imgFileEl && imgFileEl.files && imgFileEl.files[0];
-      const vidFile = vidFileEl && vidFileEl.files && vidFileEl.files[0];
-      const imgURL = imgUrlEl ? imgUrlEl.value.trim() : '';
-      const vidURL = vidUrlEl ? vidUrlEl.value.trim() : '';
-
-      if (imgFile) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const imgData = e.target.result;
-          if (vidFile) {
-            const vr = new FileReader();
-            vr.onload = function(ev) { saveNewProject(imgData, ev.target.result); };
-            vr.readAsDataURL(vidFile);
-          } else { saveNewProject(imgData, vidURL); }
-        };
-        reader.readAsDataURL(imgFile);
-      } else if (vidFile) {
-        const vr = new FileReader();
-        vr.onload = function(ev) { saveNewProject(imgURL, ev.target.result); };
-        vr.readAsDataURL(vidFile);
-      } else {
-        saveNewProject(imgURL, vidURL);
+        showToast('✓ Project saved! Visible on all devices now.', 'success');
+      } catch (e) {
+        showToast('Error: ' + e.message, 'error');
+      } finally {
+        if (addBtn) { addBtn.textContent = 'Add Project'; addBtn.disabled = false; }
       }
     };
 
@@ -2823,10 +2787,10 @@
     // PROJECT MODAL
     // ============================================================
     window.openProjectModal = function (id) {
-      const p = getProjects().find(x => x.id === id);
+      const p = getProjects().find(x => x.id == id);
       if (!p) return;
       document.getElementById('modal-title').textContent = p.name;
-      const comments = getComments().filter(c => c.projectId === id);
+      const comments = getComments().filter(c => c.projectId == id);
       const avg = comments.length ? (comments.reduce((a, c) => a + (c.rating || 0), 0) / comments.length).toFixed(1) : '0.0';
       const thumb = p.img || DEF_IMGS[p.category] || DEF_IMGS.web;
       document.getElementById('modal-body').innerHTML = `
@@ -2883,26 +2847,29 @@
     </div>`).join('');
     }
 
-    window.submitComment = function (projectId) {
+    window.submitComment = async function (projectId) {
       const author = (document.getElementById('rev-name').value || '').trim() || 'Anonymous';
       const text = (document.getElementById('rev-text-' + projectId).value || '').trim();
       const rating = (window._ratings || {})[projectId] || 0;
       if (!text) { showToast('Please write a comment before submitting.', 'error'); return; }
       if (!rating) { showToast('Please select a star rating.', 'error'); return; }
       const projects = getProjects();
-      const p = projects.find(x => x.id === projectId);
-      const comments = getComments();
-      comments.push({ projectId, projectName: p ? p.name : '', author, text, rating, date: new Date().toLocaleDateString() });
-      saveComments(comments);
-      document.getElementById('rev-text-' + projectId).value = '';
-      if (document.getElementById('rev-name')) document.getElementById('rev-name').value = '';
-      if (window._ratings) window._ratings[projectId] = 0;
-      document.getElementById('star-wrap-' + projectId).querySelectorAll('label').forEach(l => l.style.color = 'var(--border)');
-      document.getElementById('rating-display-' + projectId).textContent = 'Select rating';
-      const updated = getComments().filter(c => c.projectId === projectId);
-      document.getElementById('comment-list-' + projectId).innerHTML = buildCommentList(updated);
-      renderProjects();
-      showToast('Review submitted. Thank you!', 'success');
+      const p = projects.find(x => x.id == projectId);
+      const commentData = { projectId, projectName: p ? p.name : '', author, text, rating, date: new Date().toLocaleDateString() };
+      try {
+        await addCommentToFirebase(commentData);
+        document.getElementById('rev-text-' + projectId).value = '';
+        if (document.getElementById('rev-name')) document.getElementById('rev-name').value = '';
+        if (window._ratings) window._ratings[projectId] = 0;
+        document.getElementById('star-wrap-' + projectId).querySelectorAll('label').forEach(l => l.style.color = 'var(--border)');
+        document.getElementById('rating-display-' + projectId).textContent = 'Select rating';
+        const updated = getComments().filter(c => c.projectId == projectId);
+        document.getElementById('comment-list-' + projectId).innerHTML = buildCommentList(updated);
+        renderProjects();
+        showToast('Review submitted. Thank you!', 'success');
+      } catch (e) {
+        showToast('Error submitting review: ' + e.message, 'error');
+      }
     };
 
     window.closeModal = function () {
@@ -2922,7 +2889,7 @@
     function animateHeroStats() {
       const v = getVisitors();
       const p = getProjects();
-      animateNum('hero-visitor-count', v.total || 1);
+      animateNum('hero-visitor-count', v.total || 0);
       animateNum('hero-project-count', p.length);
     }
 
@@ -2957,6 +2924,11 @@
       renderProjects();
       animateHeroStats();
       animateSkillBars();
+      // Hide Firebase notice if config looks real
+      if (!firebaseConfig.apiKey.includes('YOUR_')) {
+        const notice = document.getElementById('firebase-setup-notice');
+        if (notice) notice.style.display = 'none';
+      }
     }
 
   </script>
