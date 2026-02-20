@@ -670,6 +670,174 @@
       text-transform: uppercase;
     }
 
+    .like-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      letter-spacing: 0.5px;
+    }
+
+    .like-btn:hover {
+      border-color: #ff6b8a;
+      color: #ff6b8a;
+    }
+
+    .like-btn.liked {
+      border-color: #ff6b8a;
+      color: #ff6b8a;
+      background: rgba(255, 107, 138, 0.08);
+    }
+
+    .like-btn svg {
+      transition: transform 0.2s;
+    }
+
+    .like-btn.liked svg {
+      fill: #ff6b8a;
+      transform: scale(1.2);
+    }
+
+    .card-expand-details {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      background: var(--surface2);
+      border-top: 1px solid var(--border);
+    }
+
+    .card-expand-details.open {
+      max-height: 400px;
+    }
+
+    .card-expand-inner {
+      padding: 1rem 1.5rem;
+    }
+
+    .expand-toggle-btn {
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: color 0.2s;
+      padding: 0.5rem 1.5rem;
+      width: 100%;
+      border-top: 1px solid var(--border);
+    }
+
+    .expand-toggle-btn:hover {
+      color: var(--accent);
+    }
+
+    .expand-toggle-btn .toggle-arrow {
+      transition: transform 0.3s;
+      display: inline-block;
+    }
+
+    .expand-toggle-btn.open .toggle-arrow {
+      transform: rotate(180deg);
+    }
+
+    .modal-like-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .upload-area {
+      border: 2px dashed var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.3s;
+      position: relative;
+      margin-bottom: 0.5rem;
+    }
+
+    .upload-area:hover, .upload-area.drag-over {
+      border-color: var(--accent);
+    }
+
+    .upload-area input[type=file] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .upload-area-text {
+      font-size: 0.82rem;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .upload-area-text strong {
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.88rem;
+    }
+
+    .upload-progress {
+      height: 3px;
+      background: var(--border);
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    .upload-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent3));
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .tab-row {
+      display: flex;
+      gap: 0;
+      margin-bottom: 0.75rem;
+      border: 1px solid var(--border);
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 0.5rem;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -2065,7 +2233,20 @@
             <div class="dash-title">Dashboard Overview</div>
             <div style="font-size:0.78rem;color:var(--muted)">Pixel Forge Studio</div>
           </div>
-          <!-- Firebase Setup Notice -->
+          <!-- Google Drive Setup Notice -->
+          <div id="gdrive-setup-notice" style="background:rgba(66,133,244,0.07);border:1px solid rgba(66,133,244,0.3);padding:1.2rem 1.5rem;margin-bottom:1.5rem;">
+            <div style="font-family:'Syne',sans-serif;font-weight:700;color:#4285f4;margin-bottom:0.5rem;font-size:0.9rem;">&#128197; Google Drive Upload — One-Time Setup</div>
+            <p style="color:var(--muted);font-size:0.82rem;line-height:1.8;margin:0;">
+              <strong style="color:var(--text)">Steps to enable Google Drive upload for images &amp; videos:</strong><br>
+              1) Go to <a href="https://console.cloud.google.com" target="_blank" style="color:#4285f4">console.cloud.google.com</a> → Create a project → Enable <strong style="color:var(--text)">Google Drive API</strong><br>
+              2) Go to <strong style="color:var(--text)">APIs &amp; Services → Credentials → Create OAuth 2.0 Client ID</strong><br>
+              &nbsp;&nbsp;&nbsp;• Application type: <strong style="color:var(--text)">Web application</strong><br>
+              &nbsp;&nbsp;&nbsp;• Authorized JavaScript origins: add your website URL (e.g. <code style="color:#4285f4">https://yoursite.com</code>)<br>
+              3) Copy the <strong style="color:var(--text)">Client ID</strong> and paste it in the code where it says <code style="color:#4285f4">YOUR_GOOGLE_CLIENT_ID</code><br>
+              4) Save the file → Go to <strong style="color:var(--text)">Add Project</strong> → click <strong style="color:var(--text)">Connect Google Drive</strong><br>
+              5) Authorize with your Google account — uploads go to a <strong style="color:var(--text)">PixelForgeStudio</strong> folder in your Drive, automatically public so visitors can view them.
+            </p>
+          </div>
           <div id="firebase-setup-notice"
             style="background:rgba(245,158,11,0.08);border:1px solid var(--gold);padding:1.2rem 1.5rem;margin-bottom:1.5rem;border-radius:0;">
             <div
@@ -2114,54 +2295,84 @@
             <div class="dash-title">Add New Project</div>
           </div>
 
-          <!-- Hosting tip box -->
-          <div
-            style="background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.2);padding:1rem 1.25rem;margin-bottom:1.5rem;">
-            <div
-              style="font-size:0.75rem;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem;">
-              📎 Free Image &amp; Video Hosting</div>
-            <div style="font-size:0.8rem;color:var(--muted);line-height:1.8;">
-              <strong style="color:var(--text)">Images:</strong> Upload to <a href="https://imgur.com/upload"
-                target="_blank" style="color:var(--accent)">Imgur.com</a> or <a href="https://cloudinary.com"
-                target="_blank" style="color:var(--accent)">Cloudinary.com</a> → right-click image → "Copy image
-              address" → paste URL below.<br>
-              <strong style="color:var(--text)">Videos:</strong> Upload to <a href="https://youtube.com" target="_blank"
-                style="color:var(--accent)">YouTube</a> or <a href="https://vimeo.com" target="_blank"
-                style="color:var(--accent)">Vimeo</a> → paste the share link below. Or use a direct .mp4 link from any
-              host.
+          <!-- Google Drive Connect Banner -->
+          <div id="gdrive-banner" style="background:rgba(66,133,244,0.08);border:1px solid rgba(66,133,244,0.35);padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
+            <div>
+              <div style="font-size:0.75rem;color:#4285f4;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.3rem;">
+                &#128197; Google Drive Upload
+              </div>
+              <div id="gdrive-status-text" style="font-size:0.8rem;color:var(--muted);">Connect Google Drive to upload screenshots &amp; videos directly from your device.</div>
             </div>
+            <button id="gdrive-connect-btn" onclick="gdriveAuth()" style="background:#4285f4;color:#fff;border:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.78rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:background 0.2s;">
+              &#128279; Connect Google Drive
+            </button>
           </div>
 
           <div class="form-row">
-            <div class="form-group"><label class="form-label">Project Name</label><input type="text" class="form-input"
-                id="proj-name" placeholder="My Awesome Project"></div>
+            <div class="form-group"><label class="form-label">Project Name</label><input type="text" class="form-input" id="proj-name" placeholder="My Awesome Project"></div>
             <div class="form-group"><label class="form-label">Category</label><select class="form-select" id="proj-cat">
                 <option value="software">Software Development</option>
                 <option value="web">Web Development</option>
                 <option value="webapp">Web Application</option>
               </select></div>
           </div>
-          <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea"
-              id="proj-desc" placeholder="Describe this project, its purpose, tech used..."></textarea></div>
+          <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="proj-desc" placeholder="Describe this project, its purpose, tech used..."></textarea></div>
+
           <div class="form-row">
+            <!-- SCREENSHOT FIELD -->
             <div class="form-group">
-              <label class="form-label">Screenshot / Thumbnail URL</label>
-              <input type="url" class="form-input" id="proj-img" placeholder="https://i.imgur.com/yourimage.jpg">
-              <p class="form-hint">Upload to <a href="https://imgur.com/upload" target="_blank"
-                  style="color:var(--accent)">Imgur</a> → copy image address → paste here</p>
-              <div id="img-preview-add" style="display:none;margin-top:0.5rem;"><img src="" alt="preview"
-                  style="max-height:100px;object-fit:cover;max-width:100%;border:1px solid var(--border)"></div>
+              <label class="form-label">Screenshot / Thumbnail</label>
+              <div class="tab-row">
+                <button class="tab-btn active" id="img-tab-url" onclick="switchImgTab('url')">&#128279; Paste URL</button>
+                <button class="tab-btn" id="img-tab-upload" onclick="switchImgTab('drive')">&#128197; Google Drive</button>
+              </div>
+              <div id="img-url-mode">
+                <input type="url" class="form-input" id="proj-img" placeholder="https://i.imgur.com/yourimage.jpg">
+                <p class="form-hint">Paste any public image URL here</p>
+                <div id="img-preview-add" style="display:none;margin-top:0.5rem;"><img src="" alt="preview" style="max-height:100px;object-fit:cover;max-width:100%;border:1px solid var(--border)"></div>
+              </div>
+              <div id="img-drive-mode" style="display:none;">
+                <div class="upload-area" id="img-drive-dropzone" onclick="triggerDriveUpload('img')">
+                  <input type="file" id="img-file-input" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;" onchange="handleDriveUpload(this,'img')">
+                  <div class="upload-area-text">
+                    <strong>&#128247; Click to upload image</strong>
+                    Saves to Google Drive — visitors can view it
+                  </div>
+                </div>
+                <div class="upload-progress" id="img-drive-progress" style="display:none;"><div class="upload-progress-bar" id="img-drive-bar"></div></div>
+                <div id="img-drive-status" style="font-size:0.75rem;color:var(--muted);margin-top:0.4rem;"></div>
+                <div id="img-drive-preview" style="display:none;margin-top:0.5rem;"><img src="" alt="preview" style="max-height:100px;object-fit:cover;max-width:100%;border:1px solid var(--border)"></div>
+                <input type="hidden" id="proj-img-uploaded" value="">
+              </div>
             </div>
+
+            <!-- VIDEO FIELD -->
             <div class="form-group">
-              <label class="form-label">Demo Video URL <span style="color:var(--muted)">(optional)</span></label>
-              <input type="url" class="form-input" id="proj-video"
-                placeholder="https://youtube.com/watch?v=... or direct .mp4 link">
-              <p class="form-hint">YouTube, Vimeo, or any direct .mp4 URL</p>
+              <label class="form-label">Demo Video <span style="color:var(--muted)">(optional)</span></label>
+              <div class="tab-row">
+                <button class="tab-btn active" id="vid-tab-url" onclick="switchVidTab('url')">&#128279; Paste URL</button>
+                <button class="tab-btn" id="vid-tab-upload" onclick="switchVidTab('drive')">&#128197; Google Drive</button>
+              </div>
+              <div id="vid-url-mode">
+                <input type="url" class="form-input" id="proj-video" placeholder="https://youtube.com/watch?v=...">
+                <p class="form-hint">YouTube, Vimeo, or any direct .mp4 URL</p>
+              </div>
+              <div id="vid-drive-mode" style="display:none;">
+                <div class="upload-area" onclick="triggerDriveUpload('vid')">
+                  <input type="file" id="vid-file-input" accept="video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;" onchange="handleDriveUpload(this,'vid')">
+                  <div class="upload-area-text">
+                    <strong>&#127909; Click to upload video</strong>
+                    MP4, WebM — saves to Google Drive
+                  </div>
+                </div>
+                <div class="upload-progress" id="vid-drive-progress" style="display:none;"><div class="upload-progress-bar" id="vid-drive-bar"></div></div>
+                <div id="vid-drive-status" style="font-size:0.75rem;color:var(--muted);margin-top:0.4rem;"></div>
+                <input type="hidden" id="proj-video-uploaded" value="">
+              </div>
             </div>
           </div>
-          <div class="form-group"><label class="form-label">Live Preview Link <span
-                style="color:var(--muted)">(optional)</span></label><input type="url" class="form-input" id="proj-link"
-              placeholder="https://your-project.com"></div>
+
+          <div class="form-group"><label class="form-label">Live Preview Link <span style="color:var(--muted)">(optional)</span></label><input type="url" class="form-input" id="proj-link" placeholder="https://your-project.com"></div>
           <button class="submit-btn" onclick="addProject()">Add Project</button>
         </div>
 
@@ -2265,10 +2476,24 @@
             id="edit-proj-desc" style="min-height:120px;"></textarea></div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Screenshot / Thumbnail URL</label>
-            <input type="url" class="form-input" id="edit-proj-img" placeholder="https://i.imgur.com/yourimage.jpg">
-            <p class="form-hint">Upload to <a href="https://imgur.com/upload" target="_blank"
-                style="color:var(--accent)">Imgur</a> → copy image address → paste here</p>
+            <label class="form-label">Screenshot / Thumbnail</label>
+            <div class="tab-row">
+              <button class="tab-btn active" id="edit-img-tab-url" onclick="switchEditImgTab('url')">&#128279; Paste URL</button>
+              <button class="tab-btn" id="edit-img-tab-upload" onclick="switchEditImgTab('drive')">&#128197; Google Drive</button>
+            </div>
+            <div id="edit-img-url-mode">
+              <input type="url" class="form-input" id="edit-proj-img" placeholder="https://i.imgur.com/yourimage.jpg">
+              <p class="form-hint">Paste any public image URL here</p>
+            </div>
+            <div id="edit-img-upload-mode" style="display:none;">
+              <div class="upload-area" style="position:relative;">
+                <input type="file" id="edit-img-file-input" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;" onchange="handleEditImgUpload(this)">
+                <div class="upload-area-text"><strong>&#128247; Click to upload image to Google Drive</strong></div>
+              </div>
+              <div class="upload-progress" id="edit-img-progress" style="display:none;"><div class="upload-progress-bar" id="edit-img-bar"></div></div>
+              <div id="edit-img-status" style="font-size:0.75rem;color:var(--muted);margin-top:0.25rem;"></div>
+              <input type="hidden" id="edit-proj-img-uploaded" value="">
+            </div>
           </div>
           <div class="form-group">
             <label class="form-label">Demo Video URL <span style="color:var(--muted)">(optional)</span></label>
@@ -2459,6 +2684,11 @@
           loadDashboardStats();
         }
       });
+
+      // Likes
+      db.ref('likes').on('value', snap => {
+        window._cache.likes = snap.val() || {};
+      });
     }
 
     // ============================================================
@@ -2621,6 +2851,8 @@
       document.getElementById('edit-proj-img').value = p.img || '';
       document.getElementById('edit-proj-video').value = p.video || '';
       document.getElementById('edit-proj-link').value = p.link || '';
+      const eu = document.getElementById('edit-proj-img-uploaded'); if (eu) eu.value = '';
+      const es = document.getElementById('edit-img-status'); if (es) { es.textContent = ''; es.style.color = 'var(--muted)'; }
       document.getElementById('edit-project-modal').classList.add('open');
     };
 
@@ -2637,7 +2869,8 @@
       const name = document.getElementById('edit-proj-name').value.trim();
       const cat = document.getElementById('edit-proj-cat').value;
       const desc = document.getElementById('edit-proj-desc').value.trim();
-      const img = (document.getElementById('edit-proj-img').value || '').trim();
+      const uploadedImg = (document.getElementById('edit-proj-img-uploaded') && document.getElementById('edit-proj-img-uploaded').value) || '';
+      const img = uploadedImg || (document.getElementById('edit-proj-img').value || '').trim();
       const video = (document.getElementById('edit-proj-video').value || '').trim();
       const link = (document.getElementById('edit-proj-link').value || '').trim();
       if (!name) { showToast('Project name is required.', 'error'); return; }
@@ -2699,30 +2932,336 @@
       renderVisitorChartIn('visitor-chart-detail');
     }
 
+    // ============================================================
+    // GOOGLE DRIVE UPLOAD ENGINE
+    // ============================================================
+    // HOW TO SET UP:
+    //  1. Go to https://console.cloud.google.com
+    //  2. Create a project → Enable "Google Drive API"
+    //  3. Go to APIs & Services → Credentials → Create OAuth 2.0 Client ID
+    //     - Application type: Web application
+    //     - Authorized JavaScript origins: add your site URL (e.g. https://yoursite.com)
+    //       For local testing add: http://localhost  or  http://127.0.0.1
+    //  4. Copy the Client ID and paste it below replacing YOUR_GOOGLE_CLIENT_ID
+    //  5. In your Drive: share a folder publicly, or files will be shared per-upload
+    // ============================================================
+    const GDRIVE_CLIENT_ID = '840556911782-3284eothg5gfre1t34m2usernspch8ec.apps.googleusercontent.com'; // ← Replace this!
+    const GDRIVE_SCOPES = 'https://www.googleapis.com/auth/drive.file';
+    const GDRIVE_FOLDER_NAME = 'PixelForgeStudio'; // Folder created in your Drive
+
+    let gdriveToken = null;
+    let gdriveTokenExpiry = 0;
+    let gdriveFolderId = null;
+
+    // Load Google Identity Services
+    (function loadGSI() {
+      const s = document.createElement('script');
+      s.src = 'https://accounts.google.com/gsi/client';
+      s.async = true; s.defer = true;
+      s.onload = () => { checkGDriveTokenStorage(); };
+      document.head.appendChild(s);
+    })();
+
+    function checkGDriveTokenStorage() {
+      try {
+        const stored = JSON.parse(sessionStorage.getItem('gdrive_token') || 'null');
+        if (stored && stored.expiry > Date.now()) {
+          gdriveToken = stored.token;
+          gdriveTokenExpiry = stored.expiry;
+          updateDriveBannerConnected();
+        }
+      } catch(e) {}
+    }
+
+    function updateDriveBannerConnected() {
+      const btn = document.getElementById('gdrive-connect-btn');
+      const txt = document.getElementById('gdrive-status-text');
+      if (btn) { btn.textContent = '✓ Google Drive Connected'; btn.style.background = 'var(--success)'; btn.onclick = gdriveSignOut; }
+      if (txt) txt.textContent = 'You can now upload images & videos directly to your Google Drive.';
+    }
+
+    function updateDriveBannerDisconnected() {
+      const btn = document.getElementById('gdrive-connect-btn');
+      const txt = document.getElementById('gdrive-status-text');
+      if (btn) { btn.textContent = '⟳ Reconnect Google Drive'; btn.style.background = '#4285f4'; btn.onclick = gdriveAuth; }
+      if (txt) txt.textContent = 'Connect Google Drive to upload screenshots & videos directly from your device.';
+    }
+
+    window.gdriveAuth = function() {
+      if (!window.google || !window.google.accounts) {
+        showToast('Google Identity Services not loaded yet. Try again in a moment.', 'error'); return;
+      }
+      if (GDRIVE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID') {
+        showToast('⚠ Please set your Google Client ID in the code first. See setup instructions.', 'error');
+        alert('SETUP REQUIRED:\n\n1. Go to https://console.cloud.google.com\n2. Create project → Enable Drive API\n3. Create OAuth 2.0 Client ID (Web application)\n4. Add your site URL to Authorized JavaScript Origins\n5. Copy the Client ID and paste it in the code where it says YOUR_GOOGLE_CLIENT_ID\n\nThen refresh the page and click Connect again.');
+        return;
+      }
+      const client = google.accounts.oauth2.initTokenClient({
+        client_id: GDRIVE_CLIENT_ID,
+        scope: GDRIVE_SCOPES,
+        callback: (resp) => {
+          if (resp.error) { showToast('Google auth failed: ' + resp.error, 'error'); return; }
+          gdriveToken = resp.access_token;
+          gdriveTokenExpiry = Date.now() + (resp.expires_in * 1000);
+          try { sessionStorage.setItem('gdrive_token', JSON.stringify({ token: gdriveToken, expiry: gdriveTokenExpiry })); } catch(e) {}
+          updateDriveBannerConnected();
+          showToast('✓ Google Drive connected!', 'success');
+        }
+      });
+      client.requestAccessToken();
+    };
+
+    window.gdriveSignOut = function() {
+      gdriveToken = null; gdriveFolderId = null;
+      try { sessionStorage.removeItem('gdrive_token'); } catch(e) {}
+      updateDriveBannerDisconnected();
+      showToast('Disconnected from Google Drive.', '');
+    };
+
+    async function getOrCreateDriveFolder() {
+      if (gdriveFolderId) return gdriveFolderId;
+      // Search for existing folder
+      const q = `name='${GDRIVE_FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false`;
+      const searchResp = await fetch(`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&fields=files(id,name)`, {
+        headers: { Authorization: 'Bearer ' + gdriveToken }
+      });
+      const searchData = await searchResp.json();
+      if (searchData.files && searchData.files.length > 0) {
+        gdriveFolderId = searchData.files[0].id;
+        return gdriveFolderId;
+      }
+      // Create folder
+      const createResp = await fetch('https://www.googleapis.com/drive/v3/files', {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + gdriveToken, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: GDRIVE_FOLDER_NAME, mimeType: 'application/vnd.google-apps.folder' })
+      });
+      const createData = await createResp.json();
+      gdriveFolderId = createData.id;
+      // Make folder public so links work
+      await fetch(`https://www.googleapis.com/drive/v3/files/${gdriveFolderId}/permissions`, {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + gdriveToken, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role: 'reader', type: 'anyone' })
+      });
+      return gdriveFolderId;
+    }
+
+    async function uploadFileToDrive(file, progressBarId, progressWrapId) {
+      if (!gdriveToken || Date.now() > gdriveTokenExpiry) {
+        throw new Error('Not connected to Google Drive. Click "Connect Google Drive" first.');
+      }
+      const folderId = await getOrCreateDriveFolder();
+      const progressWrap = progressWrapId ? document.getElementById(progressWrapId) : null;
+      const progressBar = progressBarId ? document.getElementById(progressBarId) : null;
+      if (progressWrap) progressWrap.style.display = 'block';
+      if (progressBar) progressBar.style.width = '10%';
+
+      // Step 1: Create file metadata
+      const metadata = { name: file.name, parents: [folderId] };
+      const form = new FormData();
+      form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+      form.append('file', file);
+
+      if (progressBar) progressBar.style.width = '30%';
+
+      const uploadResp = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webContentLink,webViewLink', {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + gdriveToken },
+        body: form
+      });
+      if (!uploadResp.ok) {
+        const err = await uploadResp.json();
+        throw new Error(err.error ? err.error.message : 'Upload failed');
+      }
+      const fileData = await uploadResp.json();
+      if (progressBar) progressBar.style.width = '70%';
+
+      // Make file public
+      await fetch(`https://www.googleapis.com/drive/v3/files/${fileData.id}/permissions`, {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + gdriveToken, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role: 'reader', type: 'anyone' })
+      });
+      if (progressBar) progressBar.style.width = '100%';
+
+      // Return direct image URL for images, or view link for videos
+      const isImage = file.type.startsWith('image/');
+      const directUrl = isImage
+        ? `https://drive.google.com/uc?export=view&id=${fileData.id}`
+        : `https://drive.google.com/file/d/${fileData.id}/preview`;
+
+      return { id: fileData.id, url: directUrl, viewUrl: fileData.webViewLink };
+    }
+
+    window.switchImgTab = function(mode) {
+      document.getElementById('img-url-mode').style.display = mode === 'url' ? '' : 'none';
+      document.getElementById('img-drive-mode').style.display = mode === 'drive' ? '' : 'none';
+      document.getElementById('img-tab-url').classList.toggle('active', mode === 'url');
+      document.getElementById('img-tab-upload').classList.toggle('active', mode === 'drive');
+    };
+
+    window.switchVidTab = function(mode) {
+      document.getElementById('vid-url-mode').style.display = mode === 'url' ? '' : 'none';
+      document.getElementById('vid-drive-mode').style.display = mode === 'drive' ? '' : 'none';
+      document.getElementById('vid-tab-url').classList.toggle('active', mode === 'url');
+      document.getElementById('vid-tab-upload').classList.toggle('active', mode === 'drive');
+    };
+
+    window.triggerDriveUpload = function(type) {
+      if (!gdriveToken || Date.now() > gdriveTokenExpiry) {
+        showToast('Connect Google Drive first!', 'error');
+        gdriveAuth();
+      }
+    };
+
+    window.handleDriveUpload = async function(input, type) {
+      const file = input.files[0]; if (!file) return;
+      const isImg = type === 'img';
+      const statusEl = document.getElementById(isImg ? 'img-drive-status' : 'vid-drive-status');
+      const progressWrapId = isImg ? 'img-drive-progress' : 'vid-drive-progress';
+      const progressBarId = isImg ? 'img-drive-bar' : 'vid-drive-bar';
+      const hiddenId = isImg ? 'proj-img-uploaded' : 'proj-video-uploaded';
+      const previewEl = isImg ? document.getElementById('img-drive-preview') : null;
+
+      statusEl.style.color = 'var(--muted)';
+      statusEl.textContent = 'Uploading to Google Drive...';
+      try {
+        const result = await uploadFileToDrive(file, progressBarId, progressWrapId);
+        document.getElementById(hiddenId).value = result.url;
+        statusEl.style.color = 'var(--success)';
+        statusEl.innerHTML = '&#10003; Saved to Google Drive! <a href="' + result.viewUrl + '" target="_blank" style="color:var(--accent);font-weight:600;">View in Drive &#8599;</a>';
+        if (previewEl) { previewEl.style.display = 'block'; previewEl.querySelector('img').src = result.url; }
+        setTimeout(() => { document.getElementById(progressWrapId).style.display = 'none'; }, 800);
+      } catch(e) {
+        statusEl.style.color = 'var(--danger)';
+        statusEl.textContent = '✕ ' + e.message;
+        document.getElementById(progressWrapId).style.display = 'none';
+      }
+    };
+
+    window.switchEditImgTab = function(mode) {
+      document.getElementById('edit-img-url-mode').style.display = mode === 'url' ? '' : 'none';
+      document.getElementById('edit-img-upload-mode').style.display = mode === 'drive' ? '' : 'none';
+      document.getElementById('edit-img-tab-url').classList.toggle('active', mode === 'url');
+      document.getElementById('edit-img-tab-upload').classList.toggle('active', mode === 'drive');
+    };
+
+    window.handleEditImgUpload = async function(input) {
+      const file = input.files[0]; if (!file) return;
+      const statusEl = document.getElementById('edit-img-status');
+      statusEl.style.color = 'var(--muted)';
+      statusEl.textContent = 'Uploading to Google Drive...';
+      try {
+        const result = await uploadFileToDrive(file, 'edit-img-bar', 'edit-img-progress');
+        document.getElementById('edit-proj-img-uploaded').value = result.url;
+        document.getElementById('edit-proj-img').value = result.url;
+        statusEl.style.color = 'var(--success)';
+        statusEl.innerHTML = '&#10003; Uploaded! <a href="' + result.viewUrl + '" target="_blank" style="color:var(--accent);">View &#8599;</a>';
+        setTimeout(() => { document.getElementById('edit-img-progress').style.display = 'none'; }, 800);
+      } catch(e) { statusEl.style.color = 'var(--danger)'; statusEl.textContent = '✕ ' + e.message; document.getElementById('edit-img-progress').style.display = 'none'; }
+    };
+
     window.addProject = async function () {
       const name = document.getElementById('proj-name').value.trim();
       const cat = document.getElementById('proj-cat').value;
       const desc = document.getElementById('proj-desc').value.trim();
-      const img = (document.getElementById('proj-img').value || '').trim();
-      const video = (document.getElementById('proj-video').value || '').trim();
-      const link = (document.getElementById('proj-link').value || '').trim();
+      const uploadedImg = (document.getElementById('proj-img-uploaded') || {}).value || '';
+      const urlImg = ((document.getElementById('proj-img') || {}).value || '').trim();
+      const img = uploadedImg || urlImg;
+      const uploadedVideo = (document.getElementById('proj-video-uploaded') || {}).value || '';
+      const urlVideo = ((document.getElementById('proj-video') || {}).value || '').trim();
+      const video = uploadedVideo || urlVideo;
+      const link = ((document.getElementById('proj-link') || {}).value || '').trim();
       if (!name) { showToast('Project name is required.', 'error'); return; }
       if (!desc) { showToast('Description is required.', 'error'); return; }
-
       const addBtn = document.querySelector('#panel-add-project .submit-btn');
       if (addBtn) { addBtn.textContent = 'Saving...'; addBtn.disabled = true; }
-
       try {
         const projectData = { name, category: cat, desc, img, video, link, date: new Date().toLocaleDateString(), createdAt: Date.now() };
         await addProjectToFirebase(projectData);
-        ['proj-name', 'proj-desc', 'proj-img', 'proj-video', 'proj-link'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-        const prev = document.getElementById('img-preview-add'); if (prev) { prev.style.display = 'none'; }
+        ['proj-name', 'proj-desc', 'proj-img', 'proj-video', 'proj-link', 'proj-img-uploaded', 'proj-video-uploaded'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+        const prev = document.getElementById('img-preview-add'); if (prev) prev.style.display = 'none';
+        const dPrev = document.getElementById('img-drive-preview'); if (dPrev) dPrev.style.display = 'none';
+        const dStatus = document.getElementById('img-drive-status'); if (dStatus) { dStatus.textContent = ''; }
+        const vStatus = document.getElementById('vid-drive-status'); if (vStatus) { vStatus.textContent = ''; }
+        const fi = document.getElementById('img-file-input'); if (fi) fi.value = '';
+        const fv = document.getElementById('vid-file-input'); if (fv) fv.value = '';
         loadDashboardStats();
-        showToast('✓ Project saved! Visible on all devices now.', 'success');
+        showToast('&#10003; Project saved! Visible on all devices now.', 'success');
       } catch (e) {
         showToast('Error: ' + e.message, 'error');
       } finally {
         if (addBtn) { addBtn.textContent = 'Add Project'; addBtn.disabled = false; }
+      }
+    };
+
+    // ============================================================
+    // LIKES SYSTEM (Firebase-stored so all visitors see same count)
+    // ============================================================
+    function getLikes(projectId) {
+      return (window._cache.likes && window._cache.likes[projectId]) || 0;
+    }
+
+    function isLiked(projectId) {
+      try {
+        const liked = JSON.parse(localStorage.getItem('pf_liked') || '{}');
+        return !!liked[projectId];
+      } catch(e) { return false; }
+    }
+
+    function setLikedLocally(projectId, val) {
+      try {
+        const liked = JSON.parse(localStorage.getItem('pf_liked') || '{}');
+        liked[projectId] = val;
+        localStorage.setItem('pf_liked', JSON.stringify(liked));
+      } catch(e) {}
+    }
+
+    window.toggleLike = async function(projectId, btn, isModal) {
+      const wasLiked = isLiked(projectId);
+      const delta = wasLiked ? -1 : 1;
+      setLikedLocally(projectId, !wasLiked);
+      try {
+        await db.ref('likes/' + projectId).transaction(v => Math.max(0, (v || 0) + delta));
+      } catch(e) { /* optimistic update already done */ }
+      // Update card button
+      const cardBtn = document.getElementById('card-' + projectId) ? document.querySelector('#card-' + projectId + ' .like-btn') : null;
+      if (cardBtn) {
+        const newLikes = getLikes(projectId) + delta;
+        cardBtn.classList.toggle('liked', !wasLiked);
+        const svg = cardBtn.querySelector('svg');
+        if (svg) svg.setAttribute('fill', !wasLiked ? '#ff6b8a' : 'none');
+        const countEl = document.getElementById('like-count-' + projectId);
+        if (countEl) countEl.textContent = Math.max(0, newLikes);
+      }
+      // Update modal button if open
+      const modalBtn = document.getElementById('modal-like-btn-' + projectId);
+      if (modalBtn) {
+        modalBtn.classList.toggle('liked', !wasLiked);
+        const svg = modalBtn.querySelector('svg');
+        if (svg) svg.setAttribute('fill', !wasLiked ? '#ff6b8a' : 'none');
+        const countEl = document.getElementById('modal-like-count-' + projectId);
+        if (countEl) {
+          const newVal = Math.max(0, getLikes(projectId) + delta);
+          countEl.textContent = newVal;
+          countEl.nextSibling && (modalBtn.lastChild.textContent = ' Like' + (newVal !== 1 ? 's' : ''));
+        }
+      }
+    };
+
+    // ============================================================
+    // EXPAND / COLLAPSE CARD DETAILS
+    // ============================================================
+    window.toggleCardDetails = function(projectId) {
+      const panel = document.getElementById('card-details-' + projectId);
+      const btn = document.getElementById('toggle-btn-' + projectId);
+      if (!panel) return;
+      const isOpen = panel.classList.contains('open');
+      panel.classList.toggle('open', !isOpen);
+      if (btn) {
+        btn.classList.toggle('open', !isOpen);
+        btn.innerHTML = `<span class="toggle-arrow" style="transform:${!isOpen ? 'rotate(180deg)' : 'rotate(0)'};display:inline-block;transition:transform 0.3s;">${isOpen ? '&#9660;' : '&#9650;'}</span>&nbsp; ${!isOpen ? 'Hide Details' : 'View Details &amp; Comments'}`;
       }
     };
 
@@ -2748,27 +3287,47 @@
         const pc = comments.filter(c => c.projectId === p.id);
         const avg = pc.length ? (pc.reduce((a, c) => a + (c.rating || 0), 0) / pc.length) : 0;
         const filled = Math.round(avg);
-        const stars = '★'.repeat(filled) + '☆'.repeat(5 - filled);
+        const stars = '\u2605'.repeat(filled) + '\u2606'.repeat(5 - filled);
         const thumb = p.img || DEF_IMGS[p.category] || DEF_IMGS.web;
-        return `<div class="project-card">
+        const likes = getLikes(p.id);
+        const liked = isLiked(p.id);
+        const heartFill = liked ? '#ff6b8a' : 'none';
+        const recentReviews = pc.slice(-2).map(c => `<div style="background:var(--surface);border:1px solid var(--border);padding:0.75rem;margin-bottom:0.5rem;font-size:0.82rem;"><div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;"><strong style="color:var(--white)">${c.author || 'Anonymous'}</strong><span style="color:var(--gold)">${'\u2605'.repeat(c.rating || 0)}</span></div><p style="color:var(--muted);line-height:1.5;">${c.text}</p></div>`).join('');
+        return `<div class="project-card" id="card-${p.id}">
       <div class="project-thumb">
         <img src="${thumb}" alt="${p.name}" loading="lazy" onerror="this.src='${DEF_IMGS[p.category] || DEF_IMGS.web}'">
         <div class="project-thumb-overlay">
           ${p.link ? `<a href="${p.link}" target="_blank" class="thumb-btn">Live Preview</a>` : ''}
-          <button class="thumb-btn outline" onclick="openProjectModal(${p.id})">Details</button>
+          <button class="thumb-btn outline" onclick="openProjectModal('${p.id}')">Full Details</button>
         </div>
         <div class="project-category-badge">${CAT_LABELS[p.category] || p.category}</div>
       </div>
       <div class="project-body">
         <div class="project-title">${p.name}</div>
         <p class="project-desc">${p.desc.substring(0, 110)}${p.desc.length > 110 ? '...' : ''}</p>
-        <div class="project-rating">
-          <span class="stars">${stars}</span>
-          <span class="rating-count">${avg.toFixed(1)} (${pc.length} review${pc.length !== 1 ? 's' : ''})</span>
-        </div>
+        <div class="project-rating"><span class="stars">${stars}</span><span class="rating-count">${avg.toFixed(1)} (${pc.length} review${pc.length !== 1 ? 's' : ''})</span></div>
         <div class="project-footer">
-          <span class="comment-count">${pc.length} comment${pc.length !== 1 ? 's' : ''}</span>
-          <button class="view-detail-btn" onclick="openProjectModal(${p.id})">View Details</button>
+          <button class="like-btn${liked ? ' liked' : ''}" onclick="toggleLike('${p.id}', this)" title="Like this project">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="${heartFill}" stroke="#ff6b8a" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span id="like-count-${p.id}">${likes}</span>
+          </button>
+          <button class="view-detail-btn" onclick="openProjectModal('${p.id}')">Leave Review</button>
+        </div>
+      </div>
+      <button class="expand-toggle-btn" id="toggle-btn-${p.id}" onclick="toggleCardDetails('${p.id}')">
+        <span class="toggle-arrow">&#9660;</span>&nbsp; View Details &amp; Comments
+      </button>
+      <div class="card-expand-details" id="card-details-${p.id}">
+        <div class="card-expand-inner">
+          <p style="font-size:0.85rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">${p.desc}</p>
+          ${p.link ? `<a href="${p.link}" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.75rem;color:var(--accent);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem;">Live Preview &#8599;</a><br>` : ''}
+          <div style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem;">
+            <strong style="color:var(--text)">Category:</strong> ${CAT_LABELS[p.category] || p.category} &nbsp;|&nbsp;
+            <strong style="color:var(--text)">Rating:</strong> <span style="color:var(--gold)">${avg.toFixed(1)}/5</span> &nbsp;|&nbsp;
+            <strong style="color:var(--text)">Reviews:</strong> ${pc.length}
+          </div>
+          ${pc.length ? `<div style="font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;">Recent Reviews</div>${recentReviews}` : `<p style="font-size:0.82rem;color:var(--muted);">No reviews yet. <button onclick="openProjectModal('${p.id}')" style="background:none;border:none;color:var(--accent);cursor:pointer;font-family:inherit;font-size:inherit;font-weight:600;">Be first to review &#8594;</button></p>`}
+          <button onclick="toggleCardDetails('${p.id}')" style="margin-top:0.75rem;background:none;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:0.4rem 0.9rem;cursor:pointer;">&#8613; Hide Details</button>
         </div>
       </div>
     </div>`;
@@ -2793,12 +3352,20 @@
       const comments = getComments().filter(c => c.projectId == id);
       const avg = comments.length ? (comments.reduce((a, c) => a + (c.rating || 0), 0) / comments.length).toFixed(1) : '0.0';
       const thumb = p.img || DEF_IMGS[p.category] || DEF_IMGS.web;
+      const likes = getLikes(id);
+      const liked = isLiked(id);
       document.getElementById('modal-body').innerHTML = `
     ${p.video
           ? `<video class="modal-video" controls preload="metadata"><source src="${p.video}" type="video/mp4">Your browser does not support video.</video>`
           : `<img class="modal-img" src="${thumb}" alt="${p.name}" onerror="this.src='${DEF_IMGS[p.category] || DEF_IMGS.web}'">`
         }
-    ${p.link ? `<a href="${p.link}" target="_blank" class="modal-preview-link">Open Live Preview <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>` : ''}
+    <div class="modal-like-row">
+      ${p.link ? `<a href="${p.link}" target="_blank" class="modal-preview-link">Open Live Preview <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>` : ''}
+      <button class="like-btn${liked ? ' liked' : ''}" id="modal-like-btn-${id}" onclick="toggleLike('${id}', this, true)" title="Like this project">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="${liked ? '#ff6b8a' : 'none'}" stroke="#ff6b8a" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span id="modal-like-count-${id}">${likes}</span> Like${likes !== 1 ? 's' : ''}
+      </button>
+    </div>
     <p style="color:var(--text);line-height:1.8;margin-bottom:1rem;">${p.desc}</p>
     <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:0.5rem;">
       <span style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Category: <strong style="color:var(--accent)">${CAT_LABELS[p.category] || p.category}</strong></span>
@@ -2815,7 +3382,7 @@
           <span id="rating-display-${id}" style="font-size:0.72rem;color:var(--muted);align-self:center;margin-left:0.5rem">Select rating</span>
         </div>
         <textarea class="comment-input" id="rev-text-${id}" placeholder="Share your experience with this project..."></textarea>
-        <button class="submit-comment-btn" onclick="submitComment(${id})">Submit Review</button>
+        <button class="submit-comment-btn" onclick="submitComment('${id}')">Submit Review</button>
       </div>
     </div>`;
       window._ratings = window._ratings || {};
@@ -2856,19 +3423,26 @@
       const projects = getProjects();
       const p = projects.find(x => x.id == projectId);
       const commentData = { projectId, projectName: p ? p.name : '', author, text, rating, date: new Date().toLocaleDateString() };
+      const btn = document.querySelector('#project-modal .submit-comment-btn');
+      if (btn) { btn.textContent = 'Submitting...'; btn.disabled = true; }
       try {
         await addCommentToFirebase(commentData);
         document.getElementById('rev-text-' + projectId).value = '';
         if (document.getElementById('rev-name')) document.getElementById('rev-name').value = '';
         if (window._ratings) window._ratings[projectId] = 0;
-        document.getElementById('star-wrap-' + projectId).querySelectorAll('label').forEach(l => l.style.color = 'var(--border)');
-        document.getElementById('rating-display-' + projectId).textContent = 'Select rating';
+        const wrap = document.getElementById('star-wrap-' + projectId);
+        if (wrap) wrap.querySelectorAll('label').forEach(l => l.style.color = 'var(--border)');
+        const disp = document.getElementById('rating-display-' + projectId);
+        if (disp) disp.textContent = 'Select rating';
         const updated = getComments().filter(c => c.projectId == projectId);
-        document.getElementById('comment-list-' + projectId).innerHTML = buildCommentList(updated);
+        const cl = document.getElementById('comment-list-' + projectId);
+        if (cl) cl.innerHTML = buildCommentList(updated);
         renderProjects();
         showToast('Review submitted. Thank you!', 'success');
       } catch (e) {
         showToast('Error submitting review: ' + e.message, 'error');
+      } finally {
+        if (btn) { btn.textContent = 'Submit Review'; btn.disabled = false; }
       }
     };
 
