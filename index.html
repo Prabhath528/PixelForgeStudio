@@ -2615,7 +2615,9 @@
       const ref = db.ref('projects').push();
       projectData.id = ref.key;
       await ref.set(projectData);
-      window._cache.projects.unshift(projectData);
+      // Do NOT manually update _cache here.
+      // The Firebase on('value') listener fires automatically and rebuilds
+      // _cache.projects from the database — adding it here too causes duplicates.
     }
 
     async function updateProjectInFirebase(id, data) {
