@@ -4,7 +4,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pixel Forge Studio</title>
+  <title>Pixel Forge Studio | Creative Design & Development</title>
+
+  <!-- ===== SEO & Social Share Meta Tags ===== -->
+  <meta name="description" content="Pixel Forge Studio — Creative design and development studio crafting exceptional digital experiences. Web design, branding, UI/UX and more.">
+  <meta name="author" content="Pixel Forge Studio">
+  <link rel="canonical" href="https://pixelforgestudioprabhath.netlify.app/">
+
+  <!-- Open Graph (Facebook, WhatsApp, LinkedIn, Telegram, etc.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pixelforgestudioprabhath.netlify.app/">
+  <meta property="og:title" content="Pixel Forge Studio | Creative Design & Development">
+  <meta property="og:description" content="Crafting exceptional digital experiences — web design, branding, UI/UX and development by Pixel Forge Studio.">
+  <meta property="og:image" content="https://pixelforgestudioprabhath.netlify.app/og-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Pixel Forge Studio">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://pixelforgestudioprabhath.netlify.app/">
+  <meta name="twitter:title" content="Pixel Forge Studio | Creative Design & Development">
+  <meta name="twitter:description" content="Crafting exceptional digital experiences — web design, branding, UI/UX and development by Pixel Forge Studio.">
+  <meta name="twitter:image" content="https://pixelforgestudioprabhath.netlify.app/og-preview.png">
+
+  <!-- Favicon / Logo -->
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+  <!-- ===== End Meta Tags ===== -->
+
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
     rel="stylesheet">
@@ -91,6 +120,16 @@
       letter-spacing: 3px;
       color: var(--white);
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav-logo img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+      display: block;
     }
 
     .nav-logo span {
@@ -1967,7 +2006,10 @@
 
   <!-- NAV -->
   <nav>
-    <a href="#hero" class="nav-logo">PIXEL <span>FORGE</span> STUDIO</a>
+    <a href="#hero" class="nav-logo">
+      <img src="logo.png" alt="Pixel Forge Studio Logo" onerror="this.style.display='none'">
+      PIXEL <span>FORGE</span> STUDIO
+    </a>
     <ul class="nav-links" id="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#projects">Projects</a></li>
