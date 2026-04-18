@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — Page Not Found | Pixel Forge Studio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5f2ed;
+        --bg2: #ede9e2;
+        --surface: #ffffff;
+        --border: #d4cfc6;
+        --accent: #c84b2f;
+        --accent-dk: #a33a20;
+        --text: #1a1612;
+        --muted: #7c746a;
+        --white: #ffffff;
+        --ink: #1a1612;
+        --shadow: rgba(26, 22, 18, 0.12);
+      }
+
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; font-size: 16px; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Outfit", sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      a { color: inherit; text-decoration: none; }
+
+      /* Noise overlay */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9998;
+        opacity: 0.45;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 1000;
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        background: rgba(245, 242, 237, 0.94);
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.2rem; font-weight: 900;
+        color: var(--ink); letter-spacing: 0.5px;
+        display: flex; align-items: center; gap: 0.5rem;
+      }
+      .nav-logo img { height: 34px; width: auto; }
+      .nav-logo span { color: var(--accent); }
+      .nav-home-btn {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        color: var(--ink);
+        font-family: "Space Mono", monospace;
+        font-size: 0.7rem; font-weight: 700;
+        letter-spacing: 1.5px; text-transform: uppercase;
+        border: 1.5px solid var(--ink);
+        padding: 0.42rem 0.9rem;
+        transition: all 0.25s;
+      }
+      .nav-home-btn:hover { background: var(--ink); color: var(--white); }
+
+      /* MAIN 404 CONTENT */
+      .error-page {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 120px 5% 80px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* subtle bg radial */
+      .error-bg {
+        position: absolute;
+        inset: -80px;
+        background:
+          radial-gradient(ellipse 65% 55% at 70% 45%, rgba(200,75,47,0.07) 0%, transparent 70%),
+          radial-gradient(ellipse 45% 65% at 18% 65%, rgba(37,99,235,0.04) 0%, transparent 70%);
+        z-index: 0;
+      }
+
+      .error-inner {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+        max-width: 1100px;
+        width: 100%;
+      }
+
+      .error-left {
+        position: relative;
+      }
+
+      .error-code-bg {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(120px, 18vw, 220px);
+        font-weight: 900;
+        line-height: 0.85;
+        color: var(--bg2);
+        letter-spacing: -8px;
+        user-select: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+        z-index: 0;
+      }
+
+      .error-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .error-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-family: "Space Mono", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+      }
+      .error-eyebrow::before {
+        content: "";
+        width: 36px;
+        height: 1px;
+        background: var(--accent);
+      }
+
+      .error-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+        font-weight: 900;
+        line-height: 1.05;
+        color: var(--ink);
+        margin-bottom: 1.25rem;
+      }
+      .error-title em {
+        font-style: italic;
+        color: var(--accent);
+        display: block;
+      }
+
+      .error-desc {
+        color: var(--muted);
+        font-size: 0.98rem;
+        line-height: 1.8;
+        max-width: 400px;
+        margin-bottom: 2.5rem;
+      }
+
+      .error-actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        background: var(--accent); color: var(--white);
+        border: none; padding: 0.88rem 1.9rem;
+        font-family: "Space Mono", monospace;
+        font-weight: 700; font-size: 0.75rem;
+        letter-spacing: 1px; text-transform: uppercase;
+        cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem;
+        transition: all 0.3s;
+        clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+        text-decoration: none;
+      }
+      .btn-primary:hover { background: var(--ink); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,75,47,0.32); }
+
+      .btn-secondary {
+        background: transparent; color: var(--ink);
+        border: 1.5px solid var(--ink); padding: 0.88rem 1.9rem;
+        font-family: "Space Mono", monospace;
+        font-weight: 700; font-size: 0.75rem;
+        letter-spacing: 1px; text-transform: uppercase;
+        cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem;
+        transition: all 0.3s; text-decoration: none;
+      }
+      .btn-secondary:hover { background: var(--ink); color: var(--white); transform: translateY(-2px); }
+
+      /* RIGHT CARD */
+      .error-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 2rem;
+        box-shadow: 12px 12px 0 var(--accent);
+      }
+      .error-card-label {
+        font-family: "Space Mono", monospace;
+        font-size: 0.62rem; letter-spacing: 2px;
+        text-transform: uppercase; color: var(--muted);
+        margin-bottom: 1.5rem;
+      }
+      .error-nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .error-nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.9rem 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.9rem;
+        color: var(--text);
+        transition: color 0.2s;
+        cursor: pointer;
+      }
+      .error-nav-link:last-child { border-bottom: none; }
+      .error-nav-link:hover { color: var(--accent); }
+      .error-nav-link svg { opacity: 0.4; transition: opacity 0.2s; }
+      .error-nav-link:hover svg { opacity: 1; }
+      .error-nav-link-label {
+        display: flex; align-items: center; gap: 0.75rem;
+      }
+      .error-nav-link-dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: var(--border);
+        flex-shrink: 0;
+        transition: background 0.2s;
+      }
+      .error-nav-link:hover .error-nav-link-dot { background: var(--accent); }
+
+      .error-code-display {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        font-family: "Space Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .error-code-display .code-comment { color: var(--border); }
+      .error-code-display .code-key { color: var(--accent); }
+      .error-code-display .code-val { color: #2563eb; }
+
+      /* Pixel glitch animation */
+      .glitch {
+        position: relative;
+        display: inline-block;
+      }
+      .glitch::before,
+      .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+      }
+      .glitch::before {
+        color: var(--accent);
+        animation: glitch1 3.5s infinite;
+        clip-path: polygon(0 30%, 100% 30%, 100% 55%, 0 55%);
+        opacity: 0;
+      }
+      .glitch::after {
+        color: #2563eb;
+        animation: glitch2 3.5s infinite;
+        clip-path: polygon(0 65%, 100% 65%, 100% 80%, 0 80%);
+        opacity: 0;
+      }
+      @keyframes glitch1 {
+        0%, 89%, 100% { opacity: 0; transform: none; }
+        90% { opacity: 1; transform: translate(-3px, 1px); }
+        92% { opacity: 1; transform: translate(3px, -1px); }
+        94% { opacity: 0; }
+      }
+      @keyframes glitch2 {
+        0%, 91%, 100% { opacity: 0; transform: none; }
+        92% { opacity: 1; transform: translate(3px, 2px); }
+        94% { opacity: 1; transform: translate(-2px, -1px); }
+        96% { opacity: 0; }
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--ink);
+        border-top: 1px solid rgba(255,255,255,0.07);
+        padding: 1.75rem 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
+      }
+      .footer-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1rem; font-weight: 900;
+        color: var(--white);
+      }
+      .footer-logo span { color: var(--accent); }
+      .footer-copy {
+        font-family: "Space Mono", monospace;
+        font-size: 0.62rem;
+        color: rgba(255,255,255,0.28);
+        letter-spacing: 0.5px;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 900px) {
+        .error-inner {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+          text-align: center;
+        }
+        .error-eyebrow { justify-content: center; }
+        .error-desc { margin: 0 auto 2.5rem; }
+        .error-actions { justify-content: center; }
+        .error-code-bg { font-size: clamp(100px, 25vw, 160px); }
+      }
+      @media (max-width: 480px) {
+        .error-actions { flex-direction: column; }
+        .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- NAV -->
+    <nav>
+      <a href="./index.html" class="nav-logo">
+        <img src="logo.png" alt="Pixel Forge Studio" onerror="this.style.display='none'" />
+        PIXEL <span>FORGE</span> STUDIO
+      </a>
+      <a href="./index.html" class="nav-home-btn">
+        <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Back Home
+      </a>
+    </nav>
+
+    <!-- 404 CONTENT -->
+    <main class="error-page">
+      <div class="error-bg"></div>
+      <div class="error-inner">
+
+        <!-- LEFT: Message -->
+        <div class="error-left">
+          <div class="error-code-bg">404</div>
+          <div class="error-content">
+            <div class="error-eyebrow">Error 404</div>
+            <h1 class="error-title">
+              Page Not <br />
+              <em class="glitch" data-text="Found.">Found.</em>
+            </h1>
+            <p class="error-desc">
+              Looks like this page was deleted, moved, or never existed.
+              Don't worry — you can find your way back using the links below.
+            </p>
+            <div class="error-actions">
+              <a href="./index.html" class="btn-primary">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                Go Home
+              </a>
+              <a href="https://wa.me/94714056318?text=Hello%2C%20I'm%20interested%20in%20starting%20a%20project%20with%20you!" target="_blank" class="btn-secondary">
+                Contact Me
+              </a>
+            </div>
+            <div class="error-code-display">
+              <div><span class="code-comment">// Debug info</span></div>
+              <div><span class="code-key">status</span>: <span class="code-val">404</span></div>
+              <div><span class="code-key">message</span>: <span class="code-val">"Page not found"</span></div>
+              <div><span class="code-key">path</span>: <span class="code-val" id="error-path">unknown</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Nav card -->
+        <div>
+          <div class="error-card">
+            <div class="error-card-label">// Quick Navigation</div>
+            <div class="error-nav-links">
+              <a href="./index.html" class="error-nav-link">
+                <div class="error-nav-link-label">
+                  <span class="error-nav-link-dot"></span>
+                  Home
+                </div>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="9 6 15 12 9 18"/>
+                </svg>
+              </a>
+              <a href="./index.html#services" class="error-nav-link" onclick="window.location.href='./index.html'; return false;">
+                <div class="error-nav-link-label">
+                  <span class="error-nav-link-dot"></span>
+                  Services
+                </div>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="9 6 15 12 9 18"/>
+                </svg>
+              </a>
+              <a href="./index.html" class="error-nav-link">
+                <div class="error-nav-link-label">
+                  <span class="error-nav-link-dot"></span>
+                  Projects
+                </div>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="9 6 15 12 9 18"/>
+                </svg>
+              </a>
+              <a href="./index.html" class="error-nav-link">
+                <div class="error-nav-link-label">
+                  <span class="error-nav-link-dot"></span>
+                  About
+                </div>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="9 6 15 12 9 18"/>
+                </svg>
+              </a>
+              <a href="https://wa.me/94714056318" target="_blank" class="error-nav-link">
+                <div class="error-nav-link-label">
+                  <span class="error-nav-link-dot"></span>
+                  Contact
+                </div>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="9 6 15 12 9 18"/>
+                </svg>
+              </a>
+              <a href="./PrabhathKelumResume.pdf" download class="error-nav-link">
+                <div class="error-nav-link-label">
+                  <span class="error-nav-link-dot"></span>
+                  Download Resume
+                </div>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="9 6 15 12 9 18"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">PIXEL <span>FORGE</span> STUDIO</div>
+      <div class="footer-copy">2025 Prabhath Kelum. All rights reserved.</div>
+    </footer>
+
+    <script>
+      // Show current path in debug
+      const pathEl = document.getElementById("error-path");
+      if (pathEl) pathEl.textContent = '"' + window.location.pathname + '"';
+
+      // Auto-redirect countdown (optional — commented out)
+      // let count = 10;
+      // const t = setInterval(() => { if (--count <= 0) { clearInterval(t); window.location.href = './index.html'; } }, 1000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "ShopEase E-Commerce Platform",
+    "category": "webapp",
+    "desc": "A full-featured e-commerce web application built with Vue.js frontend and FastAPI backend, connected to a PostgreSQL database. Features include cart management, secure checkout, product catalog, order tracking, and an admin dashboard for inventory control.",
+    "img": "images/project1.jpg",
+    "link": "https://github.com/Prabhath528",
+    "video": "",
+    "tech": ["Vue.js", "FastAPI", "PostgreSQL", "Stripe API"],
+    "year": "2024",
+    "status": "Completed"
+  },
+  {
+    "id": 2,
+    "name": "DevTask Manager",
+    "category": "software",
+    "desc": "A desktop productivity application for developers to manage tasks, sprints and code snippets. Built with Python featuring a clean interface, configurable schedule, and PostgreSQL backend for cross-device sync and data persistence.",
+    "img": "images/project2.jpg",
+    "link": "https://github.com/Prabhath528",
+    "video": "",
+    "tech": ["Python", "Tkinter", "PostgreSQL", "REST API"],
+    "year": "2024",
+    "status": "Completed"
+  },
+  {
+    "id": 3,
+    "name": "Pixel Forge Portfolio",
+    "category": "web",
+    "desc": "A handcrafted single-page portfolio with dynamic project loading, parallax scrolling effects, light theme, and JSON-based project management. Fully responsive with advanced scroll animations and no backend required.",
+    "img": "images/project3.jpg",
+    "link": "https://pixelforgestudioprabhath.netlify.app/",
+    "video": "",
+    "tech": ["HTML", "CSS", "JavaScript", "JSON"],
+    "year": "2025",
+    "status": "Live"
+  },
+  {
+    "id": 4,
+    "name": "RestaurantHub Admin Dashboard",
+    "category": "webapp",
+    "desc": "A real-time restaurant management dashboard built with Vue.js and FastAPI. Includes menu management, table reservations, live order tracking and analytics charts powered by PostgreSQL data storage.",
+    "img": "images/project4.jpg",
+    "link": "https://github.com/Prabhath528",
+    "video": "",
+    "tech": ["Vue.js", "FastAPI", "PostgreSQL", "Chart.js"],
+    "year": "2024",
+    "status": "Completed"
+  },
+  {
+    "id": 5,
+    "name": "LandingPro Builder",
+    "category": "web",
+    "desc": "A responsive marketing landing page builder template system with pixel-perfect design, smooth scroll animations, a visual section builder, and form integration ready for production deployment.",
+    "img": "images/project5.jpg",
+    "link": "https://github.com/Prabhath528",
+    "video": "",
+    "tech": ["HTML", "CSS", "JavaScript", "GSAP"],
+    "year": "2023",
+    "status": "Completed"
+  },
+  {
+    "id": 6,
+    "name": "FileSync Desktop Tool",
+    "category": "software",
+    "desc": "A cross-platform desktop file sync and backup utility built with Python. Features configurable schedules, encrypted cloud upload, and PostgreSQL logging of all sync histories for audit trails.",
+    "img": "images/project6.jpg",
+    "link": "https://github.com/Prabhath528",
+    "video": "",
+    "tech": ["Python", "PostgreSQL", "AWS S3", "Tkinter"],
+    "year": "2023",
+    "status": "Completed"
+  }
+]
