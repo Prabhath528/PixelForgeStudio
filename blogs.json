@@ -1,85 +1,191 @@
 [
-  {
-    "id": 1,
-    "slug": "building-scalable-web-apps-fastapi-vuejs",
-    "title": "Building Scalable Web Apps with FastAPI and Vue.js",
-    "category": "Development",
-    "date": "May 10, 2025",
-    "author": "Prabhath Kelum",
-    "readTime": "8 min read",
-    "excerpt": "A deep dive into architecting production-grade full-stack applications using FastAPI on the backend and Vue.js on the frontend — covering project structure, API design patterns, authentication, and deployment strategies.",
-    "coverImage": "https://i.pinimg.com/1200x/0d/13/46/0d1346fe637831714d4a0a704c4c48a8.jpg",
-    "tags": ["FastAPI", "Vue.js", "PostgreSQL", "Architecture"],
-    "content": [
-      {
-        "type": "intro",
-        "text": "Modern web applications demand both speed and scalability. Over the past few years, FastAPI has emerged as one of the most developer-friendly Python frameworks for building RESTful APIs, while Vue.js continues to be a go-to choice for crafting reactive, component-driven frontends. Together, they form a powerful stack that can take a product from prototype to production with minimal friction."
-      },
-      {
-        "type": "heading",
-        "text": "Why This Stack Works"
-      },
-      {
-        "type": "paragraph",
-        "text": "FastAPI is built on Python type hints and Pydantic, which means you get automatic data validation, serialization, and even interactive OpenAPI documentation out of the box. This alone eliminates an entire class of bugs that plague loosely-typed backends. On the frontend, Vue.js offers a gentle learning curve, a powerful reactivity system, and a thriving ecosystem — especially with the Composition API introduced in Vue 3."
-      },
-      {
-        "type": "paragraph",
-        "text": "When you pair these two with PostgreSQL as the data layer, you get a stack that is not only performant but also maintainable over the long term. PostgreSQL's support for JSON fields, full-text search, and advanced indexing means you rarely need to reach for a secondary database."
-      },
-      {
-        "type": "heading",
-        "text": "Project Structure"
-      },
-      {
-        "type": "paragraph",
-        "text": "For a maintainable project, separate your backend and frontend into distinct directories at the root level. Inside the backend, follow a feature-based folder structure rather than a type-based one. Group your routers, schemas, models, and service logic by domain (users, orders, products) rather than lumping all routers into one folder and all models into another. This makes onboarding new developers significantly easier."
-      },
-      {
-        "type": "code",
-        "lang": "text",
-        "text": "project-root/\n  backend/\n    app/\n      auth/\n        router.py\n        schemas.py\n        service.py\n      users/\n        router.py\n        models.py\n        service.py\n      core/\n        config.py\n        database.py\n      main.py\n  frontend/\n    src/\n      components/\n      views/\n      stores/\n      api/\n    vite.config.js"
-      },
-      {
-        "type": "heading",
-        "text": "API Design Patterns"
-      },
-      {
-        "type": "paragraph",
-        "text": "Follow REST conventions strictly: use nouns for endpoints, HTTP verbs for actions, and consistent status codes. FastAPI's dependency injection system is one of its strongest features — use it for database sessions, current user resolution, and permission checks. This keeps your route handlers thin and your business logic testable."
-      },
-      {
-        "type": "paragraph",
-        "text": "For authentication, JSON Web Tokens work well for stateless APIs. Store the access token in memory (a JavaScript variable or Pinia store) and the refresh token in an HttpOnly cookie. This approach prevents XSS attacks from stealing tokens while still allowing seamless session renewal."
-      },
-      {
-        "type": "heading",
-        "text": "Connecting Vue.js to the API"
-      },
-      {
-        "type": "paragraph",
-        "text": "Create a dedicated API layer in your Vue project — a folder of composable functions or service modules that handle all HTTP communication. Never call fetch or axios directly inside a component. This abstraction makes it trivial to mock the API during testing and to swap endpoints during development versus production."
-      },
-      {
-        "type": "paragraph",
-        "text": "Use Pinia for state management. It is the officially recommended solution for Vue 3 and its store definitions are clean, type-safe, and free of the boilerplate that once made Vuex feel heavy. Keep your stores focused — one store per domain, with actions that call your API service layer and mutations that update reactive state."
-      },
-      {
-        "type": "heading",
-        "text": "Deployment Strategy"
-      },
-      {
-        "type": "paragraph",
-        "text": "For small to medium projects, a single VPS running both the FastAPI server (via Uvicorn behind Nginx) and the built Vue.js static files is perfectly reasonable. Containerise everything with Docker and use Docker Compose to orchestrate the backend, database, and any background workers. When traffic grows, the clear separation of concerns you built in from the start makes it straightforward to scale horizontally or migrate to a cloud-managed Postgres instance."
-      },
-      {
-        "type": "paragraph",
-        "text": "CI/CD is non-negotiable. Even for solo projects, a GitHub Actions workflow that runs your Pytest suite and deploys on a green main branch will save you from many late-night rollbacks. The time investment is less than an hour and the peace of mind is permanent."
-      },
-      {
-        "type": "closing",
-        "text": "Building with FastAPI and Vue.js has become my default approach for client projects precisely because the stack rewards discipline. Good structure early on pays dividends throughout the life of the application. If you are starting a new project, give this combination a serious look — the developer experience is genuinely excellent, and the performance speaks for itself."
-      }
-    ]
-  }
+    {
+        "id": 1,
+        "slug": "building-scalable-web-apps-fastapi-vuejs",
+        "title": "Building Scalable Web Apps with FastAPI and Vue.js",
+        "category": "Development",
+        "date": "May 10, 2025",
+        "author": "Prabhath Kelum",
+        "readTime": "8 min read",
+        "excerpt": "A deep dive into architecting production-grade full-stack applications using FastAPI on the backend and Vue.js on the frontend — covering project structure, API design patterns, authentication, and deployment strategies.",
+        "coverImage": "https://i.pinimg.com/1200x/0d/13/46/0d1346fe637831714d4a0a704c4c48a8.jpg",
+        "tags": [
+            "FastAPI",
+            "Vue.js",
+            "PostgreSQL",
+            "Architecture"
+        ],
+        "content": [
+            {
+                "type": "intro",
+                "text": "Modern web applications demand both speed and scalability. Over the past few years, FastAPI has emerged as one of the most developer-friendly Python frameworks for building RESTful APIs, while Vue.js continues to be a go-to choice for crafting reactive, component-driven frontends. Together, they form a powerful stack that can take a product from prototype to production with minimal friction."
+            },
+            {
+                "type": "heading",
+                "text": "Why This Stack Works"
+            },
+            {
+                "type": "paragraph",
+                "text": "FastAPI is built on Python type hints and Pydantic, which means you get automatic data validation, serialization, and even interactive OpenAPI documentation out of the box. This alone eliminates an entire class of bugs that plague loosely-typed backends. On the frontend, Vue.js offers a gentle learning curve, a powerful reactivity system, and a thriving ecosystem — especially with the Composition API introduced in Vue 3."
+            },
+            {
+                "type": "paragraph",
+                "text": "When you pair these two with PostgreSQL as the data layer, you get a stack that is not only performant but also maintainable over the long term. PostgreSQL's support for JSON fields, full-text search, and advanced indexing means you rarely need to reach for a secondary database."
+            },
+            {
+                "type": "heading",
+                "text": "Project Structure"
+            },
+            {
+                "type": "paragraph",
+                "text": "For a maintainable project, separate your backend and frontend into distinct directories at the root level. Inside the backend, follow a feature-based folder structure rather than a type-based one. Group your routers, schemas, models, and service logic by domain (users, orders, products) rather than lumping all routers into one folder and all models into another. This makes onboarding new developers significantly easier."
+            },
+            {
+                "type": "code",
+                "lang": "text",
+                "text": "project-root/\n  backend/\n    app/\n      auth/\n        router.py\n        schemas.py\n        service.py\n      users/\n        router.py\n        models.py\n        service.py\n      core/\n        config.py\n        database.py\n      main.py\n  frontend/\n    src/\n      components/\n      views/\n      stores/\n      api/\n    vite.config.js"
+            },
+            {
+                "type": "heading",
+                "text": "API Design Patterns"
+            },
+            {
+                "type": "paragraph",
+                "text": "Follow REST conventions strictly: use nouns for endpoints, HTTP verbs for actions, and consistent status codes. FastAPI's dependency injection system is one of its strongest features — use it for database sessions, current user resolution, and permission checks. This keeps your route handlers thin and your business logic testable."
+            },
+            {
+                "type": "paragraph",
+                "text": "For authentication, JSON Web Tokens work well for stateless APIs. Store the access token in memory (a JavaScript variable or Pinia store) and the refresh token in an HttpOnly cookie. This approach prevents XSS attacks from stealing tokens while still allowing seamless session renewal."
+            },
+            {
+                "type": "heading",
+                "text": "Connecting Vue.js to the API"
+            },
+            {
+                "type": "paragraph",
+                "text": "Create a dedicated API layer in your Vue project — a folder of composable functions or service modules that handle all HTTP communication. Never call fetch or axios directly inside a component. This abstraction makes it trivial to mock the API during testing and to swap endpoints during development versus production."
+            },
+            {
+                "type": "paragraph",
+                "text": "Use Pinia for state management. It is the officially recommended solution for Vue 3 and its store definitions are clean, type-safe, and free of the boilerplate that once made Vuex feel heavy. Keep your stores focused — one store per domain, with actions that call your API service layer and mutations that update reactive state."
+            },
+            {
+                "type": "heading",
+                "text": "Deployment Strategy"
+            },
+            {
+                "type": "paragraph",
+                "text": "For small to medium projects, a single VPS running both the FastAPI server (via Uvicorn behind Nginx) and the built Vue.js static files is perfectly reasonable. Containerise everything with Docker and use Docker Compose to orchestrate the backend, database, and any background workers. When traffic grows, the clear separation of concerns you built in from the start makes it straightforward to scale horizontally or migrate to a cloud-managed Postgres instance."
+            },
+            {
+                "type": "paragraph",
+                "text": "CI/CD is non-negotiable. Even for solo projects, a GitHub Actions workflow that runs your Pytest suite and deploys on a green main branch will save you from many late-night rollbacks. The time investment is less than an hour and the peace of mind is permanent."
+            },
+            {
+                "type": "closing",
+                "text": "Building with FastAPI and Vue.js has become my default approach for client projects precisely because the stack rewards discipline. Good structure early on pays dividends throughout the life of the application. If you are starting a new project, give this combination a serious look — the developer experience is genuinely excellent, and the performance speaks for itself."
+            }
+        ]
+    },
+
+    {
+        "id":2,
+        "slug": "privacy-first-landmark-detection",
+        "title": "Privacy-First AI: Shifting to Landmark-Based Emotion Detection",
+        "category": "Artificial Intelligence",
+        "date": "May 16, 2026",
+        "author": "Prabhath Kelum",
+        "readTime": "10 min read",
+        "excerpt": "As AI continues to evolve, the need for privacy-conscious solutions becomes paramount. This article explores the shift from traditional facial recognition to landmark-based emotion detection, highlighting the benefits of this approach in preserving user privacy while still providing valuable insights.",
+        "coverImage":"https://i.pinimg.com/1200x/27/ae/e7/27aee7ea11fbac46b17fb377e9bd51a9.jpg",
+        "tags": [
+            "AI",
+            "Privacy",
+            "Emotion Detection",
+            "Landmark-Based"
+        ],
+        "content":[
+            {
+                "type": "heading",
+                "text": "What is a 1D CNN?"
+            },
+            {
+                "type": "paragraph",
+                "text": "When talking about AI, one thing that comes to mind is CNN (Convolutional Neural Network). However, in image processing or image analyzing, a 2D - CNN is often used. In my Privacy Lens Project, my initial idea was to use a 2D-CNN. But when I studied this more, I realized that this can be done with a 1D - CNN."
+            },
+            {
+                "type": "paragraph",
+                "text": "Do you know that instead of giving an image or video (frame by frame) directly to an AI, for example, by taking only the facial features as a string of numbers? This is a great way to read emotions ten times faster than a 2D-CNN."
+            },
+            {
+                "type": "heading",
+                "text": "Why is it called 1D (One Dimensional)"
+            },
+            {
+                "type": "paragraph",
+                "text": "In a normal 2D - CNN, the AI works on a Grid. That is, a filter moves across an image in both dimensions, top, bottom and left, searching for data. This requires a lot of memory and GPU power. But in a 1D CNN, our data is in a straight line as a sequence, and here the filter moves in only one direction (from left to right)."
+            },
+            {
+                "type": "heading",
+                "text": "How does 1D-CNN work in 'Privacy Lens?'"
+            },
+            {
+                "type": "paragraph",
+                "text": "I don't save any raw images of anyone's face in this project. That's the most important part!"
+            },
+            {
+                "type": "heading",
+                "text": "Getting data from Media Pipe"
+            },
+            {
+                "type": "paragraph",
+                "text": "When a webcam sees your face, a library called mediaPipe marks 478 major landmarks on the face."
+            },
+            {
+                "type": "heading",
+                "text": "Creating a list of coordinates"
+            },
+            {
+                "type": "paragraph",
+                "text": "Now we don't get an image, but a list of numbers containing the (x,y,z) positions of those places. Example: [ 0.12, 0.45, -0.01, 0.14, 0.16, ......]"
+            },
+            {
+                "type": "heading",
+                "text": "Jump to the middle of the 1D CNN"
+            },
+            {
+                "type": "paragraph",
+                "text": "Here we give this string of numbers to the 1D CNN, and the 1D filter detects patterns in which the distance between different nearby landmarks changes as these numbers move forward."
+            },
+            {
+                "type": "paragraph",
+                "text": "The 1D filter captures the pattern of landmarks moving away from each side of the mouth when smiling."
+            },
+            {
+                "type": "paragraph",
+                "text": "When stressed, the pattern of eyebrows moving closer together is captured."
+            },
+            {
+                "type": "code",
+                "lang": "python",
+                "text": "from tensorflow.keras.models import Sequential\nfrom tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dense\n\n# Build the 1D CNN model\nmodel = Sequential([\n\n    # First convolutional layer\n    # 32 filters scan patterns across the 478 landmarks (each with x,y,z)\n    # kernel_size=3 means each filter looks at 3 consecutive landmarks at a time\n    Conv1D(filters=32, kernel_size=3, activation='relu', input_shape=(468, 3)),\n\n    # Reduce the sequence length by half — keeps the most important features\n    MaxPooling1D(pool_size=2),\n\n    # Second convolutional layer\n    # 64 filters now detect higher-level patterns (e.g. eyebrow + mouth combo)\n    Conv1D(filters=64, kernel_size=3, activation='relu'),\n\n    # Downsample again — compresses the feature map further\n    MaxPooling1D(pool_size=2),\n\n    # Flatten the 2D feature map into a 1D vector for the dense layers\n    Flatten(),\n\n    # Fully connected layer — learns which feature combinations matter most\n    Dense(64, activation='relu'),\n\n    # Output layer: 3 emotion classes with probability scores\n    # softmax ensures all three probabilities sum to 1.0\n    Dense(3, activation='softmax')  # Output: Happy, Stressed, Neutral\n])"
+            },
+            {
+                "type": "heading",
+                "text": "Why is this concept important (The Superpower)"
+            },
+            {
+                "type": "paragraph",
+                "text": "Ultra Lightweight: Compared to a 2D CNN with millions of parameters, a 1D CNN has very few parameters. Therefore, even on a normal low-end device, it can be run in real-time like a game."
+            },
+            {
+                "type": "paragraph",
+                "text": "Full Confidentiality: Since only a few numbers go to the server, even if a hacker steals this data, he will only get a few metrics. The face will not be shown."
+            },
+            {
+                "type": "paragraph",
+                "text": "High Accuracy: Since unnecessary things (lights in the room, things behind) are not visible to the AI, it can read emotions with greater accuracy by looking directly at the shape of the face."
+            }
+        ]
+    }
 ]
