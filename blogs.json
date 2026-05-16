@@ -1,0 +1,85 @@
+[
+  {
+    "id": 1,
+    "slug": "building-scalable-web-apps-fastapi-vuejs",
+    "title": "Building Scalable Web Apps with FastAPI and Vue.js",
+    "category": "Development",
+    "date": "May 10, 2025",
+    "author": "Prabhath Kelum",
+    "readTime": "8 min read",
+    "excerpt": "A deep dive into architecting production-grade full-stack applications using FastAPI on the backend and Vue.js on the frontend — covering project structure, API design patterns, authentication, and deployment strategies.",
+    "coverImage": "https://i.pinimg.com/1200x/0d/13/46/0d1346fe637831714d4a0a704c4c48a8.jpg",
+    "tags": ["FastAPI", "Vue.js", "PostgreSQL", "Architecture"],
+    "content": [
+      {
+        "type": "intro",
+        "text": "Modern web applications demand both speed and scalability. Over the past few years, FastAPI has emerged as one of the most developer-friendly Python frameworks for building RESTful APIs, while Vue.js continues to be a go-to choice for crafting reactive, component-driven frontends. Together, they form a powerful stack that can take a product from prototype to production with minimal friction."
+      },
+      {
+        "type": "heading",
+        "text": "Why This Stack Works"
+      },
+      {
+        "type": "paragraph",
+        "text": "FastAPI is built on Python type hints and Pydantic, which means you get automatic data validation, serialization, and even interactive OpenAPI documentation out of the box. This alone eliminates an entire class of bugs that plague loosely-typed backends. On the frontend, Vue.js offers a gentle learning curve, a powerful reactivity system, and a thriving ecosystem — especially with the Composition API introduced in Vue 3."
+      },
+      {
+        "type": "paragraph",
+        "text": "When you pair these two with PostgreSQL as the data layer, you get a stack that is not only performant but also maintainable over the long term. PostgreSQL's support for JSON fields, full-text search, and advanced indexing means you rarely need to reach for a secondary database."
+      },
+      {
+        "type": "heading",
+        "text": "Project Structure"
+      },
+      {
+        "type": "paragraph",
+        "text": "For a maintainable project, separate your backend and frontend into distinct directories at the root level. Inside the backend, follow a feature-based folder structure rather than a type-based one. Group your routers, schemas, models, and service logic by domain (users, orders, products) rather than lumping all routers into one folder and all models into another. This makes onboarding new developers significantly easier."
+      },
+      {
+        "type": "code",
+        "lang": "text",
+        "text": "project-root/\n  backend/\n    app/\n      auth/\n        router.py\n        schemas.py\n        service.py\n      users/\n        router.py\n        models.py\n        service.py\n      core/\n        config.py\n        database.py\n      main.py\n  frontend/\n    src/\n      components/\n      views/\n      stores/\n      api/\n    vite.config.js"
+      },
+      {
+        "type": "heading",
+        "text": "API Design Patterns"
+      },
+      {
+        "type": "paragraph",
+        "text": "Follow REST conventions strictly: use nouns for endpoints, HTTP verbs for actions, and consistent status codes. FastAPI's dependency injection system is one of its strongest features — use it for database sessions, current user resolution, and permission checks. This keeps your route handlers thin and your business logic testable."
+      },
+      {
+        "type": "paragraph",
+        "text": "For authentication, JSON Web Tokens work well for stateless APIs. Store the access token in memory (a JavaScript variable or Pinia store) and the refresh token in an HttpOnly cookie. This approach prevents XSS attacks from stealing tokens while still allowing seamless session renewal."
+      },
+      {
+        "type": "heading",
+        "text": "Connecting Vue.js to the API"
+      },
+      {
+        "type": "paragraph",
+        "text": "Create a dedicated API layer in your Vue project — a folder of composable functions or service modules that handle all HTTP communication. Never call fetch or axios directly inside a component. This abstraction makes it trivial to mock the API during testing and to swap endpoints during development versus production."
+      },
+      {
+        "type": "paragraph",
+        "text": "Use Pinia for state management. It is the officially recommended solution for Vue 3 and its store definitions are clean, type-safe, and free of the boilerplate that once made Vuex feel heavy. Keep your stores focused — one store per domain, with actions that call your API service layer and mutations that update reactive state."
+      },
+      {
+        "type": "heading",
+        "text": "Deployment Strategy"
+      },
+      {
+        "type": "paragraph",
+        "text": "For small to medium projects, a single VPS running both the FastAPI server (via Uvicorn behind Nginx) and the built Vue.js static files is perfectly reasonable. Containerise everything with Docker and use Docker Compose to orchestrate the backend, database, and any background workers. When traffic grows, the clear separation of concerns you built in from the start makes it straightforward to scale horizontally or migrate to a cloud-managed Postgres instance."
+      },
+      {
+        "type": "paragraph",
+        "text": "CI/CD is non-negotiable. Even for solo projects, a GitHub Actions workflow that runs your Pytest suite and deploys on a green main branch will save you from many late-night rollbacks. The time investment is less than an hour and the peace of mind is permanent."
+      },
+      {
+        "type": "closing",
+        "text": "Building with FastAPI and Vue.js has become my default approach for client projects precisely because the stack rewards discipline. Good structure early on pays dividends throughout the life of the application. If you are starting a new project, give this combination a serious look — the developer experience is genuinely excellent, and the performance speaks for itself."
+      }
+    ]
+  }
+]
