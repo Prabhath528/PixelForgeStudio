@@ -3562,7 +3562,7 @@
           A curated selection of recent work across software, web, and
           application development.
         </p>
-        <div class="filter-tabs">
+        <div class="filter-tabs" style="display:flex;flex-wrap:wrap;align-items:center;gap:0.5rem;">
           <button
             class="filter-tab active"
             onclick="filterProjects('all', this)"
@@ -3577,6 +3577,10 @@
           </button>
           <button class="filter-tab" onclick="filterProjects('webapp', this)">
             Web Apps
+          </button>
+          <button onclick="openImageManager()" title="Upload local project images to browser storage" style="margin-left:auto;display:flex;align-items:center;gap:0.4rem;background:var(--surface);border:1px solid var(--border-dk);color:var(--muted);font-size:0.72rem;font-family:'Space Mono',monospace;padding:0.4rem 0.8rem;border-radius:20px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--border-dk)';this.style.color='var(--muted)';">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Manage Images
           </button>
         </div>
         <div class="projects-grid" id="projects-grid">
@@ -4198,87 +4202,13 @@
     <script>
       /* ============================================================
        PROJECTS DATA — loaded from projects.json
-       Falls back to embedded defaults if fetch fails
     ============================================================ */
-      const DEFAULT_PROJECTS = [
-        {
-          id: 1,
-          name: "ShopEase E-Commerce Platform",
-          category: "webapp",
-          desc: "A full-featured e-commerce web application built with Vue.js frontend and FastAPI backend, connected to a PostgreSQL database. Features include cart management, secure checkout, product catalog, order tracking, and an admin dashboard for inventory control.",
-          img: "images/project1.jpg",
-          link: "https://github.com/Prabhath528",
-          video: "",
-          tech: ["Vue.js", "FastAPI", "PostgreSQL", "Stripe API"],
-          year: "2024",
-          status: "Completed",
-        },
-        {
-          id: 2,
-          name: "DevTask Manager",
-          category: "software",
-          desc: "A desktop productivity application for developers to manage tasks, sprints and code snippets. Built with Python featuring a clean interface, configurable schedule, and PostgreSQL backend for cross-device sync and data persistence.",
-          img: "images/project2.jpg",
-          link: "https://github.com/Prabhath528",
-          video: "",
-          tech: ["Python", "Tkinter", "PostgreSQL", "REST API"],
-          year: "2024",
-          status: "Completed",
-        },
-        {
-          id: 3,
-          name: "Pixel Forge Portfolio",
-          category: "web",
-          desc: "A handcrafted single-page portfolio with dynamic project loading, parallax scrolling effects, light theme, and JSON-based project management. Fully responsive with advanced scroll animations and no backend required.",
-          img: "images/project3.jpg",
-          link: "https://pixelforgestudioprabhath.netlify.app/",
-          video: "",
-          tech: ["HTML", "CSS", "JavaScript", "JSON"],
-          year: "2025",
-          status: "Live",
-        },
-        {
-          id: 4,
-          name: "RestaurantHub Admin Dashboard",
-          category: "webapp",
-          desc: "A real-time restaurant management dashboard built with Vue.js and FastAPI. Includes menu management, table reservations, live order tracking and analytics charts powered by PostgreSQL data storage.",
-          img: "images/project4.jpg",
-          link: "https://github.com/Prabhath528",
-          video: "",
-          tech: ["Vue.js", "FastAPI", "PostgreSQL", "Chart.js"],
-          year: "2024",
-          status: "Completed",
-        },
-        {
-          id: 5,
-          name: "LandingPro Builder",
-          category: "web",
-          desc: "A responsive marketing landing page builder template system with pixel-perfect design, smooth scroll animations, a visual section builder, and form integration ready for production deployment.",
-          img: "images/project5.jpg",
-          link: "https://github.com/Prabhath528",
-          video: "",
-          tech: ["HTML", "CSS", "JavaScript", "GSAP"],
-          year: "2023",
-          status: "Completed",
-        },
-        {
-          id: 6,
-          name: "FileSync Desktop Tool",
-          category: "software",
-          desc: "A cross-platform desktop file sync and backup utility built with Python. Features configurable schedules, encrypted cloud upload, and PostgreSQL logging of all sync histories for audit trails.",
-          img: "images/project6.jpg",
-          link: "https://github.com/Prabhath528",
-          video: "",
-          tech: ["Python", "PostgreSQL", "AWS S3", "Tkinter"],
-          year: "2023",
-          status: "Completed",
-        },
-      ];
+      const DEFAULT_PROJECTS = [];
 
       const DEF_IMGS = {
         software:
           "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80",
-        web: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80",
+        
         webapp:
           "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
       };
@@ -4290,17 +4220,137 @@
 
       let PROJECTS = [];
 
+      /* ============================================================
+       LOCAL STORAGE IMAGE HELPERS
+       Keys: "pfs_img_<filename>" → data URL
+       e.g. "pfs_img_images/Project01.png" → "data:image/png;base64,..."
+      ============================================================ */
+      function getStoredImage(imgPath) {
+        if (!imgPath) return null;
+        try { return localStorage.getItem('pfs_img_' + imgPath) || null; }
+        catch(e) { return null; }
+      }
+      function saveStoredImage(imgPath, dataUrl) {
+        try { localStorage.setItem('pfs_img_' + imgPath, dataUrl); return true; }
+        catch(e) { console.warn('Image storage failed (quota?):', e); return false; }
+      }
+      function removeStoredImage(imgPath) {
+        try { localStorage.removeItem('pfs_img_' + imgPath); } catch(e) {}
+      }
+      function listStoredImages() {
+        const keys = [];
+        try {
+          for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            if (k && k.startsWith('pfs_img_')) keys.push(k.replace('pfs_img_',''));
+          }
+        } catch(e) {}
+        return keys;
+      }
+
+      /* Checks if a project img path is local (not http/https/data) */
+      function isLocalPath(img) {
+        if (!img) return false;
+        return !img.startsWith('http') && !img.startsWith('data:');
+      }
+
+      /* Resolve image: stored base64 > fallback default */
+      function resolveProjectImg(p) {
+        if (!p.img) return DEF_IMGS[p.category] || DEF_IMGS.webapp;
+        if (!isLocalPath(p.img)) return p.img; // already a URL
+        const stored = getStoredImage(p.img);
+        return stored || null; // null = will trigger onerror → default
+      }
+
       async function loadProjects() {
         try {
           const res = await fetch("./projects.json?v=" + Date.now());
           if (!res.ok) throw new Error("fetch failed");
           PROJECTS = await res.json();
         } catch (e) {
-          PROJECTS = DEFAULT_PROJECTS;
+          console.warn("Failed to load projects.json:", e);
+          PROJECTS = [];
         }
         renderProjects();
         animateNum("hero-project-count", PROJECTS.length);
       }
+
+      /* ============================================================
+       PROJECT IMAGE MANAGER — opens modal to upload local images
+      ============================================================ */
+      window.openImageManager = function() {
+        // Build list of projects that need local images
+        const localProjects = PROJECTS.filter(p => isLocalPath(p.img));
+        if (!localProjects.length) {
+          showToast('No projects use local images.', 'info');
+          return;
+        }
+        let rows = localProjects.map(p => {
+          const stored = getStoredImage(p.img);
+          const preview = stored
+            ? `<img src="${stored}" style="width:60px;height:40px;object-fit:cover;border-radius:4px;border:1px solid var(--border);">`
+            : `<span style="font-size:0.72rem;color:var(--muted);">No image stored</span>`;
+          return `
+          <div style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid var(--border);">
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:0.8rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name}</div>
+              <div style="font-size:0.68rem;color:var(--muted);font-family:'Space Mono',monospace;">${p.img}</div>
+            </div>
+            <div style="width:64px;text-align:center;">${preview}</div>
+            <label style="cursor:pointer;background:var(--accent);color:#fff;font-size:0.72rem;padding:0.3rem 0.6rem;border-radius:4px;white-space:nowrap;">
+              Upload
+              <input type="file" accept="image/*" style="display:none;"
+                onchange="handleImgUpload(event,'${p.img}',this)">
+            </label>
+            ${stored ? `<button onclick="removeStoredImage('${p.img}');renderProjects();this.closest('div[style]').querySelector('label+button').remove();this.closest('div[style]').querySelector('div:nth-child(3)').innerHTML='<span style=\\'font-size:0.72rem;color:var(--muted)\\'>Removed</span>';" style="background:none;border:1px solid var(--border-dk);color:var(--muted);font-size:0.68rem;padding:0.3rem 0.5rem;border-radius:4px;cursor:pointer;">Remove</button>` : ''}
+          </div>`;
+        }).join('');
+
+        const overlay = document.createElement('div');
+        overlay.id = 'img-mgr-overlay';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:20000;background:rgba(26,22,18,0.7);display:flex;align-items:center;justify-content:center;padding:1rem;';
+        overlay.innerHTML = `
+          <div style="background:var(--surface);border-radius:12px;max-width:520px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px var(--shadow-lg);">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:1;">
+              <div>
+                <div style="font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--accent);letter-spacing:0.08em;">// IMAGE MANAGER</div>
+                <div style="font-size:1rem;font-weight:700;color:var(--text);">Project Preview Images</div>
+              </div>
+              <button onclick="document.getElementById('img-mgr-overlay').remove()" style="background:none;border:none;font-size:1.4rem;color:var(--muted);cursor:pointer;line-height:1;">&#x2715;</button>
+            </div>
+            <div style="padding:0 1.5rem;">
+              <p style="font-size:0.78rem;color:var(--muted);padding:0.75rem 0;line-height:1.6;">
+                These projects reference local image files. Upload them here — they'll be stored in your browser's local storage and shown automatically.
+              </p>
+              ${rows}
+            </div>
+            <div style="padding:1rem 1.5rem;border-top:1px solid var(--border);margin-top:0.5rem;">
+              <button onclick="document.getElementById('img-mgr-overlay').remove()" style="width:100%;background:var(--accent);color:#fff;border:none;border-radius:6px;padding:0.65rem;font-size:0.85rem;font-weight:600;cursor:pointer;">Done</button>
+            </div>
+          </div>`;
+        overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+        document.body.appendChild(overlay);
+      };
+
+      window.handleImgUpload = function(event, imgPath, inputEl) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const dataUrl = e.target.result;
+          const ok = saveStoredImage(imgPath, dataUrl);
+          if (ok) {
+            showToast('Image saved!', 'success');
+            renderProjects();
+            // Update preview inside manager
+            const previewCell = inputEl.closest('div[style]').querySelector('div:nth-child(3)');
+            if (previewCell) previewCell.innerHTML = `<img src="${dataUrl}" style="width:60px;height:40px;object-fit:cover;border-radius:4px;border:1px solid var(--border);">`;
+          } else {
+            showToast('Storage full. Try a smaller image.', 'error');
+          }
+        };
+        reader.readAsDataURL(file);
+      };
 
       /* ============================================================
        LOCAL STORAGE HELPERS
@@ -4383,7 +4433,7 @@
               : null;
             const likes = getLikes(p.id);
             const liked = isLiked(p.id);
-            const thumb = p.img || DEF_IMGS[p.category] || DEF_IMGS.web;
+            const thumb = resolveProjectImg(p) || DEF_IMGS[p.category] || DEF_IMGS.webapp;
             const techTags = (p.tech || [])
               .map((t) => `<span class="tech-tag">${t}</span>`)
               .join("");
@@ -4452,7 +4502,7 @@
               comments.length
             ).toFixed(1)
           : "0.0";
-        const thumb = p.img || DEF_IMGS[p.category] || DEF_IMGS.web;
+        const thumb = resolveProjectImg(p) || DEF_IMGS[p.category] || DEF_IMGS.webapp;
         const likes = getLikes(id);
         const liked = isLiked(id);
         const techTags = (p.tech || [])
