@@ -54,7 +54,7 @@
         --border-dk: #b8b0a4;
         --accent: #c84b2f;
         --accent-dk: #a33a20;
-        --accent2: #2563eb;
+        --accent2: #ff6b00;
         --text: #1a1612;
         --muted: #7c746a;
         --white: #ffffff;
@@ -122,59 +122,277 @@
       }
 
       /* =====================================================
-       LOADING SCREEN
+       LOADING SCREEN — CREATIVE IT THEME
     ===================================================== */
       #loading-screen {
         position: fixed;
         inset: 0;
-        background: var(--ink);
         z-index: 10000;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 1.5rem;
-        transition:
-          opacity 0.7s ease,
-          visibility 0.7s ease;
+        gap: 0;
+        transition: opacity 0.9s ease, visibility 0.9s ease;
+        overflow: hidden;
+        background: #080a0f;
+      }
+      /* Full-cover IT/tech background */
+      #loading-screen .ls-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80');
+        background-size: cover;
+        background-position: center;
+        z-index: 0;
+        animation: lsBgZoom 2.5s ease forwards;
+      }
+      @keyframes lsBgZoom {
+        from { transform: scale(1.08); }
+        to   { transform: scale(1); }
+      }
+      /* Multi-layer dark overlay — IT tech tint */
+      #loading-screen .ls-overlay {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(4,8,18,0.82) 0%, rgba(4,8,18,0.60) 40%, rgba(4,8,18,0.90) 100%),
+          radial-gradient(ellipse 65% 55% at 50% 40%, rgba(255,107,0,0.10) 0%, transparent 65%),
+          radial-gradient(ellipse 40% 30% at 20% 70%, rgba(30,80,200,0.08) 0%, transparent 60%);
+        z-index: 1;
+      }
+      /* Scanline overlay for techy feel */
+      #loading-screen .ls-scanlines {
+        position: absolute;
+        inset: 0;
+        background-image: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0,0,0,0.08) 2px,
+          rgba(0,0,0,0.08) 4px
+        );
+        z-index: 2;
+        pointer-events: none;
+      }
+      /* Grid pattern */
+      #loading-screen .ls-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255,107,0,0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,107,0,0.04) 1px, transparent 1px);
+        background-size: 48px 48px;
+        z-index: 2;
+        pointer-events: none;
+      }
+      /* Floating particles */
+      #loading-screen .ls-particle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: 3;
+        pointer-events: none;
+        animation: lsParticleFloat linear infinite;
+      }
+      @keyframes lsParticleFloat {
+        0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: 1; }
+        100% { transform: translateY(-100px) scale(1); opacity: 0; }
+      }
+      /* Main content above overlays */
+      #loading-screen > .ls-content {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        text-align: center;
+        padding: 0 2rem;
       }
       #loading-screen.hidden {
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
       }
+
+      /* Circuit ring around logo */
+      .ls-ring-wrap {
+        position: relative;
+        width: 110px;
+        height: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.25rem;
+      }
+      .ls-ring-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        animation: lsRingSpin 4s linear infinite;
+      }
+      @keyframes lsRingSpin {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+      }
+      .ls-ring-svg-rev {
+        animation-direction: reverse;
+        animation-duration: 6s;
+      }
+      .loading-logo-img {
+        width: 72px;
+        height: 72px;
+        object-fit: contain;
+        border-radius: 50%;
+        border: 2px solid rgba(255,107,0,0.5);
+        box-shadow:
+          0 0 0 6px rgba(255,107,0,0.08),
+          0 0 40px rgba(255,107,0,0.35);
+        animation: lsLogoPulse 2.2s ease-in-out infinite alternate;
+        position: relative;
+        z-index: 2;
+      }
+      @keyframes lsLogoPulse {
+        from { box-shadow: 0 0 0 4px rgba(255,107,0,0.08), 0 0 20px rgba(255,107,0,0.25); }
+        to   { box-shadow: 0 0 0 8px rgba(255,107,0,0.12), 0 0 60px rgba(255,107,0,0.55); }
+      }
+
       .loading-logo {
         font-family: "Playfair Display", serif;
-        font-size: 2rem;
+        font-size: 1.55rem;
         font-weight: 900;
-        color: var(--white);
-        letter-spacing: 3px;
+        color: #fff;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        text-shadow: 0 0 30px rgba(255,107,0,0.4);
       }
       .loading-logo span {
-        color: var(--accent);
+        background: linear-gradient(135deg, #ff6b00, #ff9a3c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
+
+      /* Typewriter status text */
+      .loading-text {
+        font-family: "Space Mono", monospace;
+        font-size: 0.6rem;
+        color: rgba(255,255,255,0.45);
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .ls-cursor {
+        display: inline-block;
+        width: 7px;
+        height: 12px;
+        background: #ff6b00;
+        animation: lsCursorBlink 0.8s step-end infinite;
+        vertical-align: middle;
+      }
+      @keyframes lsCursorBlink {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0; }
+      }
+
+      /* Status indicators row */
+      .ls-status-row {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 0.25rem;
+      }
+      .ls-status-item {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: "Space Mono", monospace;
+        font-size: 0.52rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.3);
+      }
+      .ls-status-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #22c55e;
+        animation: lsStatusPulse 2s ease infinite;
+        flex-shrink: 0;
+      }
+      .ls-status-dot.orange { background: #ff6b00; animation-delay: 0.4s; }
+      .ls-status-dot.blue   { background: #ff6b00; animation-delay: 0.8s; }
+      @keyframes lsStatusPulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50%       { opacity: 0.4; transform: scale(0.7); }
+      }
+
+      /* Bottom loading bar — full width, thicker, glowing */
       .loading-bar-wrap {
-        width: 220px;
-        height: 2px;
-        background: rgba(255, 255, 255, 0.1);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: rgba(255,255,255,0.06);
+        z-index: 10;
+      }
+      .loading-bar-wrap::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(255,107,0,0.08);
       }
       .loading-bar {
         height: 100%;
-        background: var(--accent);
+        background: linear-gradient(90deg, #c84b2f, #ff6b00, #ffb347);
         width: 0;
-        animation: loadBar 1.6s ease forwards;
+        animation: loadBar 1.8s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+        box-shadow: 0 0 18px rgba(255,107,0,0.8), 0 0 40px rgba(255,107,0,0.4);
+        position: relative;
+      }
+      .loading-bar::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 6px;
+        height: 12px;
+        background: #fff;
+        border-radius: 2px;
+        box-shadow: 0 0 12px #ff6b00;
+        animation: loadBar 1.8s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
       }
       @keyframes loadBar {
-        to {
-          width: 100%;
-        }
+        to { width: 100%; }
       }
-      .loading-text {
+      /* Bottom bar label */
+      .ls-bar-label {
+        position: absolute;
+        bottom: 12px;
+        right: 1.5rem;
         font-family: "Space Mono", monospace;
-        font-size: 0.68rem;
-        color: rgba(255, 255, 255, 0.3);
-        letter-spacing: 3px;
+        font-size: 0.52rem;
+        letter-spacing: 2px;
+        color: rgba(255,107,0,0.6);
         text-transform: uppercase;
+        z-index: 10;
+        animation: lsLabelCount 1.8s ease forwards;
+      }
+      @keyframes lsLabelCount {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+      .ls-bar-pct {
+        font-family: "Space Mono", monospace;
+        font-size: 0.52rem;
+        letter-spacing: 2px;
+        color: rgba(255,255,255,0.5);
       }
 
       /* =====================================================
@@ -191,7 +409,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 0 5%;
-        background: rgba(245, 242, 237, 0.94);
+        background: rgba(255, 255, 255, 0.96);
         backdrop-filter: blur(18px);
         border-bottom: 1px solid var(--border);
         transition: box-shadow 0.3s;
@@ -353,214 +571,338 @@
       }
 
       /* =====================================================
-       BANNER / IMAGE SLIDER
+       PRIVACY LENS HERO — SPLIT LAYOUT (left text, right logo)
     ===================================================== */
-      .banner-slider {
+      .pl-hero {
         position: relative;
         width: 100%;
-        height: 520px;
-        overflow: hidden;
+        min-height: 88vh;
         margin-top: var(--nav-h);
-        background: var(--ink);
-      }
-      @media (max-width: 768px) {
-        .banner-slider {
-          height: 300px;
-        }
-      }
-      @media (max-width: 480px) {
-        .banner-slider {
-          height: 220px;
-        }
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        background: #faf8f5;
       }
 
-      .banner-slide {
+      /* Background: soft warm gradient + orange orb on right */
+      .pl-hero-bg {
         position: absolute;
         inset: 0;
-        opacity: 0;
-        transition: opacity 0.9s ease;
-        will-change: opacity;
+        z-index: 0;
+        background:
+          radial-gradient(ellipse 60% 80% at 85% 50%, rgba(255,107,0,0.13) 0%, transparent 65%),
+          radial-gradient(ellipse 40% 50% at 5% 30%,  rgba(255,154,60,0.06) 0%, transparent 60%),
+          #faf8f5;
       }
-      .banner-slide.active {
-        opacity: 1;
+
+      /* Subtle dot-grid texture on left */
+      .pl-hero-bg::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(200,75,47,0.12) 1px, transparent 1px);
+        background-size: 28px 28px;
+        mask-image: linear-gradient(to right, rgba(0,0,0,0.35) 0%, transparent 55%);
+        -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.35) 0%, transparent 55%);
       }
-      .banner-slide img {
+
+      .pl-hero-grid { display: none; }
+      .pl-orb { display: none; }
+      .pl-scanlines { display: none; }
+
+      /* ── Two-column split ── */
+      .pl-hero-inner {
+        position: relative;
+        z-index: 10;
         width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 90px 6% 100px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 4rem;
       }
-      .banner-slide-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          135deg,
-          rgba(26, 22, 18, 0.68) 0%,
-          rgba(200, 75, 47, 0.22) 60%,
-          rgba(26, 22, 18, 0.45) 100%
-        );
+
+      /* ── Left: text content ── */
+      .pl-hero-content {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        padding: 0 7%;
+        gap: 0;
       }
-      .banner-eyebrow {
+
+      .pl-badge { display: none; }
+
+      .pl-hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
         font-family: "Space Mono", monospace;
-        font-size: 0.68rem;
+        font-size: 0.65rem;
         letter-spacing: 3px;
         text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 1rem;
+        color: #ff6b00;
+        margin-bottom: 1.2rem;
+        animation: plFadeUp 0.6s ease both;
+      }
+      .pl-hero-eyebrow::before {
+        content: '';
+        width: 28px; height: 1.5px;
+        background: #ff6b00;
+        flex-shrink: 0;
+      }
+
+      .pl-hero-headline {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.8rem, 4.2vw, 4rem);
+        font-weight: 900;
+        line-height: 1.06;
+        color: #111827;
+        margin-bottom: 1.2rem;
+        animation: plFadeUp 0.7s 0.05s ease both;
+      }
+      .pl-hero-headline em {
+        font-style: normal;
+        color: #111827;
+        text-decoration: underline;
+        text-decoration-color: #ff6b00;
+        text-underline-offset: 7px;
+        text-decoration-thickness: 3px;
+      }
+
+      .pl-hero-sub {
+        font-size: 1rem;
+        color: #6b7280;
+        line-height: 1.78;
+        max-width: 460px;
+        margin-bottom: 2rem;
+        animation: plFadeUp 0.7s 0.12s ease both;
+      }
+
+      .pl-hero-cta {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
-        animation: slideUp 0.7s ease both;
-      }
-      .banner-eyebrow::before {
-        content: "";
-        width: 30px;
-        height: 1px;
-        background: var(--accent);
-      }
-      .banner-title {
-        font-family: "Playfair Display", serif;
-        font-size: clamp(2rem, 5vw, 4rem);
-        font-weight: 900;
-        line-height: 1.05;
-        color: var(--white);
-        margin-bottom: 1rem;
-        animation: slideUp 0.7s 0.1s ease both;
-      }
-      .banner-title em {
-        font-style: italic;
-        color: var(--accent);
-      }
-      .banner-sub {
-        font-size: clamp(0.88rem, 2vw, 1rem);
-        color: rgba(255, 255, 255, 0.65);
-        max-width: 520px;
-        line-height: 1.75;
-        animation: slideUp 0.7s 0.2s ease both;
-      }
-      @keyframes slideUp {
-        from {
-          opacity: 0;
-          transform: translateY(22px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        gap: 1rem;
+        flex-wrap: wrap;
+        animation: plFadeUp 0.7s 0.2s ease both;
+        margin-bottom: 2.8rem;
       }
 
-      .banner-dots {
-        position: absolute;
-        bottom: 1.25rem;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
+      .pl-btn-primary {
+        display: inline-flex;
+        align-items: center;
         gap: 0.5rem;
-        z-index: 5;
-      }
-      .banner-dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.35);
-        cursor: pointer;
-        transition: all 0.3s;
+        height: 50px;
+        padding: 0 1.8rem;
+        background: #ff6b00;
+        color: #fff;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.92rem;
+        font-weight: 700;
         border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background 0.2s, transform 0.18s, box-shadow 0.2s;
+        box-shadow: 0 4px 22px rgba(255,107,0,0.35);
       }
-      .banner-dot.active {
-        background: var(--accent);
-        transform: scale(1.3);
+      .pl-btn-primary:hover {
+        background: #e55f00;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(255,107,0,0.45);
+      }
+      .pl-btn-primary::after { content: none; }
+
+      .pl-btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        height: 50px;
+        padding: 0 1.6rem;
+        background: transparent;
+        color: #374151;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.92rem;
+        font-weight: 600;
+        border: 1.5px solid #d1d5db;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: border-color 0.2s, color 0.2s, transform 0.18s;
+      }
+      .pl-btn-secondary:hover {
+        border-color: #ff6b00;
+        color: #ff6b00;
+        transform: translateY(-2px);
       }
 
-      .banner-arrows {
-        position: absolute;
-        top: 50%;
-        z-index: 5;
-        transform: translateY(-50%);
-        width: 100%;
+      /* Trust / stats strip */
+      .pl-trust-row {
         display: flex;
-        justify-content: space-between;
-        padding: 0 1.25rem;
-        pointer-events: none;
+        gap: 2rem;
+        padding-top: 1.8rem;
+        border-top: 1px solid #e5e7eb;
+        animation: plFadeUp 0.7s 0.28s ease both;
       }
-      .banner-arrow {
-        width: 44px;
-        height: 44px;
-        border: 1.5px solid rgba(255, 255, 255, 0.3);
-        background: rgba(26, 22, 18, 0.45);
-        color: var(--white);
+      .pl-trust-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+      }
+      .pl-trust-num {
+        font-family: "Playfair Display", serif;
+        font-size: 1.75rem;
+        font-weight: 900;
+        color: #ff6b00;
+        line-height: 1;
+      }
+      .pl-trust-label {
+        font-family: "Space Mono", monospace;
+        font-size: 0.6rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #9ca3af;
+      }
+
+      /* ── Right: logo visual ── */
+      .pl-hero-visual {
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer;
-        pointer-events: all;
-        transition: all 0.25s;
-        backdrop-filter: blur(6px);
-      }
-      .banner-arrow:hover {
-        background: var(--accent);
-        border-color: var(--accent);
-      }
-      .banner-arrow svg {
-        width: 16px;
-        height: 16px;
+        position: relative;
       }
 
-      .banner-progress {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: rgba(255, 255, 255, 0.12);
-        z-index: 5;
-      }
-      .banner-progress-bar {
-        height: 100%;
-        background: var(--accent);
-        width: 0;
-        transition: none;
-      }
-      .banner-progress-bar.animating {
-        transition: width 5s linear;
-        width: 100%;
+      .pl-logo-stage {
+        position: relative;
+        width: 450px;
+        height: 550px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      /* CSS gradient banners (no images required) */
-      .banner-bg {
+      /* Outer spinning dashed ring */
+      .pl-logo-ring-outer {
         position: absolute;
         inset: 0;
-        width: 100%;
-        height: 100%;
+        border-radius: 50%;
+        border: 1.5px dashed rgba(255,107,0,0.22);
+        animation: plRingSpin 18s linear infinite;
       }
-      .banner-bg-1 {
-        background:
-          radial-gradient(ellipse 80% 60% at 70% 30%, rgba(200,75,47,0.45) 0%, transparent 65%),
-          radial-gradient(ellipse 50% 70% at 20% 80%, rgba(37,99,235,0.18) 0%, transparent 60%),
-          linear-gradient(145deg, #0d0b09 0%, #1f1310 40%, #2a1008 100%);
+      /* Inner spinning ring (reverse) */
+      .pl-logo-ring-inner {
+        position: absolute;
+        inset: 30px;
+        border-radius: 50%;
+        border: 1px dashed rgba(255,107,0,0.14);
+        animation: plRingSpin 12s linear infinite reverse;
       }
-      .banner-bg-2 {
-        background:
-          radial-gradient(ellipse 70% 65% at 65% 35%, rgba(37,99,235,0.5) 0%, transparent 60%),
-          radial-gradient(ellipse 45% 55% at 15% 70%, rgba(200,75,47,0.2) 0%, transparent 55%),
-          linear-gradient(150deg, #080c18 0%, #0f1628 45%, #0a1020 100%);
+      @keyframes plRingSpin {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
       }
-      .banner-bg-3 {
-        background:
-          radial-gradient(ellipse 75% 60% at 60% 40%, rgba(201,125,26,0.5) 0%, transparent 60%),
-          radial-gradient(ellipse 40% 50% at 10% 75%, rgba(200,75,47,0.2) 0%, transparent 55%),
-          linear-gradient(140deg, #0e0a04 0%, #211504 45%, #180f00 100%);
+
+      /* Soft glow blob */
+      .pl-logo-glow {
+        position: absolute;
+        width: 280px; height: 280px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,107,0,0.18) 0%, rgba(255,107,0,0.05) 55%, transparent 70%);
+        animation: plGlowPulse 3.5s ease-in-out infinite alternate;
       }
-      .banner-bg-4 {
-        background:
-          radial-gradient(ellipse 70% 60% at 68% 38%, rgba(5,150,105,0.48) 0%, transparent 60%),
-          radial-gradient(ellipse 45% 50% at 18% 72%, rgba(37,99,235,0.18) 0%, transparent 55%),
-          linear-gradient(145deg, #040e0a 0%, #07180f 45%, #041208 100%);
+      @keyframes plGlowPulse {
+        from { transform: scale(0.9);  opacity: 0.7; }
+        to   { transform: scale(1.12); opacity: 1; }
+      }
+
+      /* The actual logo image */
+      .pl-logo-img {
+        position: relative;
+        z-index: 5;
+        width: 1280px;
+        height: 1280px;
+        object-fit: contain;
+        filter: drop-shadow(0 10px 50px rgba(255,107,0,0.4))
+                drop-shadow(0 4px 16px rgba(0,0,0,0.15));
+        animation: plLogoFloat 5s ease-in-out infinite;
+      }
+      @keyframes plLogoFloat {
+        0%,100% { transform: translateY(0px)   rotate(0deg);   }
+        30%      { transform: translateY(-12px) rotate(1.5deg); }
+        70%      { transform: translateY(-6px)  rotate(-1deg);  }
+      }
+
+      /* Orbit dots */
+      .pl-orbit-dot {
+        position: absolute;
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #ff6b00;
+        z-index: 6;
+        animation: plOrbitDot 3s ease-in-out infinite;
+      }
+      .pl-orbit-dot:nth-child(1) { top: 8%;  left: 50%; margin-left: -4px; animation-delay: 0s;    opacity: 0.85; }
+      .pl-orbit-dot:nth-child(2) { bottom: 9%; left: 50%; margin-left: -4px; width:5px; height:5px; animation-delay: 0.6s; opacity: 0.6; }
+      .pl-orbit-dot:nth-child(3) { top: 50%;  left: 6%;  margin-top: -4px;  width:6px; height:6px; animation-delay: 1.2s; opacity: 0.5; }
+      .pl-orbit-dot:nth-child(4) { top: 50%;  right: 6%; margin-top: -4px;  width:5px; height:5px; animation-delay: 1.8s; opacity: 0.7; }
+      @keyframes plOrbitDot {
+        0%,100% { transform: scale(1);   opacity: inherit; }
+        50%      { transform: scale(1.6); opacity: 0.25; }
+      }
+
+      /* Corner accent tags */
+      .pl-corner-tag {
+        position: absolute;
+        font-family: "Space Mono", monospace;
+        font-size: 0.55rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255,107,0,0.55);
+        background: rgba(255,107,0,0.06);
+        border: 1px solid rgba(255,107,0,0.15);
+        padding: 4px 8px;
+        border-radius: 3px;
+        z-index: 6;
+      }
+      .pl-corner-tag.tl { top: 15%;  left: 4%; }
+      .pl-corner-tag.br { bottom: 15%; right: 4%; }
+
+      .pl-img-frame { display: none; }
+      .pl-slider-wrap { display: none; }
+      .pl-lens-ring, .pl-lens-core, .pl-lens-eye, .pl-node { display: none; }
+
+      @keyframes plFadeUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* =====================================================
+       RESPONSIVE — HERO
+    ===================================================== */
+      @media (max-width: 1024px) {
+        .pl-hero-inner { gap: 2.5rem; padding: 80px 5% 90px; }
+        .pl-logo-stage { width: 420px; height: 420px; }
+        .pl-logo-img   { width: 340px; height: 340px; }
+      }
+      @media (max-width: 860px) {
+        .pl-hero-inner {
+          grid-template-columns: 1fr;
+          padding: 70px 5% 80px;
+          gap: 3rem;
+        }
+        .pl-hero-visual { order: -1; }
+        .pl-logo-stage  { width: 340px; height: 340px; }
+        .pl-logo-img    { width: 300px; height: 300px; }
+        .pl-corner-tag  { display: none; }
+      }
+      @media (max-width: 480px) {
+        .pl-hero-inner   { padding: 56px 5% 70px; }
+        .pl-hero-headline{ font-size: clamp(2rem, 8vw, 2.8rem); }
+        .pl-hero-cta     { flex-wrap: wrap; }
+        .pl-btn-primary, .pl-btn-secondary { width: 100%; justify-content: center; }
+        .pl-logo-stage   { width: 260px; height: 260px; }
+        .pl-logo-img     { width: 230px; height: 230px; }
       }
 
       /* =====================================================
@@ -631,7 +973,7 @@
           ),
           radial-gradient(
             ellipse 45% 65% at 18% 65%,
-            rgba(37, 99, 235, 0.05) 0%,
+            rgba(255,107,0, 0.05) 0%,
             transparent 70%
           );
         will-change: transform;
@@ -928,7 +1270,7 @@
         inset: -60px;
         background:
           linear-gradient(135deg, rgba(200, 75, 47, 0.06) 0%, transparent 50%),
-          linear-gradient(225deg, rgba(37, 99, 235, 0.04) 0%, transparent 50%);
+          linear-gradient(225deg, rgba(255,107,0, 0.04) 0%, transparent 50%);
         will-change: transform;
       }
       .parallax-band-text {
@@ -2704,9 +3046,39 @@
 
     <!-- LOADING SCREEN -->
     <div id="loading-screen">
-      <div class="loading-logo">PIXEL <span>FORGE</span> STUDIO</div>
+      <div class="ls-bg"></div>
+      <div class="ls-overlay"></div>
+      <div class="ls-scanlines"></div>
+      <div class="ls-grid"></div>
+      <div class="ls-content">
+        <div class="ls-ring-wrap">
+          <svg class="ls-ring-svg" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="55" cy="55" r="50" stroke="rgba(255,107,0,0.18)" stroke-width="1"/>
+            <circle cx="55" cy="55" r="50" stroke="url(#orangeArc)" stroke-width="2" stroke-linecap="round" stroke-dasharray="80 235"/>
+            <defs><linearGradient id="orangeArc" x1="0" y1="0" x2="110" y2="0"><stop offset="0%" stop-color="#ff6b00"/><stop offset="100%" stop-color="#ffb347"/></linearGradient></defs>
+            <circle cx="55" cy="5" r="2.5" fill="#ff6b00" opacity="0.7"/>
+            <circle cx="105" cy="55" r="2" fill="#ffb347" opacity="0.5"/>
+            <circle cx="55" cy="105" r="2" fill="#ff6b00" opacity="0.4"/>
+          </svg>
+          <svg class="ls-ring-svg ls-ring-svg-rev" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;">
+            <circle cx="55" cy="55" r="42" stroke="rgba(255,107,0,0.1)" stroke-width="1"/>
+            <circle cx="55" cy="55" r="42" stroke="rgba(255,179,71,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="30 235"/>
+          </svg>
+          <img src="logo.png" alt="Pixel Forge Studio" class="loading-logo-img" onerror="this.style.display='none'" />
+        </div>
+        <div class="loading-logo">PIXEL <span>FORGE</span></div>
+        <div class="loading-text">
+          <span id="ls-typewriter">Booting System</span>
+          <span class="ls-cursor"></span>
+        </div>
+        <div class="ls-status-row">
+          <div class="ls-status-item"><span class="ls-status-dot"></span>Core Loaded</div>
+          <div class="ls-status-item"><span class="ls-status-dot orange"></span>UI Rendering</div>
+          <div class="ls-status-item"><span class="ls-status-dot blue"></span>Assets Ready</div>
+        </div>
+      </div>
       <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
-      <div class="loading-text">Loading Portfolio</div>
+      <div class="ls-bar-label"><span class="ls-bar-pct" id="ls-pct">0%</span>&nbsp;&nbsp;loading</div>
     </div>
 
     <!-- TOAST -->
@@ -2888,114 +3260,54 @@
 
     <!-- ======================== MAIN PAGE ======================== -->
     <div id="page-main" class="page active">
-      <!-- BANNER SLIDER -->
-      <div class="banner-slider" id="banner-slider">
-        <!-- Slide 1 -->
-        <div class="banner-slide active" id="slide-0">
-          <div class="banner-bg banner-bg-1"></div>
-          <div class="banner-slide-overlay">
-            <div class="banner-eyebrow">Creative Design Studio</div>
-            <h2 class="banner-title">
-              Building Digital<br /><em>Experiences</em>
-            </h2>
-            <p class="banner-sub">
-              Full-stack development with Vue.js, FastAPI, and PostgreSQL — from
-              concept to deployment.
+      <!-- PRIVACY LENS HERO -->
+      <div class="pl-hero" id="pl-hero">
+        <div class="pl-hero-bg"></div>
+
+        <div class="pl-hero-inner">
+
+          <!-- ── LEFT: Content ── -->
+          <div class="pl-hero-content">
+            <div class="pl-hero-eyebrow">Pixel Forge Studio</div>
+
+            <h1 class="pl-hero-headline">
+              Your Privacy,<br /><em>Clearer Than Ever.</em>
+            </h1>
+
+            <p class="pl-hero-sub">
+              Step into a world of absolute data control. We bring transparency, security, and smart privacy management under one powerful lens.
             </p>
+
+            <div class="pl-hero-cta">
+              <a href="#" class="pl-btn-primary">Read More</a>
+              <a href="https://wa.me/94714056318?text=Hello%2C%20I%27m%20interested%20in%20working%20with%20you!" target="_blank" class="pl-btn-secondary">Get in Touch</a>
+            </div>
+
+            <div class="pl-trust-row">
+              <div class="pl-trust-item">
+                <span class="pl-trust-num">6+</span>
+                <span class="pl-trust-label">Projects Done</span>
+              </div>
+              <div class="pl-trust-item">
+                <span class="pl-trust-num">5+</span>
+                <span class="pl-trust-label">Years Exp.</span>
+              </div>
+              <div class="pl-trust-item">
+                <span class="pl-trust-num">3</span>
+                <span class="pl-trust-label">Core Services</span>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <!-- Slide 2 -->
-        <div class="banner-slide" id="slide-1">
-          <div class="banner-bg banner-bg-2"></div>
-          <div class="banner-slide-overlay">
-            <div class="banner-eyebrow">Web Applications</div>
-            <h2 class="banner-title">
-              Scalable <em>Web Apps</em><br />for Modern Business
-            </h2>
-            <p class="banner-sub">
-              Robust backend APIs with FastAPI and PostgreSQL powering
-              responsive Vue.js frontends.
-            </p>
+          <!-- ── RIGHT: Logo Visual ── -->
+          <div class="pl-hero-visual">
+            <div class="pl-logo-stage">
+              <div class="pl-logo-glow"></div>
+              <img src="./logs.png" height="1500px" width="auto" alt="Pixel Forge Studio" class="pl-logo-img" onerror="this.style.filter='drop-shadow(0 0 40px rgba(255,107,0,0.6))';" />
+
+            </div>
           </div>
-        </div>
 
-        <!-- Slide 3 -->
-        <div class="banner-slide" id="slide-2">
-          <div class="banner-bg banner-bg-3"></div>
-          <div class="banner-slide-overlay">
-            <div class="banner-eyebrow">Software Solutions</div>
-            <h2 class="banner-title">
-              Desktop Tools<br />Built to <em>Last</em>
-            </h2>
-            <p class="banner-sub">
-              High-performance desktop software and automation tools crafted
-              with Python and clean architecture.
-            </p>
-          </div>
-        </div>
-
-        <!-- Slide 4 -->
-        <div class="banner-slide" id="slide-3">
-          <div class="banner-bg banner-bg-4"></div>
-          <div class="banner-slide-overlay">
-            <div class="banner-eyebrow">UI / UX Design</div>
-            <h2 class="banner-title">
-              Design That<br /><em>Converts</em> and Delights
-            </h2>
-            <p class="banner-sub">
-              Every interface is crafted with intention — clean layouts, sharp
-              typography, and intuitive flows.
-            </p>
-          </div>
-        </div>
-
-        <!-- Arrows -->
-        <div class="banner-arrows">
-          <button
-            class="banner-arrow"
-            onclick="bannerPrev()"
-            aria-label="Previous slide"
-          >
-            <svg
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-            >
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-          </button>
-          <button
-            class="banner-arrow"
-            onclick="bannerNext()"
-            aria-label="Next slide"
-          >
-            <svg
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-            >
-              <polyline points="9 6 15 12 9 18" />
-            </svg>
-          </button>
-        </div>
-
-        <!-- Dots -->
-        <div class="banner-dots" id="banner-dots">
-          <button class="banner-dot active" onclick="bannerGoTo(0)"></button>
-          <button class="banner-dot" onclick="bannerGoTo(1)"></button>
-          <button class="banner-dot" onclick="bannerGoTo(2)"></button>
-          <button class="banner-dot" onclick="bannerGoTo(3)"></button>
-        </div>
-
-        <!-- Progress bar -->
-        <div class="banner-progress">
-          <div
-            class="banner-progress-bar animating"
-            id="banner-progress-bar"
-          ></div>
         </div>
       </div>
 
@@ -4276,48 +4588,43 @@
         });
 
       /* ============================================================
-       BANNER SLIDER
+       PRIVACY LENS INFO SLIDER
+    ============================================================ */
+      let plCurrent = 0;
+      const PL_TOTAL = 4;
+      let plTimer = null;
+
+      window.plGoTo = function(idx) {
+        const slides = document.querySelectorAll('.pl-slide');
+        const dots = document.querySelectorAll('.pl-sdot');
+        if (!slides.length) return;
+        slides[plCurrent].classList.remove('active');
+        dots[plCurrent].classList.remove('active');
+        plCurrent = (idx + PL_TOTAL) % PL_TOTAL;
+        slides[plCurrent].classList.add('active');
+        dots[plCurrent].classList.add('active');
+        // restart auto timer
+        if (plTimer) clearInterval(plTimer);
+        plTimer = setInterval(() => plGoTo(plCurrent + 1), 4000);
+      };
+      window.plNext = function() { plGoTo(plCurrent + 1); };
+      window.plPrev = function() { plGoTo(plCurrent - 1); };
+
+      function startPlSlider() {
+        plTimer = setInterval(() => plGoTo(plCurrent + 1), 4000);
+      }
+
+      /* ============================================================
+       BANNER SLIDER (kept for backward compat — no longer rendered)
     ============================================================ */
       let bannerCurrent = 0;
       const BANNER_TOTAL = 4;
       let bannerTimer = null;
-
-      function bannerGoTo(idx) {
-        document
-          .getElementById("slide-" + bannerCurrent)
-          .classList.remove("active");
-        document
-          .querySelectorAll(".banner-dot")
-          [bannerCurrent].classList.remove("active");
-        bannerCurrent = (idx + BANNER_TOTAL) % BANNER_TOTAL;
-        document
-          .getElementById("slide-" + bannerCurrent)
-          .classList.add("active");
-        document
-          .querySelectorAll(".banner-dot")
-          [bannerCurrent].classList.add("active");
-        restartProgress();
-      }
-      function bannerNext() {
-        bannerGoTo(bannerCurrent + 1);
-      }
-      function bannerPrev() {
-        bannerGoTo(bannerCurrent - 1);
-      }
-
-      function restartProgress() {
-        const bar = document.getElementById("banner-progress-bar");
-        if (!bar) return;
-        bar.classList.remove("animating");
-        bar.style.width = "0";
-        void bar.offsetWidth; // force reflow
-        bar.classList.add("animating");
-      }
-
-      function startBannerAuto() {
-        if (bannerTimer) clearInterval(bannerTimer);
-        bannerTimer = setInterval(bannerNext, 5000);
-      }
+      function bannerGoTo(idx) {}
+      function bannerNext() {}
+      function bannerPrev() {}
+      function restartProgress() {}
+      function startBannerAuto() {}
 
       /* ============================================================
        PAGE SWITCHING
@@ -4491,24 +4798,64 @@
           closeModal();
           closeMobileNav();
         }
-        if (e.key === "ArrowRight" && document.querySelector(".banner-slider"))
-          bannerNext();
-        if (e.key === "ArrowLeft" && document.querySelector(".banner-slider"))
-          bannerPrev();
+        if (e.key === "ArrowRight") plNext();
+        if (e.key === "ArrowLeft") plPrev();
       });
 
       /* ============================================================
        INIT
     ============================================================ */
+      /* ============================================================
+       LOADING SCREEN ANIMATIONS
+      ============================================================ */
+      (function initLoadingScreen() {
+        // Spawn floating particles
+        const ls = document.getElementById('loading-screen');
+        const colors = ['rgba(255,107,0,0.5)','rgba(255,179,71,0.4)','rgba(255,255,255,0.2)','rgba(200,75,47,0.5)'];
+        for (let i = 0; i < 18; i++) {
+          const p = document.createElement('div');
+          p.className = 'ls-particle';
+          const size = Math.random() * 4 + 2;
+          p.style.cssText = `
+            width:${size}px; height:${size}px;
+            background:${colors[Math.floor(Math.random()*colors.length)]};
+            left:${Math.random()*100}%;
+            animation-duration:${Math.random()*4+3}s;
+            animation-delay:${Math.random()*2}s;
+          `;
+          ls.appendChild(p);
+        }
+
+        // Typewriter messages
+        const msgs = ['Booting System...', 'Loading Assets...', 'Rendering UI...', 'Almost Ready!'];
+        let mi = 0;
+        const tw = document.getElementById('ls-typewriter');
+        function cycleMsgs() {
+          if (!tw) return;
+          mi = (mi + 1) % msgs.length;
+          tw.textContent = msgs[mi];
+        }
+        setInterval(cycleMsgs, 500);
+
+        // Percentage counter
+        let pct = 0;
+        const pctEl = document.getElementById('ls-pct');
+        const pctInterval = setInterval(() => {
+          pct = Math.min(pct + Math.floor(Math.random() * 8 + 3), 100);
+          if (pctEl) pctEl.textContent = pct + '%';
+          if (pct >= 100) clearInterval(pctInterval);
+        }, 80);
+      })();
+
       window.addEventListener("load", () => {
         // Hide loading
         setTimeout(() => {
           document.getElementById("loading-screen").classList.add("hidden");
-        }, 1600);
+        }, 2000);
         // Load projects from JSON
         loadProjects();
-        // Start banner
-        startBannerAuto();
+        // Start Privacy Lens info slider
+        startPlSlider();
         // Scroll effects
         initParallax();
         initScrollReveal();
