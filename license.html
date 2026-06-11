@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>License Agreement — PPTX to PDF Merger | Pixel Forge Studio</title>
+    <meta name="description" content="End User License Agreement for PPTX to PDF Merger V 0.0.1 by Pixel Forge Studio." />
+    <meta name="author" content="Prabhath Kelum" />
+    <link rel="icon" type="image/png" href="./Logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ── ROOT VARIABLES (from Pixel Forge Studio index.html) ── */
+      :root {
+        --bg:        #f5f2ed;
+        --bg2:       #ede9e2;
+        --bg3:       #e5e0d8;
+        --surface:   #ffffff;
+        --surface2:  #f9f7f4;
+        --border:    #d4cfc6;
+        --border-dk: #b8b0a4;
+        --accent:    #c84b2f;
+        --accent-dk: #a33a20;
+        --accent2:   #ff6b00;
+        --text:      #1a1612;
+        --muted:     #7c746a;
+        --white:     #ffffff;
+        --gold:      #c97d1a;
+        --ink:       #1a1612;
+        --shadow:    rgba(26, 22, 18, 0.12);
+        --shadow-lg: rgba(26, 22, 18, 0.22);
+        --splash-bg: #0b1120;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; font-size: 16px; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Outfit", sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      a { color: inherit; text-decoration: none; }
+
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: var(--bg); }
+      ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+      /* ── NAVIGATION ── */
+      .top-nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        background: rgba(255,255,255,0.96);
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 1px 0 var(--border);
+      }
+      .nav-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.1rem;
+        font-weight: 900;
+        color: var(--ink);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .nav-logo img { height: 32px; width: auto; }
+      .nav-logo span { color: var(--accent); }
+      .nav-pill {
+        font-family: "Space Mono", monospace;
+        font-size: 0.6rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        padding: 0.3rem 0.8rem;
+      }
+      .nav-back {
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: color 0.2s;
+      }
+      .nav-back:hover { color: var(--accent); }
+
+      /* ── HERO BAND ── */
+      .hero-band {
+        background: var(--ink);
+        padding: 72px 5% 60px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-band::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+      }
+      .hero-band::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 60% 70% at 85% 50%, rgba(200,75,47,0.14) 0%, transparent 65%);
+      }
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 980px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+        flex-wrap: wrap;
+      }
+      .hero-logo-circle {
+        width: 100px;
+        height: 100px;
+        background: rgba(255,107,0,0.10);
+        border: 1.5px solid rgba(255,107,0,0.30);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        animation: heroFloat 5s ease-in-out infinite;
+      }
+      @keyframes heroFloat {
+        0%,100% { transform: translateY(0); }
+        50% { transform: translateY(-7px); }
+      }
+      .hero-logo-circle img {
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 16px rgba(255,107,0,0.35));
+      }
+      .hero-text-col {}
+      .hero-eyebrow {
+        font-family: "Space Mono", monospace;
+        font-size: 0.62rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--accent2);
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        margin-bottom: 0.8rem;
+      }
+      .hero-eyebrow::before {
+        content: "";
+        width: 22px; height: 1.5px;
+        background: var(--accent2);
+        flex-shrink: 0;
+      }
+      .hero-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 900;
+        color: var(--white);
+        line-height: 1.08;
+        margin-bottom: 0.65rem;
+      }
+      .hero-title em {
+        font-style: italic;
+        color: var(--accent);
+      }
+      .hero-sub-row {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        flex-wrap: wrap;
+      }
+      .hero-badge {
+        font-family: "Space Mono", monospace;
+        font-size: 0.6rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        padding: 0.25rem 0.65rem;
+        border-radius: 2px;
+      }
+      .hero-badge.app  { background: rgba(200,75,47,0.2); color: var(--accent); border: 1px solid rgba(200,75,47,0.35); }
+      .hero-badge.ver  { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.12); }
+      .hero-badge.date { background: rgba(201,125,26,0.15); color: var(--gold); border: 1px solid rgba(201,125,26,0.3); }
+
+      /* ── PAGE CONTENT ── */
+      .content-wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 56px 5% 72px;
+      }
+
+      /* Meta strip */
+      .meta-strip {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-bottom: 3.5rem;
+      }
+      .meta-cell {
+        background: var(--surface);
+        padding: 1.25rem 1.5rem;
+      }
+      .meta-cell-label {
+        font-family: "Space Mono", monospace;
+        font-size: 0.58rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.3rem;
+      }
+      .meta-cell-value {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .meta-cell-value.accent { color: var(--accent); }
+
+      /* Section label */
+      .sec-label {
+        font-family: "Space Mono", monospace;
+        font-size: 0.62rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.6rem;
+      }
+      .sec-label::before {
+        content: "";
+        width: 24px; height: 1.5px;
+        background: var(--accent);
+        flex-shrink: 0;
+      }
+      .sec-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+        font-weight: 900;
+        color: var(--ink);
+        line-height: 1.1;
+        margin-bottom: 1.75rem;
+      }
+
+      /* Intro notice */
+      .intro-notice {
+        border-left: 3px solid var(--accent);
+        background: rgba(200,75,47,0.05);
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 2.5rem;
+        font-size: 0.92rem;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+      .intro-notice strong { color: var(--ink); font-weight: 600; }
+
+      /* Clause cards */
+      .clause-list { display: flex; flex-direction: column; gap: 0; }
+      .clause {
+        border-bottom: 1px solid var(--border);
+        padding: 2rem 0;
+        transition: background 0.2s;
+      }
+      .clause:first-child { padding-top: 0; }
+      .clause:last-child  { border-bottom: none; padding-bottom: 0; }
+
+      .clause-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.25rem;
+        margin-bottom: 0.9rem;
+      }
+      .clause-num {
+        font-family: "Playfair Display", serif;
+        font-size: 1.6rem;
+        font-weight: 900;
+        color: var(--accent);
+        line-height: 1;
+        flex-shrink: 0;
+        opacity: 0.8;
+      }
+      .clause-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.25;
+        padding-top: 4px;
+      }
+      .clause-body {
+        padding-left: calc(1.6rem + 1.25rem);
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.85;
+      }
+      .clause-body p { margin-bottom: 0.75rem; }
+      .clause-body p:last-child { margin-bottom: 0; }
+      .clause-body strong { color: var(--ink); font-weight: 600; }
+      .clause-body ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.42rem;
+        margin: 0.5rem 0;
+      }
+      .clause-body ul li {
+        display: flex;
+        gap: 0.7rem;
+        align-items: flex-start;
+      }
+      .clause-body ul li::before {
+        content: "—";
+        color: var(--accent);
+        font-weight: 700;
+        flex-shrink: 0;
+        font-family: "Space Mono", monospace;
+        font-size: 0.82rem;
+        margin-top: 2px;
+      }
+
+      /* Acceptance callout */
+      .accept-callout {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-top: 3px solid var(--gold);
+        padding: 2rem 2.5rem;
+        margin: 3rem 0;
+        display: flex;
+        align-items: flex-start;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .accept-callout-icon {
+        width: 44px;
+        height: 44px;
+        background: rgba(201,125,26,0.12);
+        border: 1px solid rgba(201,125,26,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: var(--gold);
+      }
+      .accept-callout-text { flex: 1; min-width: 200px; }
+      .accept-callout-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 0.4rem;
+      }
+      .accept-callout-desc {
+        font-size: 0.88rem;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      /* Contact block */
+      .contact-band {
+        background: var(--ink);
+        padding: 2.75rem;
+        position: relative;
+        overflow: hidden;
+        margin-top: 0;
+      }
+      .contact-band::before {
+        content: "";
+        position: absolute;
+        top: -80px; right: -80px;
+        width: 260px; height: 260px;
+        border: 1px solid rgba(255,255,255,0.04);
+        border-radius: 50%;
+      }
+      .contact-band-label {
+        font-family: "Space Mono", monospace;
+        font-size: 0.6rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--accent2);
+        margin-bottom: 0.4rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .contact-band-label::before {
+        content: "";
+        width: 18px; height: 1px;
+        background: var(--accent2);
+      }
+      .contact-band-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        font-weight: 900;
+        color: var(--white);
+        margin-bottom: 1.5rem;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.25rem;
+      }
+      .c-item-label {
+        font-family: "Space Mono", monospace;
+        font-size: 0.56rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.28);
+        margin-bottom: 0.25rem;
+      }
+      .c-item-value {
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: rgba(255,255,255,0.82);
+      }
+      .c-item-value a { color: var(--accent2); transition: opacity 0.2s; }
+      .c-item-value a:hover { opacity: 0.8; }
+
+      /* Footer */
+      .site-footer {
+        background: var(--bg2);
+        border-top: 1px solid var(--border);
+        padding: 2rem 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .footer-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1rem;
+        font-weight: 900;
+        color: var(--ink);
+      }
+      .footer-logo span { color: var(--accent); }
+      .footer-copy {
+        font-family: "Space Mono", monospace;
+        font-size: 0.62rem;
+        color: var(--muted);
+        letter-spacing: 0.5px;
+      }
+
+      @media (max-width: 768px) {
+        .hero-band { padding: 56px 5% 48px; }
+        .hero-inner { gap: 2rem; }
+        .hero-logo-circle { width: 80px; height: 80px; }
+        .hero-logo-circle img { width: 56px; height: 56px; }
+        .clause-body { padding-left: 0; margin-top: 0.4rem; }
+        .accept-callout { padding: 1.5rem; }
+        .contact-band { padding: 2rem; }
+      }
+      @media (max-width: 480px) {
+        .meta-strip { grid-template-columns: 1fr 1fr; }
+        .top-nav { padding: 0 4%; }
+        .content-wrap { padding: 40px 4% 56px; }
+        .site-footer { flex-direction: column; text-align: center; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ── NAVIGATION ── -->
+    <nav class="top-nav">
+      <div class="nav-logo">
+        <img src="./Logo.png" alt="Pixel Forge Studio" onerror="this.style.display='none'" />
+        PIXEL <span>FORGE</span> STUDIO
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="nav-pill">Legal</div>
+        <a href="https://pixelforgestudioprabhath.netlify.app/" class="nav-back">
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Site
+        </a>
+      </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <div class="hero-band">
+      <div class="hero-inner">
+        <div class="hero-logo-circle">
+          <img src="./Logo.png" alt="PPTX to PDF Merger" onerror="this.style.display='none'" />
+        </div>
+        <div class="hero-text-col">
+          <div class="hero-eyebrow">Legal Document</div>
+          <h1 class="hero-title">End User<br /><em>License Agreement</em></h1>
+          <div class="hero-sub-row">
+            <span class="hero-badge app">PPTX to PDF Merger</span>
+            <span class="hero-badge ver">V 0.0.1</span>
+            <span class="hero-badge date">June 2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="content-wrap">
+
+      <!-- Meta strip -->
+      <div class="meta-strip">
+        <div class="meta-cell">
+          <div class="meta-cell-label">Software</div>
+          <div class="meta-cell-value">PPTX to PDF Merger</div>
+        </div>
+        <div class="meta-cell">
+          <div class="meta-cell-label">Version</div>
+          <div class="meta-cell-value accent">V 0.0.1</div>
+        </div>
+        <div class="meta-cell">
+          <div class="meta-cell-label">Publisher</div>
+          <div class="meta-cell-value">Pixel Forge Studio</div>
+        </div>
+        <div class="meta-cell">
+          <div class="meta-cell-label">Platform</div>
+          <div class="meta-cell-value">Windows x64</div>
+        </div>
+        <div class="meta-cell">
+          <div class="meta-cell-label">Effective Date</div>
+          <div class="meta-cell-value">June 2025</div>
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <div class="sec-label">License Terms</div>
+      <h2 class="sec-title">EULA — Read Before You Install</h2>
+
+      <!-- Intro -->
+      <div class="intro-notice">
+        <strong>IMPORTANT — PLEASE READ CAREFULLY:</strong> This End User License Agreement ("Agreement") is a legal agreement between you ("User") and Pixel Forge Studio ("Developer") for the use of PPTX to PDF Merger software ("Software"). By installing, copying, or using the Software in any way, you agree to be fully bound by the terms of this Agreement. If you do not agree to all the terms, do not install or use the Software.
+      </div>
+
+      <!-- Clauses -->
+      <div class="clause-list">
+
+        <div class="clause">
+          <div class="clause-head">
+            <div class="clause-num">01</div>
+            <div class="clause-title">Grant of License</div>
+          </div>
+          <div class="clause-body">
+            <p>Pixel Forge Studio grants you a <strong>non-exclusive, non-transferable, revocable, limited license</strong> to install and use one copy of PPTX to PDF Merger on a single computer or device that you own or control, solely for your personal or internal business purposes.</p>
+            <p>This license does not include any right to sublicense, assign, modify, adapt, translate, or create derivative works based upon the Software. Any use not expressly permitted herein is strictly prohibited.</p>
+          </div>
+        </div>
+
+        <div class="clause">
+          <div class="clause-head">
+            <div class="clause-num">02</div>
+            <div class="clause-title">Restrictions on Use</div>
+          </div>
+          <div class="clause-body">
+            <p>You expressly agree not to, and shall not permit any third party to:</p>
+            <ul>
+              <li>Copy, reproduce, publish, or distribute the Software or any portion thereof without prior written consent</li>
+              <li>Decompile, reverse engineer, disassemble, or otherwise attempt to derive the source code of the Software</li>
+              <li>Rent, lease, lend, resell, transfer, or sublicense the Software to any third party</li>
+              <li>Remove, obscure, or alter any copyright, trademark, or other proprietary notices within the Software</li>
+              <li>Use the Software for any illegal, harmful, fraudulent, or unauthorized purpose</li>
+              <li>Circumvent, disable, or interfere with any security or access-control features of the Software</li>
+              <li>Use the Software to develop a competing product or service</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="clause">
+          <div class="clause-head">
+            <div class="clause-num">03</div>
+            <div class="clause-title">Intellectual Property Rights</div>
+          </div>
+          <div class="clause-body">
+            <p>The Software, including but not limited to its source code, object code, binaries, graphics, user interface, documentation, and all associated intellectual property rights, is and shall remain the <strong>sole and exclusive property of Pixel Forge Studio</strong> and its licensors.</p>
+            <p>This Agreement conveys no ownership rights in or to the Software. All rights not expressly granted to you are reserved by Pixel Forge Studio. The Pixel Forge Studio name, logo, and all related marks are trademarks of Pixel Forge Studio.</p>
+          </div>
+        </div>
+
+        <div class="clause">
+          <div class="clause-head">
+            <div class="clause-num">04</div>
+            <div class="clause-title">Third-Party Dependencies</div>
+          </div>
+          <div class="clause-body">
+            <p>PPTX to PDF Merger utilises <strong>Microsoft PowerPoint COM automation</strong> and the open-source <strong>pypdf</strong> library for document processing. Your use of those components is subject to their respective licenses and terms.</p>
+            <p>This Software requires a valid installation of <strong>Microsoft PowerPoint (Windows)</strong> to perform PPTX-to-PDF conversion. Pixel Forge Studio makes no representations, warranties, or guarantees regarding any third-party components or services.</p>
+          </div>
+        </div>
+
+        <div class="clause">
+          <div class="clause-head">
+            <div class="clause-num">05</div>
+            <div class="clause-title">Disclaimer of Warranties</div>
+          </div>
+          <div class="clause-body">
+            <p>THE SOFTWARE IS PROVIDED <strong>"AS IS"</strong> AND <strong>"AS AVAILABLE"</strong> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED.</p>
+            <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, PIXEL FORGE STUDIO EXPRESSLY DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF <strong>MERCHANTABILITY</strong>, <strong>FITNESS FOR A PARTICULAR PURPOSE</strong>, <strong>TITLE</strong>, AND <strong>NON-INFRINGEMENT</strong>.</p>
+            <p>Pixel Forge Studio does not warrant that the Software will be error-free, uninterrupted, virus-free, secure, or that defects will be corrected.</p>
+          </div>
+        </div>
+
+        <div class="clause">
+          <div class="clause-head">
+            <div class="clause-num">06</div>
+            <div class="clause-title">Limitation of Liability</div>
+          </div>
+          <div class="clause-body">
+            <p>TO THE FULLEST EXTENT PERMITTED BY LAW, IN NO EVENT SHALL PIXEL FORGE STUDIO, ITS DIRECTORS, EMPLOYEES, PARTNERS, SUPPLIERS, OR AGENTS BE LIABLE FOR ANY:</p>
+            <ul>
+              <li>Indirect, incidental, special, consequential, or punitive damages of any nature</li>
+              <li>Loss of profits, revenue, data, business opportunities, or goodwill</li>
+              <li>Damages resulting from unauthorised access to, alteration, or corruption of your data</li>
+              <li>Damages arising from your use of or inability to use the Software</li>
+              <li>Damages arising from reliance on any output produced by the Software</li>
+            </ul>
+            <p>This limitation applies even if Pixel Forge Studio has been advised of the possibility of such damages and even if a remedy fails of its essential purpose.</p>
+          </div>
+        </div>
+
+        <div class="clause">
+          <div class="clause-head">
+            <div class="clause-num">07</div>
+            <div class="clause-title">Termination</div>
+          </div>
+          <div class="clause-body">
+            <p>This Agreement is effective from the date you first install or use the Software and shall remain in effect until terminated. <strong>Your rights under this Agreement will terminate automatically and without notice</strong> if you fail to comply with any of its terms.</p>
+            <p>Upon termination, you must immediately cease all use of the Software and permanently destroy all copies — full or partial — in your possession or control. Provisions that by their nature should survive termination shall do so, including Sections 3, 5, 6, and 8.</p>
+          </div>
+        </div>
+
+        <div class="clause">
+          <div class="clause-head">
+            <div class="clause-num">08</div>
+            <div class="clause-title">Updates and Modifications</div>
+          </div>
+          <div class="clause-body">
+            <p>Pixel Forge Studio reserves the right to modify, update, or discontinue the Software or its features at any time without prior notice. Any updates provided to you may be subject to additional or updated license terms.</p>
+            <p>Pixel Forge Studio also reserves the right to amend the terms of this Agreement at any time. Continued use of the Software after any such changes constitutes your acceptance of the new terms.</p>
+          </div>
+        </div>
+
+        <div class="clause">
+          <div class="clause-head">
+            <div class="clause-num">09</div>
+            <div class="clause-title">Governing Law</div>
+          </div>
+          <div class="clause-body">
+            <p>This Agreement shall be governed by and construed in accordance with applicable law. Any disputes arising out of or in connection with this Agreement shall be resolved through good-faith negotiation between the parties, or if unresolved, through appropriate legal channels in the competent jurisdiction.</p>
+          </div>
+        </div>
+
+        <div class="clause">
+          <div class="clause-head">
+            <div class="clause-num">10</div>
+            <div class="clause-title">Entire Agreement</div>
+          </div>
+          <div class="clause-body">
+            <p>This Agreement constitutes the entire agreement between you and Pixel Forge Studio concerning the Software and supersedes all prior understandings, negotiations, representations, and agreements with respect to the Software.</p>
+            <p>If any provision of this Agreement is held to be invalid, illegal, or unenforceable, the validity and enforceability of the remaining provisions shall not be affected. The failure of either party to enforce any right under this Agreement shall not constitute a waiver of that right.</p>
+          </div>
+        </div>
+
+      </div>
+      <!-- /clause-list -->
+
+      <!-- Acceptance callout -->
+      <div class="accept-callout">
+        <div class="accept-callout-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div class="accept-callout-text">
+          <div class="accept-callout-title">Your Acceptance of These Terms</div>
+          <div class="accept-callout-desc">
+            By clicking <strong>"Y" (Yes / Accept)</strong> during installation, downloading, installing, or using PPTX to PDF Merger V 0.0.1, you confirm that you have read, understood, and agree to be legally bound by all the terms and conditions set forth in this End User License Agreement. If you are accepting on behalf of an organization, you represent that you have the authority to bind that organization to these terms.
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact block -->
+      <div class="contact-band">
+        <div class="contact-band-label">Developer Contact</div>
+        <div class="contact-band-title">Questions About This Agreement?</div>
+        <div class="contact-grid">
+          <div>
+            <div class="c-item-label">Developer</div>
+            <div class="c-item-value">Mr. D.M. Prabhath Kelum Champika</div>
+          </div>
+          <div>
+            <div class="c-item-label">Designation</div>
+            <div class="c-item-value">CEO &amp; Founder — Pixel Forge Studio</div>
+          </div>
+          <div>
+            <div class="c-item-label">Email</div>
+            <div class="c-item-value">
+              <a href="mailto:prabhathkelum55@gmail.com">prabhathkelum55@gmail.com</a>
+            </div>
+          </div>
+          <div>
+            <div class="c-item-label">WhatsApp</div>
+            <div class="c-item-value">
+              <a href="https://wa.me/94714056318">+94 71 405 6318</a>
+            </div>
+          </div>
+          <div>
+            <div class="c-item-label">Website</div>
+            <div class="c-item-value">
+              <a href="https://pixelforgestudioprabhath.netlify.app" target="_blank">
+                pixelforgestudioprabhath.netlify.app
+              </a>
+            </div>
+          </div>
+          <div>
+            <div class="c-item-label">GitHub</div>
+            <div class="c-item-value">
+              <a href="https://github.com/Prabhath528" target="_blank">github.com/Prabhath528</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ── FOOTER ── -->
+    <footer class="site-footer">
+      <div class="footer-logo">PIXEL <span>FORGE</span> STUDIO</div>
+      <div class="footer-copy">© 2025 Pixel Forge Studio &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp; PPTX to PDF Merger V 0.0.1</div>
+    </footer>
+
+  </body>
+</html>
