@@ -127,6 +127,23 @@
       text-transform: uppercase;
       margin-bottom: 1rem;
     }
+    .hero-new-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: "Space Mono", monospace;
+      font-size: 0.62rem; letter-spacing: 1px;
+      color: #a8d8a8;
+      background: rgba(24,128,56,0.14);
+      border: 1px solid rgba(24,128,56,0.4);
+      padding: 7px 14px;
+      margin-bottom: 1.4rem;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .hero-new-pill:hover { background: rgba(24,128,56,0.24); border-color: rgba(24,128,56,0.6); }
+    .hero-new-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(24,128,56,0.25);
+    }
     .hero-desc {
       font-size: 0.95rem; color: rgba(255,255,255,0.55);
       line-height: 1.75; max-width: 460px;
@@ -332,6 +349,57 @@
     }
     .install-note strong { color: var(--text); }
 
+    /* ── WHAT'S NEW ── */
+    .whats-new-section { margin-bottom: 3rem; scroll-margin-top: 90px; }
+    .whats-new-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+    }
+    .whats-new-head {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.75rem;
+      padding: 1.1rem 1.4rem 1rem;
+      border-bottom: 1px solid var(--bg3);
+    }
+    .whats-new-version {
+      font-family: "Space Mono", monospace;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;
+      color: var(--ink);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .whats-new-version::before {
+      content: ""; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
+    }
+    .whats-new-tag {
+      font-family: "Space Mono", monospace;
+      font-size: 0.55rem; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: var(--green); color: #fff;
+      padding: 4px 10px;
+    }
+    .whats-new-list { list-style: none; padding: 0.4rem 1.4rem 1.3rem; }
+    .whats-new-list li {
+      display: flex; gap: 12px;
+      font-size: 0.875rem; color: var(--text); line-height: 1.6;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--bg3);
+      align-items: flex-start;
+    }
+    .whats-new-list li:last-child { border-bottom: none; }
+    .whats-new-list li svg {
+      width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;
+      color: var(--green);
+    }
+    .whats-new-list li strong { color: var(--ink); }
+
+    /* ── UPDATE COMMAND ── */
+    .update-command-label::before {
+      content: "UPD" !important;
+      background: var(--green) !important;
+    }
+
     /* ── SIDEBAR ── */
     .sidebar {}
     .sidebar-card {
@@ -361,6 +429,20 @@
     }
     .sidebar-dl-btn:hover { background: var(--accent); }
     .sidebar-dl-btn svg { width: 14px; height: 14px; }
+    .sidebar-btn-row { display: flex; gap: 0.6rem; margin-bottom: 0.75rem; }
+    .sidebar-btn-row .sidebar-dl-btn { margin-bottom: 0; }
+    .sidebar-update-btn {
+      width: 100%;
+      font-family: "Space Mono", monospace;
+      font-size: 0.65rem; letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--surface2); color: var(--ink);
+      border: 1px solid var(--border-dk); padding: 14px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .sidebar-update-btn:hover { background: var(--bg2); border-color: var(--green); }
+    .sidebar-update-btn svg { width: 14px; height: 14px; color: var(--green); }
     .sidebar-meta { list-style: none; }
     .sidebar-meta li {
       display: flex; justify-content: space-between;
@@ -463,7 +545,11 @@
       <div class="hero-text">
         <div class="hero-eyebrow">Document Tools · Windows</div>
         <h1 class="hero-title">PPTX to<br><em>PDF Merger</em></h1>
-        <div class="hero-version">V 0.0.1 &nbsp;·&nbsp; Pixel Forge Studio</div>
+        <a href="#whats-new" class="hero-new-pill">
+          <span class="hero-new-dot"></span>
+          New in V 0.0.2 — Add Files, Remove, Auto-Update Checker
+        </a>
+        <div class="hero-version">V 0.0.2 &nbsp;·&nbsp; Pixel Forge Studio</div>
         <p class="hero-desc">
           A professional utility that converts and merges multiple PowerPoint (.pptx) files
           into a single, organized PDF document. Powered by Microsoft PowerPoint COM
@@ -504,6 +590,32 @@
         </div>
       </div>
 
+      <!-- What's New -->
+      <div class="whats-new-section" id="whats-new">
+        <div class="section-label">Changelog</div>
+        <h2 class="section-heading">What's New</h2>
+        <div class="whats-new-card">
+          <div class="whats-new-head">
+            <div class="whats-new-version">VERSION V 0.0.2</div>
+            <div class="whats-new-tag">Latest</div>
+          </div>
+          <ul class="whats-new-list">
+            <li>
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span><strong>Add Files...</strong> — add extra PDF/PPTX files from any folder, not just the source folder.</span>
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+              <span><strong>Remove button</strong> — select one or more files in the list and remove them from the merge queue.</span>
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+              <span><strong>Automatic update checker</strong> — the app checks GitHub for new releases on startup, so you're always notified when a new version ships.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <!-- How it works -->
       <div class="how-section">
         <div class="section-label">Working Guide</div>
@@ -535,7 +647,9 @@
               <div class="step-title">Arrange the File Order</div>
               <div class="step-desc">
                 Select any file in the list and use the <strong>Move Up</strong> / <strong>Move Down</strong> buttons
-                to reorder them. The final PDF pages will follow this sequence exactly.
+                to reorder them. The final PDF pages will follow this sequence exactly. Need files from
+                another folder? Use <strong>Add Files...</strong> to browse and append them. Selected an item by
+                mistake? Use <strong>Remove</strong> to take it back out of the queue.
               </div>
             </div>
           </li>
@@ -641,6 +755,34 @@
         </div>
       </div>
 
+      <!-- Update Section -->
+      <div class="install-section" id="update-section">
+        <div class="section-label">Stay Current</div>
+        <h2 class="section-heading">Update to the Latest Version</h2>
+        <p style="font-size:0.9rem; color:var(--muted); margin-bottom:1.2rem; line-height:1.7;">
+          Already have the app installed? Run the command below in PowerShell to update in place —
+          it pulls the latest release and overwrites your existing installation, no need to uninstall first.
+          The app also checks for updates automatically on startup and will prompt you when a new version is available.
+        </p>
+
+        <div class="install-command-wrap">
+          <div class="install-command-label update-command-label">PowerShell (Run as Administrator)</div>
+          <div class="install-command-code">
+            <span class="cmd-irm">irm</span>
+            <span class="cmd-url">"https://raw.githubusercontent.com/Prabhath528/pptx-to-pdf-merger/refs/heads/main/update.ps1"</span>
+            <span class="cmd-pipe"> | </span>
+            <span class="cmd-iex">iex</span>
+          </div>
+          <button class="copy-btn" id="copy-update-btn" onclick="copyUpdateCommand()">Copy</button>
+        </div>
+
+        <div class="install-note" style="border-left-color: var(--green);">
+          <strong>Tip:</strong> Your settings and last-seen version are stored separately under
+          <code>%APPDATA%</code>, so updating never affects your preferences. After updating, the app will
+          show a one-time "What's New" popup summarizing the latest changes.
+        </div>
+      </div>
+
     </main>
 
     <!-- ── SIDEBAR ── -->
@@ -648,15 +790,19 @@
 
       <!-- Quick download card -->
       <div class="sidebar-card">
-        <div class="sidebar-card-title">Download</div>
+        <div class="sidebar-card-title">Download &amp; Update</div>
         <button class="sidebar-dl-btn" onclick="document.getElementById('download-section').scrollIntoView({behavior:'smooth'})">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.252 0a11.25 11.25 0 1 0 0 22.5 11.25 11.25 0 0 0 0-22.5zm0 2a9.25 9.25 0 1 1 0 18.5 9.25 9.25 0 0 1 0-18.5zm-1 4.5v6.086l-2.543-2.543-1.414 1.414 4.5 4.5.707.707.707-.707 4.5-4.5-1.414-1.414L13.252 12.5V6.5h-3z"/></svg>
           Install for Windows
         </button>
+        <button class="sidebar-update-btn" onclick="document.getElementById('update-section').scrollIntoView({behavior:'smooth'})">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+          Update Existing Install
+        </button>
         <ul class="sidebar-meta">
           <li>
             <span class="meta-label">Version</span>
-            <span class="meta-val">V 0.0.1</span>
+            <span class="meta-val">V 0.0.2</span>
           </li>
           <li>
             <span class="meta-label">Platform</span>
@@ -687,9 +833,12 @@
         <ul class="features-list">
           <li>Batch PPTX to PDF conversion</li>
           <li>Merge multiple files into one PDF</li>
+          <li>Add Files... from any folder, not just the source folder</li>
+          <li>Remove selected files from the queue</li>
           <li>Drag-to-reorder file queue</li>
           <li>PowerPoint COM — layout-perfect output</li>
           <li>Real-time progress &amp; log panel</li>
+          <li>Automatic update checker on startup</li>
           <li>Automatic temp file cleanup</li>
           <li>Desktop shortcut on install</li>
         </ul>
@@ -713,7 +862,7 @@
   <!-- ── FOOTER ── -->
   <footer class="site-footer">
     <div class="footer-logo">PIXEL <span>FORGE</span> STUDIO</div>
-    <div class="footer-copy">© 2025 Pixel Forge Studio &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp; PPTX to PDF Merger V 0.0.1</div>
+    <div class="footer-copy">© 2025 Pixel Forge Studio &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp; PPTX to PDF Merger V 0.0.2</div>
   </footer>
 
   <script>
@@ -736,6 +885,27 @@
         document.execCommand('copy');
         document.body.removeChild(el);
         const btn = document.getElementById('copy-btn');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+
+    function copyUpdateCommand() {
+      const cmd = `irm "https://raw.githubusercontent.com/Prabhath528/pptx-to-pdf-merger/refs/heads/main/update.ps1" | iex`;
+      const btn = document.getElementById('copy-update-btn');
+      navigator.clipboard.writeText(cmd).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      }).catch(() => {
+        // Fallback for older browsers
+        const el = document.createElement('textarea');
+        el.value = cmd;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
         btn.textContent = 'Copied!';
         btn.classList.add('copied');
         setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
