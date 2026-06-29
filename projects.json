@@ -13,15 +13,15 @@
   },
   {
     "id": 2,
-    "name": "DevTask Manager",
-    "category": "software",
+    "name": "Grains & Grounds",
+    "category": "web",
     "desc": "A developer-focused desktop productivity tool for managing tasks, sprints, and reusable code snippets. Built with Python and Tkinter, it features a clean drag-and-drop interface, configurable reminders, and a PostgreSQL backend for seamless cross-device data sync and full audit history.",
-    "img": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&q=80",
-    "link": "https://github.com/Prabhath528",
+    "img": "https://drive.google.com/file/d/1NjXkaGF4bOBKqQrywPXs3X_v98cMQ-wd/view?usp=sharing",
+    "link": "https://grainsandgrounds.netlify.app/",
     "video": "",
-    "tech": ["Python", "Tkinter", "PostgreSQL", "REST API"],
-    "year": "2024",
-    "status": "Completed"
+    "tech": ["HTML", "CSS", "JavaScript"],
+    "year": "2026",
+    "status": "Live"
   },
   {
     "id": 3,
