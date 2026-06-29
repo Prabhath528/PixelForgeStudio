@@ -16,7 +16,7 @@
     "name": "Grains & Grounds",
     "category": "web",
     "desc": "A developer-focused desktop productivity tool for managing tasks, sprints, and reusable code snippets. Built with Python and Tkinter, it features a clean drag-and-drop interface, configurable reminders, and a PostgreSQL backend for seamless cross-device data sync and full audit history.",
-    "img": "https://drive.google.com/file/d/1NjXkaGF4bOBKqQrywPXs3X_v98cMQ-wd/view?usp=drive_link",
+    "img": "blob:https://www.pinterest.com/1edf88ad-8fa6-41e1-9772-37be979f4c6c",
     "link": "https://grainsandgrounds.netlify.app/",
     "video": "",
     "tech": ["HTML", "CSS", "JavaScript"],
