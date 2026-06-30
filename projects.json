@@ -4,7 +4,7 @@
     "name": "Learn-Forge SaaS Platform",
     "category": "Web",
     "desc": "A production-ready e-learning SaaS platform built with Vue.js and FastAPI. Delivers course management, student progress tracking, interactive quizzes, subscription billing, and a powerful admin dashboard — all backed by a scalable PostgreSQL database with full REST API architecture.",
-    "img": "images/Project01.png",
+    "img": "https://i.pinimg.com/1200x/ed/03/da/ed03dafd0a8b98321798de541218b1c4.jpg",
     "link": "https://lern-forge-frontend1-kijf.vercel.app/",
     "video": "",
     "tech": ["Vue.js", "Tailwind CSS", "PostgreSQL", "FastAPI"],
