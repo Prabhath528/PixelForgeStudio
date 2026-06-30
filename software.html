@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Software Products — Pixel Forge Studio</title>
+  <meta name="description" content="Download desktop software tools built by Pixel Forge Studio. Available for Windows." />
+  <meta name="author" content="Prabhath Kelum" />
+  <link rel="icon" type="image/png" href="./Logo.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg:        #f5f2ed;
+      --bg2:       #ede9e2;
+      --bg3:       #e5e0d8;
+      --surface:   #ffffff;
+      --surface2:  #f9f7f4;
+      --border:    #d4cfc6;
+      --border-dk: #b8b0a4;
+      --accent:    #c84b2f;
+      --accent-dk: #a33a20;
+      --accent2:   #ff6b00;
+      --text:      #1a1612;
+      --muted:     #7c746a;
+      --white:     #ffffff;
+      --gold:      #c97d1a;
+      --ink:       #1a1612;
+      --shadow:    rgba(26,22,18,0.12);
+      --shadow-lg: rgba(26,22,18,0.22);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Outfit", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 100;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1.1rem; font-weight: 900;
+      color: var(--ink);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo img { height: 32px; width: auto; }
+    .nav-logo-word span { color: var(--accent); }
+    .nav-back {
+      font-family: "Space Mono", monospace;
+      font-size: 0.65rem; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--accent); }
+    .nav-back svg { width: 14px; height: 14px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--ink);
+      padding: 80px 5% 64px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .hero::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 55% 80% at 90% 50%, rgba(200,75,47,0.16) 0%, transparent 65%);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1080px; margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-family: "Space Mono", monospace;
+      font-size: 0.62rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--accent2);
+      display: flex; align-items: center; gap: 0.65rem;
+      margin-bottom: 1rem;
+    }
+    .hero-eyebrow::before {
+      content: "";
+      width: 22px; height: 1.5px;
+      background: var(--accent2); flex-shrink: 0;
+    }
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 900; color: #fff; line-height: 1.12;
+      margin-bottom: 1rem;
+    }
+    .hero-title em { color: var(--accent2); font-style: italic; }
+    .hero-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,0.55);
+      max-width: 520px; line-height: 1.7;
+    }
+
+    /* ── PRODUCTS GRID ── */
+    .products-section {
+      max-width: 1080px; margin: 0 auto;
+      padding: 72px 5%;
+    }
+    .section-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border); padding-bottom: 1rem;
+    }
+    .section-title {
+      font-family: "Space Mono", monospace;
+      font-size: 0.65rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .product-count {
+      font-family: "Space Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--accent);
+    }
+
+    /* Product Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px var(--shadow-lg);
+      border-color: var(--border-dk);
+    }
+    .product-card:hover .card-arrow { transform: translateX(4px); }
+
+    /* Card banner image */
+    .card-banner {
+      width: 100%; height: 180px;
+      overflow: hidden; position: relative;
+      background: var(--bg2);
+    }
+    .card-banner img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .product-card:hover .card-banner img { transform: scale(1.04); }
+
+    /* Banner placeholder (shown when image not available) */
+    .card-banner-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #1a1612 0%, #2d2420 100%);
+      font-family: "Space Mono", monospace;
+      font-size: 2rem; font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 4px;
+    }
+
+    /* Status badge overlay */
+    .card-status-badge {
+      position: absolute; top: 12px; left: 12px;
+      font-family: "Space Mono", monospace;
+      font-size: 0.55rem; letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background: var(--accent); color: #fff;
+    }
+    .card-status-badge.available { background: #188038; }
+    .card-status-badge.coming-soon { background: var(--gold); }
+
+    /* Platform badge */
+    .card-platform-badge {
+      position: absolute; top: 12px; right: 12px;
+      font-family: "Space Mono", monospace;
+      font-size: 0.55rem; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background: rgba(10,10,10,0.75);
+      backdrop-filter: blur(6px);
+      color: rgba(255,255,255,0.8);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .card-platform-badge svg { width: 12px; height: 12px; }
+
+    /* Card body */
+    .card-body {
+      padding: 1.4rem 1.4rem 0;
+      flex: 1;
+    }
+    .card-category {
+      font-family: "Space Mono", monospace;
+      font-size: 0.58rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.45rem;
+    }
+    .card-name {
+      font-family: "Playfair Display", serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--ink); line-height: 1.25;
+      margin-bottom: 0.4rem;
+    }
+    .card-version {
+      font-family: "Space Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 1.5px;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .card-desc {
+      font-size: 0.875rem; color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* Card tags */
+    .card-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      padding: 1rem 1.4rem 0;
+    }
+    .card-tag {
+      font-family: "Space Mono", monospace;
+      font-size: 0.52rem; letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 3px 8px;
+    }
+
+    /* Card footer */
+    .card-footer {
+      padding: 1.2rem 1.4rem 1.4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border);
+      margin-top: 1.2rem;
+    }
+    .card-get-btn {
+      font-family: "Space Mono", monospace;
+      font-size: 0.65rem; letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--ink); color: #fff;
+      border: none; padding: 10px 20px;
+      display: flex; align-items: center; gap: 8px;
+      transition: background 0.18s;
+    }
+    .card-get-btn:hover { background: var(--accent); }
+    .card-get-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .card-arrow {
+      transition: transform 0.2s;
+      color: var(--muted);
+    }
+    .card-arrow svg { width: 16px; height: 16px; }
+
+    /* ── COMING SOON CARD STATE ── */
+    .product-card.coming-soon-card { opacity: 0.7; cursor: default; }
+    .product-card.coming-soon-card:hover { transform: none; box-shadow: none; border-color: var(--border); }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--ink);
+      padding: 40px 5% 32px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1rem; font-weight: 900;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy {
+      font-family: "Space Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── LOADING STATE ── */
+    .loading-state {
+      text-align: center; padding: 60px 0;
+      font-family: "Space Mono", monospace;
+      font-size: 0.65rem; letter-spacing: 2px;
+      color: var(--muted); text-transform: uppercase;
+    }
+    .loading-dots::after {
+      content: "...";
+      animation: dots 1.2s infinite;
+    }
+    @keyframes dots {
+      0%, 20%  { content: "."; }
+      40%, 60% { content: ".."; }
+      80%, 100%{ content: "..."; }
+    }
+
+    @media (max-width: 640px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .section-header { flex-direction: column; gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav class="top-nav">
+    <a href="index.html" class="nav-logo">
+      <img src="./Logo.png" alt="Pixel Forge Studio" onerror="this.style.display='none'" />
+      <span class="nav-logo-word">PIXEL <span>FORGE</span> STUDIO</span>
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Studio
+    </a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Software Products</div>
+      <h1 class="hero-title">
+        Download Our<br>
+        <em>Desktop Tools</em>
+      </h1>
+      <p class="hero-sub">
+        Pixel Forge Studio builds powerful desktop software tools for developers, designers, and business owners.
+        Available for Windows — Mac &amp; Linux versions coming soon.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── PRODUCTS SECTION ── -->
+  <section class="products-section">
+    <div class="section-header">
+      <span class="section-title">All Products</span>
+      <span class="product-count" id="product-count"></span>
+    </div>
+    <div class="cards-grid" id="cards-grid">
+      <div class="loading-state"><span class="loading-dots">Loading products</span></div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <div class="footer-logo">PIXEL <span>FORGE</span> STUDIO</div>
+    <div class="footer-copy">© 2025 Pixel Forge Studio &nbsp;·&nbsp; All rights reserved</div>
+  </footer>
+
+  <script>
+    // ── Load products from JSON and render cards ─────────────────────────────
+    async function loadProducts() {
+      let products;
+      try {
+        const res = await fetch('./products.json');
+        if (!res.ok) throw new Error('fetch failed');
+        const data = await res.json();
+        products = data.products;
+      } catch (e) {
+        // Fallback inline data (matches products.json)
+        products = [
+          {
+            id: "pptx-to-pdf-merger",
+            name: "PPTX to PDF Merger",
+            version: "V 0.0.1",
+            tagline: "Convert & Merge PowerPoint Files with Ease",
+            description: "A professional utility that converts and merges multiple PowerPoint (.pptx) files into a single, organized PDF document. Powered by Microsoft PowerPoint COM automation for high-fidelity, layout-perfect PDF output.",
+            banner: "banner1.png",
+            platform: "windows",
+            category: "Document Tools",
+            status: "available",
+            detailPage: "pptx-to-pdf.html",
+            tags: ["PDF", "PowerPoint", "PPTX", "Converter", "Merger"]
+          }
+        ];
+      }
+      renderCards(products);
+    }
+
+    function renderCards(products) {
+      const grid = document.getElementById('cards-grid');
+      const countEl = document.getElementById('product-count');
+
+      const available = products.filter(p => p.status === 'available').length;
+      countEl.textContent = `${products.length} product${products.length !== 1 ? 's' : ''} · ${available} available`;
+
+      grid.innerHTML = products.map(p => buildCard(p)).join('');
+    }
+
+    function buildCard(p) {
+      const isAvailable = p.status === 'available';
+      const statusLabel = p.status === 'coming-soon' ? 'Coming Soon' : 'Available';
+      const statusClass = isAvailable ? 'available' : 'coming-soon';
+
+      const bannerHtml = `
+        <div class="card-banner">
+          <img src="${p.banner}" alt="${p.name} banner"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="card-banner-placeholder" style="display:none;">P→F</div>
+          <div class="card-status-badge ${statusClass}">${statusLabel}</div>
+          <div class="card-platform-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+            Windows
+          </div>
+        </div>`;
+
+      const tagsHtml = p.tags ? `<div class="card-tags">${p.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}</div>` : '';
+
+      const footerHtml = isAvailable
+        ? `<div class="card-footer">
+            <button class="card-get-btn" onclick="event.stopPropagation(); window.location='${p.detailPage}'">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Get Software
+            </button>
+            <span class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>`
+        : `<div class="card-footer">
+            <button class="card-get-btn" style="opacity:0.4; cursor:not-allowed;" disabled>
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Coming Soon
+            </button>
+          </div>`;
+
+      const clickable = isAvailable ? `onclick="window.location='${p.detailPage}'"` : '';
+
+      return `
+        <article class="product-card${isAvailable ? '' : ' coming-soon-card'}" ${clickable}>
+          ${bannerHtml}
+          <div class="card-body">
+            <div class="card-category">${p.category}</div>
+            <h2 class="card-name">${p.name}</h2>
+            <div class="card-version">${p.version}</div>
+            <p class="card-desc">${p.description}</p>
+          </div>
+          ${tagsHtml}
+          ${footerHtml}
+        </article>`;
+    }
+
+    loadProducts();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Learn-Forge SaaS Platform",
+    "category": "Web",
+    "desc": "A production-ready e-learning SaaS platform built with Vue.js and FastAPI. Delivers course management, student progress tracking, interactive quizzes, subscription billing, and a powerful admin dashboard — all backed by a scalable PostgreSQL database with full REST API architecture.",
+    "img": "images/Project01.png",
+    "link": "https://lern-forge-frontend1-kijf.vercel.app/",
+    "video": "",
+    "tech": ["Vue.js", "Tailwind CSS", "PostgreSQL", "FastAPI"],
+    "year": "2026",
+    "status": "Live"
+  },
+  {
+    "id": 2,
+    "name": "Grains & Grounds",
+    "category": "web",
+    "desc": "A designer-focused web interface for a specialty coffee brand. Built with semantic HTML5 and vanilla CSS, it features a clean responsive layout, dynamic tabbed menus, and smooth scroll animations for a premium digital storefront and seamless user navigation.",
+    "img": "https://i.pinimg.com/736x/e4/1e/40/e41e4088c877596ace9f76d2a7670101.jpg",
+    "link": "https://grainsandgrounds.netlify.app/",
+    "video": "",
+    "tech": ["HTML", "CSS", "JavaScript"],
+    "year": "2026",
+    "status": "Live"
+  },
+  {
+    "id": 3,
+    "name": "Pixel Forge Portfolio",
+    "category": "web",
+    "desc": "A handcrafted single-page developer portfolio with dynamic project loading from JSON, parallax scrolling, animated skill bars, and a light warm theme. Features a custom loading screen, scroll-reveal animations, project filtering, client review system, and zero backend — fully deployable as static files.",
+    "img": "https://images.unsplash.com/photo-1545670723-196ed0954986?w=600&q=80",
+    "link": "https://pixelforgestudioprabhath.netlify.app/",
+    "video": "",
+    "tech": ["HTML", "CSS", "JavaScript", "JSON"],
+    "year": "2025",
+    "status": "Live"
+  },
+  {
+    "id": 4,
+    "name": "RestaurantHub Admin Dashboard",
+    "category": "webapp",
+    "desc": "A real-time restaurant operations dashboard built with Vue.js and FastAPI. Covers table reservations, live kitchen order tracking, digital menu management, staff scheduling, and revenue analytics charts — all powered by a PostgreSQL database with live WebSocket updates for front-of-house efficiency.",
+    "img": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80",
+    "link": "https://github.com/Prabhath528",
+    "video": "",
+    "tech": ["Vue.js", "FastAPI", "PostgreSQL", "Chart.js"],
+    "year": "2024",
+    "status": "Completed"
+  },
+  {
+    "id": 5,
+    "name": "LandingPro Builder",
+    "category": "web",
+    "desc": "A pixel-perfect marketing landing page template system with a visual section builder, smooth GSAP scroll animations, mobile-first responsive layouts, and ready-to-deploy form integrations. Designed to help businesses launch high-converting product pages in hours, not weeks.",
+    "img": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&q=80",
+    "link": "https://github.com/Prabhath528",
+    "video": "",
+    "tech": ["HTML", "CSS", "JavaScript", "GSAP"],
+    "year": "2023",
+    "status": "Completed"
+  },
+  {
+    "id": 6,
+    "name": "FileSync Desktop Tool",
+    "category": "software",
+    "desc": "A cross-platform desktop file sync and backup utility built with Python. Supports configurable sync schedules, AES-encrypted uploads to AWS S3, conflict resolution, and PostgreSQL-based sync history logging — giving teams a reliable, auditable backup workflow without complex infrastructure.",
+    "img": "https://images.unsplash.com/photo-1618044733300-9472054094ee?w=600&q=80",
+    "link": "https://github.com/Prabhath528",
+    "video": "",
+    "tech": ["Python", "PostgreSQL", "AWS S3", "Tkinter"],
+    "year": "2023",
+    "status": "Completed"
+  }
+]
