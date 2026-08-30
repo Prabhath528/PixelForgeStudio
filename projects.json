@@ -25,14 +25,14 @@
   },
   {
     "id": 3,
-    "name": "Pixel Forge Portfolio",
+    "name": "Amber perfume web",
     "category": "web",
-    "desc": "A handcrafted single-page developer portfolio with dynamic project loading from JSON, parallax scrolling, animated skill bars, and a light warm theme. Features a custom loading screen, scroll-reveal animations, project filtering, client review system, and zero backend — fully deployable as static files.",
-    "img": "https://images.unsplash.com/photo-1545670723-196ed0954986?w=600&q=80",
-    "link": "https://pixelforgestudioprabhath.netlify.app/",
+    "desc": "A minimalist, high-performance luxury e-commerce web application with dynamic fragrance family filtering, visual scent breakdown guides, interactive shopping cart capabilities, and smooth UI animations — built using vanilla HTML5, CSS3, and JavaScript.",
+    "img": "https://i.pinimg.com/736x/58/b7/87/58b7879e05ede1edd7dc99568f031a74.jpg",
+    "link": "https://amberappnew.netlify.app/",
     "video": "",
-    "tech": ["HTML", "CSS", "JavaScript", "JSON"],
-    "year": "2025",
+    "tech": ["HTML", "CSS", "JavaScript"],
+    "year": "2026",
     "status": "Live"
   },
   {
