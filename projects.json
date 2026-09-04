@@ -37,14 +37,14 @@
   },
   {
     "id": 4,
-    "name": "Restaurant Admin Dashboard",
-    "category": "web",
-    "desc": "A real-time restaurant operations dashboard built with Vue.js and FastAPI. Covers table reservations, live kitchen order tracking, digital menu management, staff scheduling, and revenue analytics charts — all powered by a PostgreSQL database with live WebSocket updates for front-of-house efficiency.",
+    "name": "PTTX to PDF Merger",
+    "category": "software",
+    "desc": "A professional utility that converts and merges multiple PowerPoint (.pptx) files into a single, organized PDF document. Powered by Microsoft PowerPoint COM automation for high-fidelity, layout-perfect PDF output.",
     "img": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80",
-    "link": "https://github.com/Prabhath528",
+    "link": "https://pixelforgestudioprabhath.netlify.app/pptx-to-pdf.html",
     "video": "",
-    "tech": ["Vue.js", "FastAPI", "PostgreSQL", "Chart.js"],
-    "year": "2024",
-    "status": "Completed"
+    "tech": ["Python", "Qt5"],
+    "year": "2026",
+    "status": "Now Availble"
   }
 ]
