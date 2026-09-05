@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitSync Pro — Pixel Forge Studio</title>
+  <meta name="description" content="One-click GitHub push and auto-sync desktop utility for Windows. Download GitSync Pro, free by Pixel Forge Studio." />
+  <meta name="author" content="Prabhath Kelum" />
+  <link rel="icon" type="image/png" href="./Logo.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg:        #f5f2ed;
+      --bg2:       #ede9e2;
+      --bg3:       #e5e0d8;
+      --surface:   #ffffff;
+      --surface2:  #f9f7f4;
+      --border:    #d4cfc6;
+      --border-dk: #b8b0a4;
+      --accent:    #c84b2f;
+      --accent-dk: #a33a20;
+      --accent2:   #ff6b00;
+      --text:      #1a1612;
+      --muted:     #7c746a;
+      --white:     #ffffff;
+      --gold:      #c97d1a;
+      --ink:       #1a1612;
+      --green:     #188038;
+      --shadow:    rgba(26,22,18,0.12);
+      --shadow-lg: rgba(26,22,18,0.22);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Outfit", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 100;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1.1rem; font-weight: 900;
+      color: var(--ink);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo img { height: 32px; width: auto; }
+    .nav-logo-word span { color: var(--accent); }
+    .nav-back {
+      font-family: "Space Mono", monospace;
+      font-size: 0.65rem; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--accent); }
+    .nav-back svg { width: 14px; height: 14px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--ink);
+      padding: 72px 5% 64px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .hero::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 55% 80% at 90% 50%, rgba(200,75,47,0.16) 0%, transparent 65%);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1080px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 420px; gap: 4rem;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      font-family: "Space Mono", monospace;
+      font-size: 0.62rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--accent2);
+      display: flex; align-items: center; gap: 0.65rem;
+      margin-bottom: 1rem;
+    }
+    .hero-eyebrow::before {
+      content: ""; width: 22px; height: 1.5px;
+      background: var(--accent2); flex-shrink: 0;
+    }
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 900; color: #fff; line-height: 1.12;
+      margin-bottom: 0.75rem;
+    }
+    .hero-title em { color: var(--accent2); font-style: italic; }
+    .hero-version {
+      font-family: "Space Mono", monospace;
+      font-size: 0.62rem; letter-spacing: 2px;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero-new-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: "Space Mono", monospace;
+      font-size: 0.62rem; letter-spacing: 1px;
+      color: #a8d8a8;
+      background: rgba(24,128,56,0.14);
+      border: 1px solid rgba(24,128,56,0.4);
+      padding: 7px 14px;
+      margin-bottom: 1.4rem;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .hero-new-pill:hover { background: rgba(24,128,56,0.24); border-color: rgba(24,128,56,0.6); }
+    .hero-new-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(24,128,56,0.25);
+    }
+    .hero-desc {
+      font-size: 0.95rem; color: rgba(255,255,255,0.55);
+      line-height: 1.75; max-width: 460px;
+      margin-bottom: 2rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      font-family: "Space Mono", monospace;
+      font-size: 0.65rem; letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--accent); color: #fff;
+      border: none; padding: 14px 28px;
+      display: flex; align-items: center; gap: 10px;
+      transition: background 0.18s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--accent-dk); transform: translateY(-1px); }
+    .btn-primary svg { width: 14px; height: 14px; }
+    .btn-ghost {
+      font-family: "Space Mono", monospace;
+      font-size: 0.65rem; letter-spacing: 2px;
+      text-transform: uppercase;
+      background: transparent; color: rgba(255,255,255,0.6);
+      border: 1px solid rgba(255,255,255,0.2); padding: 14px 24px;
+      display: flex; align-items: center; gap: 10px;
+      transition: border-color 0.18s, color 0.18s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+    .btn-ghost svg { width: 14px; height: 14px; }
+
+    /* Hero banner */
+    .hero-banner {
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+    .hero-banner img {
+      width: 100%; height: 240px; object-fit: cover;
+    }
+    .hero-banner-placeholder {
+      width: 100%; height: 240px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #1e2a40 0%, #2d1a14 100%);
+      font-family: "Space Mono", monospace;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 6px;
+    }
+    .hero-badge {
+      position: absolute; top: 12px; left: 12px;
+      font-family: "Space Mono", monospace;
+      font-size: 0.55rem; letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--green); color: #fff;
+      padding: 5px 12px;
+    }
+
+    /* ── MAIN CONTENT LAYOUT ── */
+    .content-wrap {
+      max-width: 1080px; margin: 0 auto;
+      padding: 64px 5%;
+      display: grid; grid-template-columns: 1fr 280px; gap: 4rem;
+      align-items: start;
+    }
+
+    /* ── SCREENSHOTS SECTION ── */
+    .section-label {
+      font-family: "Space Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .section-heading {
+      font-family: "Playfair Display", serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--ink); line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+
+    .screenshots-strip {
+      display: grid; gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .screenshot-frame {
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+    }
+    .screenshot-frame img {
+      width: 100%; display: block;
+      transition: transform 0.3s ease;
+    }
+    .screenshot-frame:hover img { transform: scale(1.02); }
+    .screenshot-caption {
+      background: var(--ink);
+      padding: 8px 14px;
+      font-family: "Space Mono", monospace;
+      font-size: 0.58rem; letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.5); text-transform: uppercase;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .screenshot-caption::before {
+      content: ""; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--green); flex-shrink: 0;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section { margin-bottom: 3rem; }
+    .steps-list { list-style: none; }
+    .step-item {
+      display: flex; gap: 1.2rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step-item:last-child { border-bottom: none; }
+    .step-num {
+      font-family: "Space Mono", monospace;
+      font-size: 0.7rem; font-weight: 700;
+      color: var(--accent); min-width: 28px;
+      padding-top: 2px;
+    }
+    .step-body {}
+    .step-title {
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--ink); margin-bottom: 0.25rem;
+    }
+    .step-desc {
+      font-size: 0.875rem; color: var(--muted); line-height: 1.65;
+    }
+    .step-code {
+      font-family: "Space Mono", monospace;
+      font-size: 0.78rem;
+      background: var(--ink); color: #a8d8a8;
+      padding: 8px 12px; margin-top: 0.5rem;
+      display: block; line-height: 1.5;
+      word-break: break-all;
+    }
+
+    /* ── INSTALL SECTION ── */
+    .install-section { margin-bottom: 3rem; }
+
+    .install-steps { list-style: none; margin-top: 1rem; }
+    .install-step {
+      display: flex; gap: 12px;
+      padding: 0.7rem 0;
+      font-size: 0.875rem; color: var(--muted);
+      border-bottom: 1px solid var(--bg3);
+      align-items: flex-start;
+    }
+    .install-step:last-child { border-bottom: none; }
+    .install-step-icon {
+      width: 20px; height: 20px;
+      color: var(--accent); flex-shrink: 0; margin-top: 2px;
+    }
+    .install-step-icon svg { width: 16px; height: 16px; }
+
+    .install-note {
+      margin-top: 1rem;
+      background: var(--surface2);
+      border-left: 3px solid var(--gold);
+      padding: 12px 16px;
+      font-size: 0.83rem; color: var(--muted); line-height: 1.65;
+    }
+    .install-note strong { color: var(--text); }
+
+    /* ── WHAT'S NEW ── */
+    .whats-new-section { margin-bottom: 3rem; scroll-margin-top: 90px; }
+    .whats-new-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+    }
+    .whats-new-head {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.75rem;
+      padding: 1.1rem 1.4rem 1rem;
+      border-bottom: 1px solid var(--bg3);
+    }
+    .whats-new-version {
+      font-family: "Space Mono", monospace;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;
+      color: var(--ink);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .whats-new-version::before {
+      content: ""; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
+    }
+    .whats-new-tag {
+      font-family: "Space Mono", monospace;
+      font-size: 0.55rem; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: var(--green); color: #fff;
+      padding: 4px 10px;
+    }
+    .whats-new-list { list-style: none; padding: 0.4rem 1.4rem 1.3rem; }
+    .whats-new-list li {
+      display: flex; gap: 12px;
+      font-size: 0.875rem; color: var(--text); line-height: 1.6;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--bg3);
+      align-items: flex-start;
+    }
+    .whats-new-list li:last-child { border-bottom: none; }
+    .whats-new-list li svg {
+      width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;
+      color: var(--green);
+    }
+    .whats-new-list li strong { color: var(--ink); }
+
+    /* ── DIRECT DOWNLOAD PANEL ── */
+    .download-panel {
+      background: var(--ink);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 32px;
+      margin: 1rem 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1.5rem; flex-wrap: wrap;
+    }
+    .download-panel-file {
+      font-family: "Space Mono", monospace;
+      font-size: 0.85rem; color: #fff; font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .download-panel-meta {
+      font-family: "Space Mono", monospace;
+      font-size: 0.62rem; letter-spacing: 1px;
+      color: rgba(255,255,255,0.4); text-transform: uppercase;
+    }
+    .download-panel-btn {
+      font-family: "Space Mono", monospace;
+      font-size: 0.68rem; letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--accent); color: #fff;
+      border: none; padding: 16px 30px;
+      display: flex; align-items: center; gap: 10px;
+      transition: background 0.18s, transform 0.15s;
+      flex-shrink: 0;
+    }
+    .download-panel-btn:hover { background: var(--accent-dk); transform: translateY(-1px); }
+    .download-panel-btn svg { width: 15px; height: 15px; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {}
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .sidebar-card-title {
+      font-family: "Space Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-dl-btn {
+      width: 100%;
+      font-family: "Space Mono", monospace;
+      font-size: 0.65rem; letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--ink); color: #fff;
+      border: none; padding: 14px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: background 0.18s;
+      margin-bottom: 0.75rem;
+    }
+    .sidebar-dl-btn:hover { background: var(--accent); }
+    .sidebar-dl-btn svg { width: 14px; height: 14px; }
+    .sidebar-meta { list-style: none; }
+    .sidebar-meta li {
+      display: flex; justify-content: space-between;
+      font-size: 0.8rem; padding: 0.45rem 0;
+      border-bottom: 1px solid var(--bg3);
+      gap: 1rem;
+    }
+    .sidebar-meta li:last-child { border-bottom: none; }
+    .sidebar-meta .meta-label {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+    .sidebar-meta .meta-val {
+      font-weight: 600; color: var(--ink);
+      text-align: right; font-size: 0.78rem;
+    }
+    .features-list { list-style: none; }
+    .features-list li {
+      display: flex; gap: 10px;
+      font-size: 0.83rem; color: var(--text);
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--bg3);
+      align-items: flex-start;
+    }
+    .features-list li:last-child { border-bottom: none; }
+    .features-list li::before {
+      content: "✓";
+      color: var(--green); font-weight: 700;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .req-list { list-style: none; }
+    .req-list li {
+      font-size: 0.82rem; color: var(--muted);
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--bg3);
+      display: flex; gap: 8px; align-items: center;
+    }
+    .req-list li:last-child { border-bottom: none; }
+    .req-list li::before {
+      content: "";
+      width: 5px; height: 5px;
+      border-radius: 50%; background: var(--border-dk); flex-shrink: 0;
+    }
+    .license-link {
+      display: flex; align-items: center; gap: 8px;
+      font-family: "Space Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      padding: 10px 0 0;
+      transition: color 0.18s;
+    }
+    .license-link:hover { color: var(--accent); }
+    .license-link svg { width: 13px; height: 13px; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--ink);
+      padding: 40px 5% 32px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1rem; font-weight: 900;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy {
+      font-family: "Space Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-banner { display: none; }
+      .content-wrap { grid-template-columns: 1fr; }
+      .sidebar { order: -1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav class="top-nav">
+    <a href="index.html" class="nav-logo">
+      <img src="./Logo.png" alt="Pixel Forge Studio" onerror="this.style.display='none'" />
+      <span class="nav-logo-word">PIXEL <span>FORGE</span> STUDIO</span>
+    </a>
+    <a href="software.html" class="nav-back">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      All Products
+    </a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-eyebrow">Developer Tools · Windows</div>
+        <h1 class="hero-title">GitSync<br><em>Pro</em></h1>
+        <a href="#highlights" class="hero-new-pill">
+          <span class="hero-new-dot"></span>
+          Global Hotkey Ctrl + Shift + G — Push to GitHub Instantly
+        </a>
+        <div class="hero-version">V 1.0.0 &nbsp;·&nbsp; Pixel Forge Studio</div>
+        <p class="hero-desc">
+          A one-click GitHub push and auto-sync utility for Windows. GitSync Pro watches your
+          project, auto-detects what changed, and pushes to GitHub from a global hotkey or a
+          single Quick Sync popup — no terminal required.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="document.getElementById('download-section').scrollIntoView({behavior:'smooth'})">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download for Windows
+          </button>
+          <button class="btn-ghost" onclick="document.getElementById('how-section').scrollIntoView({behavior:'smooth'})">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            See How It Works
+          </button>
+        </div>
+      </div>
+      <div class="hero-banner">
+        <img src="banner_gitsyncpro.jpg" alt="GitSync Pro Quick Sync and Create &amp; Sync panels"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="hero-banner-placeholder" style="display:none;">G→S</div>
+        <div class="hero-badge">Available Now</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MAIN CONTENT ── -->
+  <div class="content-wrap">
+    <main>
+
+      <!-- Screenshots -->
+      <div class="section-label">Preview</div>
+      <h2 class="section-heading">Application Screenshots</h2>
+      <div class="screenshots-strip">
+        <div class="screenshot-frame">
+          <img src="banner_gitsyncpro.jpg" alt="GitSync Pro Quick Sync and Create &amp; Sync panels"
+            onerror="this.parentElement.style.display='none';" />
+          <div class="screenshot-caption">Quick Sync Popup &amp; Create &amp; Sync Panel — Auto-Detects Your Project</div>
+        </div>
+      </div>
+
+      <!-- Highlights -->
+      <div class="whats-new-section" id="highlights">
+        <div class="section-label">Overview</div>
+        <h2 class="section-heading">Why GitSync Pro</h2>
+        <div class="whats-new-card">
+          <div class="whats-new-head">
+            <div class="whats-new-version">VERSION V 1.0.0</div>
+            <div class="whats-new-tag">Available Now</div>
+          </div>
+          <ul class="whats-new-list">
+            <li>
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span><strong>One-Click Push</strong> — the Quick Sync popup auto-detects your project and suggests a commit message; press Enter or click Push to send your changes to GitHub instantly.</span>
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <span><strong>Global Hotkey — Ctrl + Shift + G</strong> — open Quick Sync from anywhere in Windows, without switching windows or touching a terminal.</span>
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+              <span><strong>Create &amp; Sync Wizard</strong> — for brand-new projects, pick a folder and paste your GitHub repo URL; GitSync Pro runs the full <code>git init</code>, add, commit, and push sequence for you.</span>
+            </li>
+            <li>
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16"/></svg>
+              <span><strong>Runs Silently in the Tray</strong> — GitSync Pro sits in the Windows system tray and stays out of your way until you need to sync.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- How it works -->
+      <div class="how-section" id="how-section">
+        <div class="section-label">Working Guide</div>
+        <h2 class="section-heading">How to Use GitSync Pro</h2>
+        <ol class="steps-list">
+          <li class="step-item">
+            <span class="step-num">01</span>
+            <div class="step-body">
+              <div class="step-title">Launch &amp; Minimize to Tray</div>
+              <div class="step-desc">
+                Open <strong>GitSync Pro</strong>. It drops straight into the Windows system tray
+                and stays running quietly in the background until you need it.
+              </div>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">02</span>
+            <div class="step-body">
+              <div class="step-title">First-Time Setup with Create &amp; Sync</div>
+              <div class="step-desc">
+                Starting a new project? Right-click the tray icon and choose <strong>Create &amp; Sync</strong>.
+                Pick your project folder and paste in the <strong>GitHub Repo URL</strong>.
+              </div>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">03</span>
+            <div class="step-body">
+              <div class="step-title">Automatic Git Setup</div>
+              <div class="step-desc">
+                GitSync Pro runs the full sequence for you — <code>git init</code>, adding the remote,
+                staging every file, and creating your first commit and push — so the repo is live on
+                GitHub in one step.
+              </div>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">04</span>
+            <div class="step-body">
+              <div class="step-title">Everyday Syncing with Quick Sync</div>
+              <div class="step-desc">
+                Made changes? Press <strong>Ctrl + Shift + G</strong> anywhere in Windows, or click the
+                tray icon. Quick Sync auto-detects the active project and pre-fills a timestamped
+                commit message for you.
+              </div>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">05</span>
+            <div class="step-body">
+              <div class="step-title">Push in One Click</div>
+              <div class="step-desc">
+                Review or edit the commit message, then click <strong>Push</strong> or hit <strong>Enter</strong>.
+                GitSync Pro runs <code>git add .</code>, <code>git commit</code>, and
+                <code>git push origin main</code> in the background.
+              </div>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-num">06</span>
+            <div class="step-body">
+              <div class="step-title">Back to the Tray</div>
+              <div class="step-desc">
+                Close the popup and GitSync Pro goes right back to waiting quietly in the tray —
+                no terminal needed for your next sync.
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Install Section -->
+      <div class="install-section" id="download-section">
+        <div class="section-label">Installation</div>
+        <h2 class="section-heading">Download for Windows</h2>
+        <p style="font-size:0.9rem; color:var(--muted); margin-bottom:1.2rem; line-height:1.7;">
+          GitSyncPro.exe is a standalone installer — just download it and run it. Git for Windows
+          must already be installed on your machine, since GitSync Pro drives Git commands under the hood.
+        </p>
+
+        <div class="download-panel">
+          <div>
+            <div class="download-panel-file">GitSyncPro.exe</div>
+            <div class="download-panel-meta">Windows 10 / 11 &nbsp;·&nbsp; 64-bit &nbsp;·&nbsp; V 1.0.0</div>
+          </div>
+          <a href="GitSyncPro.exe" download class="download-panel-btn">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download GitSyncPro.exe
+          </a>
+        </div>
+
+        <ol class="install-steps">
+          <li class="install-step">
+            <span class="install-step-icon">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </span>
+            <div>
+              <strong>Click the button above</strong> to download <code>GitSyncPro.exe</code> to your computer.
+            </div>
+          </li>
+          <li class="install-step">
+            <span class="install-step-icon">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            </span>
+            <div>
+              <strong>Double-click the downloaded file</strong> to launch it. Windows SmartScreen may show a
+              warning since the app isn't code-signed yet — click <em>More info</em> → <em>Run anyway</em> to continue.
+            </div>
+          </li>
+          <li class="install-step">
+            <span class="install-step-icon">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <div>
+              <strong>GitSync Pro starts</strong> and minimizes to your system tray automatically.
+              Right-click the tray icon anytime to open <em>Quick Sync</em> or <em>Create &amp; Sync</em>.
+            </div>
+          </li>
+        </ol>
+
+        <div class="install-note">
+          <strong>Prerequisite:</strong> Git for Windows and a GitHub account (with SSH or a personal
+          access token configured) must be set up before your first push.
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+
+      <!-- Quick download card -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Download</div>
+        <a href="GitSyncPro.exe" download class="sidebar-dl-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.252 0a11.25 11.25 0 1 0 0 22.5 11.25 11.25 0 0 0 0-22.5zm0 2a9.25 9.25 0 1 1 0 18.5 9.25 9.25 0 0 1 0-18.5zm-1 4.5v6.086l-2.543-2.543-1.414 1.414 4.5 4.5.707.707.707-.707 4.5-4.5-1.414-1.414L13.252 12.5V6.5h-3z"/></svg>
+          Download for Windows
+        </a>
+        <ul class="sidebar-meta">
+          <li>
+            <span class="meta-label">Version</span>
+            <span class="meta-val">V 1.0.0</span>
+          </li>
+          <li>
+            <span class="meta-label">Platform</span>
+            <span class="meta-val">Windows 10 / 11</span>
+          </li>
+          <li>
+            <span class="meta-label">Format</span>
+            <span class="meta-val">.exe installer</span>
+          </li>
+          <li>
+            <span class="meta-label">Developer</span>
+            <span class="meta-val">Prabhath Kelum</span>
+          </li>
+          <li>
+            <span class="meta-label">Released</span>
+            <span class="meta-val">2026</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Features card -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Key Features</div>
+        <ul class="features-list">
+          <li>One-click push with the Quick Sync popup</li>
+          <li>Global hotkey — Ctrl + Shift + G, from anywhere</li>
+          <li>Auto-detects the active project</li>
+          <li>Suggests a timestamped commit message</li>
+          <li>Create &amp; Sync wizard for brand-new repos</li>
+          <li>Runs git init, add, commit &amp; push automatically</li>
+          <li>Runs silently in the Windows system tray</li>
+        </ul>
+      </div>
+
+      <!-- Requirements card -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Requirements</div>
+        <ul class="req-list">
+          <li>Windows 10 or Windows 11</li>
+          <li>Git for Windows installed</li>
+          <li>A GitHub account (SSH key or access token)</li>
+          <li>Internet connection for syncing</li>
+        </ul>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <div class="footer-logo">PIXEL <span>FORGE</span> STUDIO</div>
+    <div class="footer-copy">© 2025 Pixel Forge Studio &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp; GitSync Pro V 1.0.0</div>
+  </footer>
+
+</body>
+</html>
