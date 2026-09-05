@@ -46,5 +46,17 @@
     "tech": ["Python", "Qt5"],
     "year": "2026",
     "status": "Now Availble"
+  },
+  {
+    "id": 5,
+    "name": "GitSyncPro",
+    "category": "software",
+    "desc": "A one-click GitHub push and auto-sync utility for Windows. GitSync Pro watches your project, auto-detects what changed, and pushes to GitHub from a global hotkey or a single Quick Sync popup — no terminal required.",
+    "img": "https://pixelforgestudioprabhath.netlify.app/banner_gitsyncpro.jpg",
+    "link": "https://pixelforgestudioprabhath.netlify.app/gitsyncpro",
+    "video": "",
+    "tech": ["Python", "Qt5","SQLite"],
+    "year": "2026",
+    "status": "Now Availble"
   }
 ]
