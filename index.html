@@ -2768,180 +2768,254 @@
       }
 
       /* =====================================================
-       SHOWCASE HERO ("From Thought to Masterpiece" style)
+       HERO (centered intro + notched photo stage)
     ===================================================== */
-      .sc-hero {
+      .hx {
         position: relative;
-        padding: 130px 5% 70px;
+        padding: 118px 5% 84px;
         background: var(--bg);
         overflow: hidden;
       }
-      .sc-hero::before {
-        content: "";
-        position: absolute;
-        top: -140px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 900px;
-        height: 280px;
-        border: 1px solid var(--border);
-        border-bottom: none;
-        border-radius: 50%;
-        opacity: 0.6;
-        pointer-events: none;
-      }
-      .sc-hero-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 3rem;
-        max-width: 1300px;
+      .hx-inner {
+        max-width: 1100px;
         margin: 0 auto;
-        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
       }
-      .sc-hero-heading {
-        font-family: "Playfair Display", serif;
-        font-weight: 900;
-        font-size: clamp(2.4rem, 5vw, 3.6rem);
-        line-height: 1.08;
-        letter-spacing: -0.5px;
-        max-width: 560px;
-      }
-      .sc-hero-right {
-        max-width: 320px;
-        padding-top: 0.4rem;
-      }
-      .sc-hero-right p {
-        color: var(--muted);
-        font-size: 0.92rem;
-        line-height: 1.65;
-        margin-bottom: 1.4rem;
-      }
-      .sc-hero-btn {
+      .hx-pill {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        background: var(--text);
-        color: var(--white);
-        border: none;
-        padding: 0.85rem 1.6rem;
-        border-radius: 40px;
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: transform 0.25s ease, background 0.25s ease;
+        padding: 0.4rem 1rem;
+        border: 1px solid var(--border-dk);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.78rem;
       }
-      .sc-hero-btn:hover {
+      .hx-pill i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
         background: var(--accent);
+      }
+      .hx-title {
+        margin-top: 1.4rem;
+        max-width: 15em;
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: clamp(2.5rem, 6.2vw, 4.6rem);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        text-wrap: balance;
+      }
+      .hx-w {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: top;
+        padding-bottom: 0.14em;
+        margin-bottom: -0.14em;
+      }
+      .hx-wi {
+        display: inline-block;
+      }
+      .hx-sub {
+        max-width: 560px;
+        margin-top: 1.3rem;
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.7;
+        text-wrap: balance;
+      }
+      .hx-cta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+        margin-top: 1.8rem;
+      }
+      .hx-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 0.7rem 0.7rem 0.7rem 1.6rem;
+        border-radius: 999px;
+        background: var(--accent);
+        color: var(--white);
+        font-weight: 600;
+        font-size: 0.92rem;
+        transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+      }
+      .hx-btn:hover {
+        background: var(--accent-dk);
         transform: translateY(-2px);
       }
-      .sc-hero-tags {
-        max-width: 1300px;
-        margin: 2.6rem auto 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 1.6rem;
-        position: relative;
+      .hx-btn:focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 3px;
       }
-      .sc-tag-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.6rem;
-      }
-      .sc-tag {
-        border: 1px solid var(--border-dk);
-        border-radius: 40px;
-        padding: 0.42rem 1.05rem;
-        font-size: 0.82rem;
-        color: var(--text);
-        background: var(--surface);
-        white-space: nowrap;
-      }
-      .sc-tag.ghost {
-        background: transparent;
-        color: var(--muted);
-      }
-      .sc-hero-grid {
-        max-width: 1300px;
-        margin: 2.4rem auto 0;
-        display: grid;
-        grid-template-columns: 1fr 1.4fr 1fr;
-        gap: 1.3rem;
-      }
-      .sc-card {
-        position: relative;
-        border-radius: 18px;
-        overflow: hidden;
-        aspect-ratio: 4 / 5;
-        background: linear-gradient(145deg, var(--bg3), var(--bg2));
-        box-shadow: 0 10px 30px var(--shadow);
-      }
-      .sc-card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.5s ease;
-      }
-      .sc-card:hover img {
-        transform: scale(1.06);
-      }
-      .sc-card::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          to top,
-          rgba(0, 0, 0, 0.72) 0%,
-          rgba(0, 0, 0, 0.15) 45%,
-          rgba(0, 0, 0, 0) 65%
-        );
-      }
-      .sc-card-body {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 1.2rem;
-      }
-      .sc-card-arrow {
-        margin-left: auto;
-        width: 34px;
-        height: 34px;
+      .hx-btn-ico {
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.16);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        display: flex;
+        background: rgba(255, 255, 255, 0.18);
+        display: inline-flex;
         align-items: center;
         justify-content: center;
+      }
+      .hx-btn-ghost {
+        padding: 0.85rem 1.6rem;
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid var(--border-dk);
+      }
+      .hx-btn-ghost:hover {
+        background: var(--surface);
+        border-color: var(--ink);
+      }
+
+      /* stage: 2:1 box, photo is an inline SVG shape so the notches scale */
+      .hx-stage {
+        position: relative;
+        width: min(86%, 860px);
+        aspect-ratio: 2 / 1;
+        margin-top: 3.4rem;
+        container-type: inline-size;
+        text-align: left;
+      }
+      .hx-shape {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        overflow: hidden;
+      }
+      .hx-img-m {
+        display: none;
+      }
+      .hx-card {
+        position: absolute;
+        z-index: 2;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: max(14px, 2.3cqw);
+        padding: max(12px, 1.9cqw);
+        box-shadow: 0 14px 34px var(--shadow);
+      }
+      .hx-card--dark {
+        background: var(--ink);
+        border-color: var(--ink);
         color: var(--white);
-        backdrop-filter: blur(4px);
+        box-shadow: none;
       }
-      .sc-card-text {
-        color: var(--white);
+      .hx-card--a { left: 0; top: 0; width: 26.5%; }
+      .hx-card--b { left: 91.5%; top: 12%; width: 16.5%; }
+      .hx-card--c { left: -6.5%; top: 62%; width: 17.5%; }
+      .hx-num {
+        display: flex;
+        align-items: center;
+        gap: 0.35em;
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: max(24px, 4.6cqw);
+        line-height: 1;
+        letter-spacing: -0.02em;
       }
-      .sc-card-text .sc-card-title {
-        font-weight: 600;
-        font-size: 1rem;
-        margin-bottom: 0.2rem;
+      .hx-lab {
+        margin-top: 0.55em;
+        color: var(--muted);
+        font-size: max(11px, 1.5cqw);
+        line-height: 1.35;
       }
-      .sc-card-text .sc-card-sub {
-        font-size: 0.78rem;
-        opacity: 0.8;
+      .hx-card--dark .hx-lab {
+        color: rgba(255, 255, 255, 0.68);
       }
-      @media (max-width: 900px) {
-        .sc-hero { padding: 100px 5% 50px; }
-        .sc-hero-top { flex-direction: column; gap: 1.4rem; }
-        .sc-hero-right { max-width: 100%; }
-        .sc-hero-grid { grid-template-columns: 1fr; }
-        .sc-card { aspect-ratio: 16 / 10; }
+      .hx-live {
+        position: relative;
+        width: 0.34em;
+        height: 0.34em;
+        flex: none;
+      }
+      .hx-live i,
+      .hx-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .hx-ring {
+        opacity: 0.4;
+      }
+      .hx-pills {
+        position: absolute;
+        left: 57%;
+        top: 71%;
+        width: 43%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: max(8px, 1.1cqw);
+      }
+      .hx-chip {
+        padding: 0.5em 1.05em;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--ink);
+        font-size: max(11px, 1.5cqw);
+        font-weight: 500;
+        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(26, 22, 18, 0.06);
+      }
+
+      /* motion: only hidden when anime.js loaded and motion is allowed */
+      .anime-ready .hx-a { opacity: 0; }
+      .anime-ready .hx-wi { transform: translateY(112%); }
+      .is-animating { transition: none !important; }
+
+      @media (max-width: 820px) {
+        .hx { padding: 100px 5% 60px; }
+        .hx-stage {
+          width: 100%;
+          aspect-ratio: auto;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.7rem;
+          margin-top: 2.4rem;
+        }
+        .hx-shape { display: none; }
+        .hx-img-m {
+          display: block;
+          grid-column: 1 / -1;
+          width: 100%;
+          aspect-ratio: 4 / 3;
+          object-fit: cover;
+          border-radius: 22px;
+          background: var(--bg3);
+        }
+        .hx-card {
+          position: static;
+          width: auto;
+        }
+        .hx-pills {
+          position: static;
+          width: auto;
+          grid-column: 1 / -1;
+          justify-content: center;
+        }
       }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+    <script>
+      /* motion is enabled only if anime.js loaded and the visitor allows motion */
+      (function () {
+        var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (window.anime && !calm) document.documentElement.classList.add("anime-ready");
+      })();
+    </script>
   </head>
   <body>
     <!-- SCROLL PROGRESS -->
@@ -3127,97 +3201,74 @@
     <!-- ======================== MAIN PAGE ======================== -->
     <div id="page-main" class="page active">
 
-      <!-- SHOWCASE HERO -->
-      <section class="sc-hero">
-        <div class="sc-hero-top">
-          <h1 class="sc-hero-heading">
-            From Concept<br />to Live Product.
-          </h1>
-          <div class="sc-hero-right">
-            <p>
-              We design and build high-quality websites, web apps, and
-              software tools — turning your idea into a working, polished
-              digital product from the first line of code to launch.
-            </p>
+      <!-- HERO -->
+      <section class="hx">
+        <div class="hx-inner">
+          <span class="hx-pill hx-a"><i></i>Web &amp; software studio</span>
+          <h1 class="hx-title">From Concept to Live Product.</h1>
+          <p class="hx-sub hx-a">
+            We design and build high-quality websites, web apps, and software
+            tools, turning your idea into a polished working product from the
+            first line of code to launch.
+          </p>
+          <div class="hx-cta hx-a">
             <a
               href="#"
-              class="sc-hero-btn"
+              class="hx-btn"
               onclick="
                 showPage('main');
                 scrollToSection('connect');
                 return false;
               "
-              >Hire Me</a
+              >Hire Me
+              <span class="hx-btn-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></span>
+            </a>
+            <a
+              href="#"
+              class="hx-btn hx-btn-ghost"
+              onclick="
+                showPage('main');
+                scrollToSection('projects');
+                return false;
+              "
+              >See projects</a
             >
           </div>
-        </div>
 
-        <div class="sc-hero-tags">
-          <div class="sc-tag-group">
-            <span class="sc-tag">Web Dev</span>
-            <span class="sc-tag">Software</span>
-            <span class="sc-tag">UI / UX</span>
-            <span class="sc-tag">Vue.js</span>
-            <span class="sc-tag">FastAPI</span>
-          </div>
-          <div class="sc-tag-group">
-            <span class="sc-tag ghost">6+ Projects</span>
-            <span class="sc-tag ghost">Sri Lanka (Remote OK)</span>
-          </div>
-        </div>
+          <div class="hx-stage">
+            <svg class="hx-shape hx-a" viewBox="0 0 800 400" role="img" aria-label="Designer working at a desk">
+              <defs>
+                <clipPath id="hx-clip"><path d="M257,0 H772 A28,28 0 0 1 800,28 V226 A28,28 0 0 1 772,254 H441 A28,28 0 0 0 413,282 V372 A28,28 0 0 1 385,400 H28 A28,28 0 0 1 0,372 V175 A28,28 0 0 1 28,147 H201 A28,28 0 0 0 229,119 V28 A28,28 0 0 1 257,0 Z"/></clipPath>
+              </defs>
+              <path d="M257,0 H772 A28,28 0 0 1 800,28 V226 A28,28 0 0 1 772,254 H441 A28,28 0 0 0 413,282 V372 A28,28 0 0 1 385,400 H28 A28,28 0 0 1 0,372 V175 A28,28 0 0 1 28,147 H201 A28,28 0 0 0 229,119 V28 A28,28 0 0 1 257,0 Z" fill="var(--bg3)"/>
+              <g clip-path="url(#hx-clip)">
+                <image class="hx-photo" data-hx-img x="0" y="0" width="800" height="400" preserveAspectRatio="xMidYMid slice"/>
+              </g>
+            </svg>
+            <img class="hx-img-m hx-a" data-hx-img alt="Designer working at a desk" loading="lazy" />
 
-        <div class="sc-hero-grid">
-          <div class="sc-card">
-            <img
-              src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=700&q=80"
-              alt="Web development code on screen"
-              loading="lazy"
-              onerror="this.style.display='none';"
-            />
-            <div class="sc-card-body">
-              <div class="sc-card-arrow">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
-              </div>
-              <div class="sc-card-text">
-                <div class="sc-card-title">Web Development</div>
-                <div class="sc-card-sub">Responsive, fast-loading builds</div>
-              </div>
+            <div class="hx-card hx-card--dark hx-card--a hx-a">
+              <div class="hx-num"><span class="hx-count" data-count="6" data-suffix="+">6+</span></div>
+              <p class="hx-lab">Projects shipped</p>
             </div>
-          </div>
 
-          <div class="sc-card">
-            <img
-              src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?w=900&q=80"
-              alt="UI UX design mockups"
-              loading="lazy"
-              onerror="this.style.display='none';"
-            />
-            <div class="sc-card-body">
-              <div class="sc-card-arrow">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
-              </div>
-              <div class="sc-card-text">
-                <div class="sc-card-title">UI / UX Design</div>
-                <div class="sc-card-sub">Clean, intuitive interfaces</div>
-              </div>
+            <div class="hx-card hx-card--b hx-a">
+              <div class="hx-num">Open<span class="hx-live"><span class="hx-ring"></span><i></i></span></div>
+              <p class="hx-lab">For new work</p>
             </div>
-          </div>
 
-          <div class="sc-card">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOKigSSYdkY33teoDTAia4YIv0tYsxHUttEujscDeAfA&s=10"
-              alt="Software product analytics dashboard"
-              loading="lazy"
-              onerror="this.style.display='none';"
-            />
-            <div class="sc-card-body">
-              <div class="sc-card-arrow">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
-              </div>
-              <div class="sc-card-text">
-                <div class="sc-card-title">Software Products</div>
-                <div class="sc-card-sub">Tools built for real workflows</div>
-              </div>
+            <div class="hx-card hx-card--c hx-a">
+              <div class="hx-num"><span class="hx-count" data-count="3" data-suffix="">3</span></div>
+              <p class="hx-lab">Core services</p>
+            </div>
+
+            <div class="hx-pills">
+              <span class="hx-chip hx-a">Software</span>
+              <span class="hx-chip hx-a">Web Dev</span>
+              <span class="hx-chip hx-a">Web Apps</span>
+              <span class="hx-chip hx-a">UI / UX</span>
+              <span class="hx-chip hx-a">Vue.js</span>
+              <span class="hx-chip hx-a">FastAPI</span>
             </div>
           </div>
         </div>
@@ -3423,10 +3474,6 @@
           </button>
           <button class="filter-tab" onclick="filterProjects('webapp', this)">
             Web Apps
-          </button>
-          <button onclick="openImageManager()" title="Upload local project images to browser storage" style="margin-left:auto;display:flex;align-items:center;gap:0.4rem;background:var(--surface);border:1px solid var(--border-dk);color:var(--muted);font-size:0.72rem;font-family:'Space Mono',monospace;padding:0.4rem 0.8rem;border-radius:20px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--border-dk)';this.style.color='var(--muted)';">
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            Manage Images
           </button>
         </div>
         <div class="projects-grid" id="projects-grid">
@@ -4067,6 +4114,187 @@
       let PROJECTS = [];
 
       /* ============================================================
+       MOTION (anime.js) — hero, components, scroll, modal
+       Everything degrades to the plain static page if anime.js is
+       missing or the visitor prefers reduced motion.
+    ============================================================ */
+      const HERO_IMAGES = [
+        // swap the first URL for your own photo (e.g. "./hero.jpg")
+        "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1400&q=80&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1400&q=80&auto=format&fit=crop",
+      ];
+
+      function motionOn() {
+        return (
+          !!window.anime &&
+          document.documentElement.classList.contains("anime-ready")
+        );
+      }
+      function settle(el) {
+        el.style.opacity = "";
+        el.style.transform = "";
+        el.classList.remove("is-animating");
+      }
+
+      function initHeroImages() {
+        document.querySelectorAll("[data-hx-img]").forEach((node) => {
+          let i = 0;
+          const isSvg = node.tagName.toLowerCase() === "image";
+          const set = (u) => (isSvg ? node.setAttribute("href", u) : (node.src = u));
+          node.addEventListener("error", () => {
+            i++;
+            if (i < HERO_IMAGES.length) set(HERO_IMAGES[i]);
+            else if (isSvg) node.style.visibility = "hidden";
+            else node.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='3'%3E%3Crect width='4' height='3' fill='%23e5e0d8'/%3E%3C/svg%3E";
+          });
+          set(HERO_IMAGES[0]);
+        });
+      }
+
+      function initHeroAnimation() {
+        const root = document.querySelector(".hx");
+        if (!root || !motionOn()) return;
+        try {
+          const title = root.querySelector(".hx-title");
+          const text = title.textContent.trim();
+          title.setAttribute("aria-label", text);
+          title.innerHTML = text
+            .split(/\s+/)
+            .map((w) => `<span class="hx-w" aria-hidden="true"><span class="hx-wi">${w}</span></span>`)
+            .join(" ");
+
+          const cards = [...root.querySelectorAll(".hx-card")];
+          const startFloat = () =>
+            cards.forEach((c, i) =>
+              anime({
+                targets: c,
+                translateY: [0, i % 2 ? 7 : -7],
+                duration: 2600 + i * 450,
+                direction: "alternate",
+                loop: true,
+                easing: "easeInOutSine",
+              }),
+            );
+
+          anime
+            .timeline({ easing: "easeOutExpo", complete: startFloat })
+            .add({ targets: root.querySelector(".hx-pill"), opacity: [0, 1], translateY: [12, 0], duration: 700 })
+            .add({ targets: root.querySelectorAll(".hx-wi"), translateY: ["112%", "0%"], duration: 1100, delay: anime.stagger(80) }, "-=400")
+            .add({ targets: root.querySelectorAll(".hx-sub, .hx-cta"), opacity: [0, 1], translateY: [16, 0], duration: 800, delay: anime.stagger(110) }, "-=750")
+            .add({ targets: root.querySelectorAll(".hx-shape, .hx-img-m"), opacity: [0, 1], translateY: [48, 0], duration: 1100 }, "-=600")
+            .add({ targets: root.querySelector(".hx-photo"), x: [-40, 0], y: [-20, 0], width: [880, 800], height: [440, 400], duration: 1800, easing: "easeOutCubic" }, "-=1100")
+            .add({ targets: cards, opacity: [0, 1], scale: [0.7, 1], duration: 1000, easing: "easeOutElastic(1, .75)", delay: anime.stagger(130) }, "-=1000")
+            .add({ targets: root.querySelectorAll(".hx-chip"), opacity: [0, 1], translateY: [12, 0], duration: 600, delay: anime.stagger(55) }, "-=900");
+
+          root.querySelectorAll("[data-count]").forEach((el) => {
+            const end = +el.dataset.count;
+            const suffix = el.dataset.suffix || "";
+            const o = { v: 0 };
+            el.textContent = "0" + suffix;
+            anime({ targets: o, v: end, round: 1, duration: 1600, delay: 2200, easing: "easeOutExpo", update: () => (el.textContent = o.v + suffix) });
+          });
+
+          anime({ targets: root.querySelector(".hx-ring"), scale: [1, 2.6], opacity: [0.45, 0], duration: 1700, loop: true, easing: "easeOutQuad" });
+        } catch (err) {
+          console.warn("Hero animation skipped:", err);
+          document.documentElement.classList.remove("anime-ready");
+        }
+      }
+
+      /* service icons draw themselves in */
+      function drawIcon(card, delay) {
+        const parts = [...card.querySelectorAll(".service-icon svg *")].filter(
+          (p) => typeof p.getTotalLength === "function",
+        );
+        if (!parts.length) return;
+        anime({
+          targets: parts,
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: 1200,
+          delay: anime.stagger(80, { start: delay }),
+          easing: "easeInOutSine",
+        });
+      }
+
+      function revealWithAnime(els) {
+        els.forEach((el, i) => {
+          const dir = el.classList.contains("from-left") ? -1 : el.classList.contains("from-right") ? 1 : 0;
+          el.classList.add("is-animating");
+          anime({
+            targets: el,
+            opacity: [0, 1],
+            translateX: [dir * 48, 0],
+            translateY: [dir ? 0 : 34, 0],
+            duration: 900,
+            delay: i * 110,
+            easing: "easeOutExpo",
+            complete: () => {
+              el.classList.add("visible");
+              settle(el);
+            },
+          });
+          if (el.classList.contains("service-card")) drawIcon(el, i * 110 + 250);
+        });
+      }
+
+      /* project cards: staggered entrance, also replays on filter change */
+      function animateProjectCards(grid) {
+        if (!motionOn()) return;
+        const cards = [...grid.querySelectorAll(".project-card")];
+        if (!cards.length) return;
+        cards.forEach((c) => {
+          c.classList.add("is-animating");
+          c.style.opacity = "0";
+        });
+        const run = () =>
+          anime({
+            targets: cards,
+            opacity: [0, 1],
+            translateY: [42, 0],
+            scale: [0.95, 1],
+            duration: 850,
+            delay: anime.stagger(90),
+            easing: "easeOutCubic",
+            complete: () => cards.forEach(settle),
+          });
+        if (grid.getBoundingClientRect().top < window.innerHeight * 0.92) run();
+        else {
+          const o = new IntersectionObserver(
+            (es) => {
+              if (es.some((x) => x.isIntersecting)) {
+                o.disconnect();
+                run();
+              }
+            },
+            { threshold: 0.08 },
+          );
+          o.observe(grid);
+        }
+      }
+
+      /* tactile press feedback on buttons */
+      function initPressFeedback() {
+        if (!motionOn()) return;
+        document.addEventListener(
+          "pointerdown",
+          (e) => {
+            const b = e.target.closest(".hx-btn, .filter-tab, .thumb-btn, .view-detail-btn, .submit-comment-btn, .like-btn");
+            if (!b) return;
+            anime.remove(b);
+            b.classList.add("is-animating");
+            anime({ targets: b, scale: [0.93, 1], duration: 650, easing: "easeOutElastic(1, .6)", complete: () => settle(b) });
+          },
+          { passive: true },
+        );
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initHeroImages();
+        initHeroAnimation();
+        initPressFeedback();
+      });
+
+      /* ============================================================
        LOCAL STORAGE IMAGE HELPERS
        Keys: "pfs_img_<filename>" → data URL
        e.g. "pfs_img_images/Project01.png" → "data:image/png;base64,..."
@@ -4323,6 +4551,7 @@
           </div>`;
           })
           .join("");
+        animateProjectCards(grid);
       }
 
       window.filterProjects = function (cat, el) {
@@ -4394,6 +4623,24 @@
         document.getElementById("project-modal").classList.add("open");
         document.body.style.overflow = "hidden";
       };
+
+      (function () {
+        const baseOpen = window.openProjectModal;
+        window.openProjectModal = function (id) {
+          baseOpen(id);
+          if (!motionOn()) return;
+          const kids = [...document.querySelectorAll("#modal-body > *")];
+          anime({
+            targets: kids,
+            opacity: [0, 1],
+            translateY: [18, 0],
+            duration: 650,
+            delay: anime.stagger(70, { start: 120 }),
+            easing: "easeOutCubic",
+            complete: () => kids.forEach(settle),
+          });
+        };
+      })();
 
       window.setRating = function (val, pid) {
         window._ratings = window._ratings || {};
@@ -4610,41 +4857,65 @@
       }
 
       function initScrollReveal() {
+        const pending = [...document.querySelectorAll(".reveal:not(.visible):not([data-rv])")];
+        if (!pending.length) return;
         const obs = new IntersectionObserver(
           (entries) => {
-            entries.forEach((e) => {
-              if (e.isIntersecting) {
-                e.target.classList.add("visible");
-                obs.unobserve(e.target);
-              }
-            });
+            const shown = entries.filter((x) => x.isIntersecting).map((x) => x.target);
+            shown.forEach((el) => obs.unobserve(el));
+            if (!shown.length) return;
+            if (motionOn()) revealWithAnime(shown);
+            else shown.forEach((el) => el.classList.add("visible"));
           },
           { threshold: 0.1 },
         );
-        document
-          .querySelectorAll(".reveal:not(.visible)")
-          .forEach((el) => obs.observe(el));
+        pending.forEach((el) => {
+          el.dataset.rv = "1";
+          obs.observe(el);
+        });
       }
 
       function animateSkillBars() {
         const obs = new IntersectionObserver(
           (entries) => {
             entries.forEach((e) => {
-              if (e.isIntersecting) {
+              if (!e.isIntersecting) return;
+              obs.unobserve(e.target);
+              if (!motionOn()) {
                 e.target
                   .querySelectorAll(".skill-fill")
-                  .forEach(
-                    (f) => (f.style.width = (f.dataset.width || 0) + "%"),
-                  );
-                obs.unobserve(e.target);
+                  .forEach((f) => (f.style.width = (f.dataset.width || 0) + "%"));
+                return;
               }
+              e.target.querySelectorAll(".skill-item").forEach((item, i) => {
+                const fill = item.querySelector(".skill-fill");
+                const label = item.querySelector(".skill-label span:last-child");
+                if (!fill) return;
+                const end = +fill.dataset.width || 0;
+                const o = { v: 0 };
+                fill.classList.add("is-animating");
+                anime({
+                  targets: o,
+                  v: end,
+                  round: 1,
+                  duration: 1700,
+                  delay: i * 130,
+                  easing: "easeOutExpo",
+                  update: () => {
+                    fill.style.width = o.v + "%";
+                    if (label) label.textContent = o.v + "%";
+                  },
+                });
+              });
             });
           },
           { threshold: 0.25 },
         );
-        document
-          .querySelectorAll(".skills-wrap")
-          .forEach((sw) => obs.observe(sw));
+        document.querySelectorAll(".skills-wrap").forEach((sw) => {
+          if (sw.dataset.sk) return;
+          sw.dataset.sk = "1";
+          obs.observe(sw);
+        });
       }
 
       function animateNum(id, target) {
